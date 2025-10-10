@@ -15,18 +15,28 @@ class Bank {
 		player.SetMoney(playerMoney + amount);
 	}
 	
-	public void TakeMoney(float amount, Player player)
+	public boolean TakeMoney(float amount, Player player)
 	{
 		this.money += amount;
 		float playerMoney = player.GetMoney();
 		player.SetMoney(playerMoney - amount);
+		if (player.GetMoney() <= 0)
+		{
+			return true;
+		}
+		return false;
 	}
 	
-	public void TransferMoney(float amount, Player playerGet, Player playerGive)
+	public boolean TransferMoney(float amount, Player playerGet, Player playerGive)
 	{
 		float getMoney = playerGet.GetMoney();
 		float giveMoney = playerGive.GetMoney();
 		playerGet.SetMoney(getMoney + amount);
 		playerGive.SetMoney(giveMoney - amount);
+		if (playerGive.GetMoney() <= 0)
+		{
+			return true;
+		}
+		return false;
 	}
 }
