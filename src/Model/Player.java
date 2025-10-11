@@ -103,6 +103,10 @@ class Player extends BankBalance
 		this.currentSpace = currentSpace;
 	}
 	
+	void SetInJail(boolean bool) {
+		this.inJail = bool;
+	}
+	
 	public boolean GetJaieldStatus () {
 		return this.inJail;
 	}
