@@ -48,6 +48,8 @@ public class BuyableTest {
         assertNull("Owner should remain null", buyable.owner);
     }
     
+    // Teste 5) Pagar, automaticamente, aluguel quando o jogador da vez cair em uma
+    // propriedade de outro jogador. Esta propriedade deve ter pelo menos uma casa;
     @Test
     public void testOnLand_WhenOwnedByOtherPlayer_ReturnsGetRent() {
         // Arrange
@@ -83,6 +85,7 @@ public class BuyableTest {
                      initialMoney, player.GetMoney(), 0.001f);
     }
     
+    //Teste 3) Comprar uma propriedade que não tenha proprietário
     @Test
     public void testPurchaseBuyable_SuccessfulPurchase() {
         // Arrange
