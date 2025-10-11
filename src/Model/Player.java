@@ -34,8 +34,6 @@ class Player extends BankBalance
 		
 		boolean removeStatus = heldCards.remove(card);
 		
-		System.out.println(removeStatus);
-		
 		return removeStatus;
 	}
 	
