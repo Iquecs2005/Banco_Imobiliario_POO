@@ -18,6 +18,7 @@ public class JailTest {
         otherPlayer = new Player("Blue", 500.0f, null);
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testSendToJail() {
         // Act
@@ -38,6 +39,7 @@ public class JailTest {
                    player.GetJailedStatus() && otherPlayer.GetJailedStatus());
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testTryToLeaveJail_WithMatchingDice() {
         // Arrange
@@ -53,6 +55,7 @@ public class JailTest {
         assertFalse("Player should be released with matching dice", player.GetJailedStatus());
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testTryToLeaveJail_WithLeaveCard() {
         // Arrange
@@ -68,6 +71,7 @@ public class JailTest {
         assertFalse("Player should be released with leave card", player.GetJailedStatus());
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testTryToLeaveJail_AfterMaxTurns() {
         // Arrange
@@ -124,6 +128,7 @@ public class JailTest {
         assertFalse("Player should not be sent to jail by landing on it", player.GetJailedStatus());
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testMultipleFailedAttemptsThenSuccess() {
         // Arrange
@@ -144,6 +149,7 @@ public class JailTest {
         assertFalse("Player should be released on successful attempt", player.GetJailedStatus());
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testLeaveWithBothMatchingDiceAndCard() {
         // Test that having both conditions still works
@@ -157,6 +163,7 @@ public class JailTest {
         assertFalse("Player should be released", player.GetJailedStatus());
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testLeaveWithCardDespiteNonMatchingDice() {
         // Test that card overrides non-matching dice
@@ -171,6 +178,7 @@ public class JailTest {
                    player.GetJailedStatus());
     }
     
+    // Teste 6) Todas as situações de entrada e saída da prisão;
     @Test
     public void testThirdTurnRelease() {
         // Test release exactly on the 4th turn (after 3 failed attempts)
