@@ -1,17 +1,38 @@
 package Model;
 
 public class Buyable extends Space {
-	public Buyable (String name) {
+	
+	protected float price;
+	protected float rent;
+	protected Player owner;
+	
+	
+	public Buyable (String name, float price, float rent) {
 		super(name);
+		this.price = price;
+		this.owner = null;
 	}
 	
-	public boolean onLand (Player p) {
+	public Codes onLand (Player p) {
 		
 		
+		if (owner == null) {
+			
+			return Codes.CAN_BUY;
+			
+		}
 		
 		
-		return true;
+		else if (owner != null && owner!= p) {
+			
+			p.TransferMoney(owner, rent);
+			
+			return Codes.GET_RENT;
+			
+		}
 		
+		
+		return Codes.IS_MINE;
 	}
 	
 	

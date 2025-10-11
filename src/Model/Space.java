@@ -1,12 +1,17 @@
 package Model;
 
 abstract class Space {
-	private String name;
+	protected String name;
+	
+	public enum Codes {
+		CAN_BUY,GET_RENT,IS_MINE,BUILT,NOTBUILT,GET_CARD
+	}
+	
 	
 	public Space(String name) {
 		this.name = name;
 	}
 	
-	public abstract boolean onLand (Player p);
+	public abstract Codes onLand (Player p);
 	
 }
