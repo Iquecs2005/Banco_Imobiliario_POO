@@ -30,7 +30,7 @@ class Property extends Buyable {
 			
 			p.TransferMoney(b, house.GetCost());
 		
-			house.AddHouse();
+			house.AddBuilding();
 			this.UpdateRent();
 			return Codes.BUILT;
 		}
@@ -49,7 +49,7 @@ class Property extends Buyable {
 			
 			p.TransferMoney(b, hotel.GetCost());
 			
-			hotel.AddHotel();
+			hotel.AddBuilding();
 			this.UpdateRent();
 			return Codes.BUILT;
 			
