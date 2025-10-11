@@ -12,12 +12,14 @@ class Board
 	{
 		//Sets terrainList
 		this.bank = bank;
+		House house = new House(10, 10);
+		Hotel hotel = new Hotel(10, 10);
 		
 		terrainsList.add(new Space("StartSpace"));
-		terrainsList.add(new Property("Leblon", 100, 10));
-		terrainsList.add(new Property("?", 100, 10));
-		terrainsList.add(new Property("Av. Presidente Vargas", 100, 10));
-		terrainsList.add(new Property("Av. Nossa Senhora de Copacabana", 100, 10));
+		terrainsList.add(new Property("Leblon", 100, 10, house, hotel));
+		terrainsList.add(new Property("?", 100, 10, house, hotel));
+		terrainsList.add(new Property("Av. Presidente Vargas", 100, 10, house, hotel));
+		terrainsList.add(new Property("Av. Nossa Senhora de Copacabana", 100, 10, house, hotel));
 		terrainsList.add(new Buyable("Metro", 100, 10));
 	}
 	

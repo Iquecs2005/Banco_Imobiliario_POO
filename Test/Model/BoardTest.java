@@ -124,7 +124,9 @@ public class BoardTest
 	@Test
 	public void PlayerNotOnBoardMovementTest() 
 	{
-		Player notOnBoardPlayer = new Player("Yellow", 4000, new Property("X", 10, 10));
+		House house = new House(10, 10);
+		Hotel hotel = new Hotel(10, 10);
+		Player notOnBoardPlayer = new Player("Yellow", 4000, new Property("X", 10, 10, house, hotel));
 		Space landedSpace = board.MovePlayer(notOnBoardPlayer, 1);
 		assertNull(landedSpace);
 	}
