@@ -1,5 +1,12 @@
 package Model;
 
-class Space {
-
+abstract class Space {
+	private String name;
+	
+	public Space(String name) {
+		this.name = name;
+	}
+	
+	public abstract boolean onLand (Player p);
+	
 }
