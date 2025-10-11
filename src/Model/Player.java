@@ -56,14 +56,15 @@ class Player extends BankBalance
 		return bankrupt;
 	}
 	
-	public boolean BuySpace(Bank bank)
+	public boolean BuySpace(Bank bank, Buyable space)
 	{
-		/*if (TransferMoney(bank, currentSpace.price))
-		{
-			//currentSpace.SetOwner(this);
-			ownedSpaces.add(currentSpace);
+		boolean purchaseres = space.purchaseBuyable(this, bank);
+		
+		if (purchaseres == true) {
+			ownedSpaces.add(space);
 			return true;
-		}*/
+		}
+		
 		
 		return false;
 	}
