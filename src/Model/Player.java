@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 class Player extends BankBalance 
 {
-	private boolean bankrupt;
+	//private boolean bankrupt;
 	private String color;
 	private Space currentSpace;
 	private boolean inJail = false;
@@ -97,11 +97,11 @@ class Player extends BankBalance
 		this.currentSpace = currentSpace;
 	}
 	
-	void SetInJail(boolean bool) {
-		this.inJail = bool;
+	void SetInJail(boolean inJail) {
+		this.inJail = inJail;
 	}
 	
 	public boolean GetJaieldStatus () {
-		return this.inJail;
+		return inJail;
 	}
 }
