@@ -49,11 +49,6 @@ class Player extends BankBalance
 		return true;
 	}
 	
-	public float GetMoney() 
-	{
-		return money;
-	}
-	
 	public String GetColor() 
 	{
 		return color;
