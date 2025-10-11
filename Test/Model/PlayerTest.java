@@ -35,6 +35,16 @@ public class PlayerTest
 	}
 
 	@Test
+	public void PlayerConstructorOk() 
+	{
+		Player testPlayer = new Player("Red", 4000, null);
+		
+		assertEquals(testPlayer.GetColor(), "Red");
+		assertEquals(testPlayer.GetMoney(), 4000, 0.01);
+		assertEquals(testPlayer.GetCurrentSpace(), null);
+	}
+	
+	@Test
 	public void AddCardOk() 
 	{
 		Player testPlayer = new Player("Red", 4000, null);
@@ -84,36 +94,6 @@ public class PlayerTest
 	}
 	
 	@Test
-	public void TransferMoneyOk() 
-	{
-		Player testPlayer1 = new Player("Red", 4000, null);
-		Player testPlayer2 = new Player("Yellow", 4000, null);
-		
-		assertEquals(testPlayer1.TransferMoney(testPlayer2, 1000), TransferMoneyResult.Ok);
-		assertEquals(testPlayer1.GetMoney(), 4000-1000, 0.01);
-		assertEquals(testPlayer2.GetMoney(), 4000+1000, 0.01);
-	}
-	
-	@Test
-	public void TransferMoneyNotEnough() 
-	{
-		Player testPlayer1 = new Player("Red", 4000, null);
-		Player testPlayer2 = new Player("Yellow", 4000, null);
-		
-		assertEquals(testPlayer1.TransferMoney(testPlayer2, 5000), TransferMoneyResult.NotEnoughMoney);
-		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
-		assertEquals(testPlayer2.GetMoney(), 4000, 0.01);
-	}
-	
-	@Test
-	public void TransferMoneyNullReceiver() 
-	{
-		Player testPlayer1 = new Player("Red", 4000, null);
-		
-		assertEquals(testPlayer1.TransferMoney(null, 1000), TransferMoneyResult.NullReceiver);
-	}
-	
-	@Test
 	public void BuySpaceOk()
 	{
 		Bank bank = new Bank(4000);
@@ -122,6 +102,8 @@ public class PlayerTest
 		
 		assertTrue(testPlayer1.BuySpace(bank));
 		assertEquals(testPlayer1.GetOwnedSpaces().get(0), board.GetSpace(1));
+		assertEquals(testPlayer1.GetMoney(), 4000 - ((Buyable)board.GetSpace(1)).price, 0.01);
+		assertEquals(bank.GetMoney(), 4000 + ((Buyable)board.GetSpace(1)).price, 0.01);
 	}
 	
 	@Test
@@ -132,14 +114,31 @@ public class PlayerTest
 		Player testPlayer1 = new Player("Red", 4000, board.GetStartSpace());
 		
 		assertFalse(testPlayer1.BuySpace(bank));
+		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
 	}
 	
 	@Test
-	public void BuySpaceSpace()
+	public void BuySpaceNullSpace()
 	{
 		Bank bank = new Bank(4000);
 		Player testPlayer1 = new Player("Red", 4000, null);
 		
 		assertFalse(testPlayer1.BuySpace(bank));
+		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
+	}
+	
+	@Test
+	public void BuySpaceOwnedSpace()
+	{
+		Bank bank = new Bank(4000);
+		Board board = new Board(bank);
+		Player testPlayer1 = new Player("Red", 4000, board.GetSpace(1));
+		Player testPlayer2 = new Player("Yellow", 4000, board.GetSpace(1));
+		Buyable BuyableTerrain = (Buyable)board.GetSpace(1);
+		
+		assertTrue(testPlayer1.BuySpace(bank));
+		assertEquals(testPlayer1.GetMoney(), 4000 - BuyableTerrain.price, 0.01);
+		assertFalse(testPlayer2.BuySpace(bank));
+		assertEquals(testPlayer2.GetMoney(), 4000, 0.01);
 	}
 }

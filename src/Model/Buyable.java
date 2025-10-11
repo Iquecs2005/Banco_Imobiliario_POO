@@ -41,7 +41,7 @@ public class Buyable extends Space {
 	
 	public boolean purchaseBuyable(Player p, Bank b) {
 		
-		if (p == null || b == null) {
+		if (p == null || b == null || owner != null) {
 			return false;
 		}
 		

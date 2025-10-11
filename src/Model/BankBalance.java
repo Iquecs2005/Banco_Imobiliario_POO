@@ -2,7 +2,7 @@ package Model;
 
 enum TransferMoneyResult
 {
-	NullReceiver, NotEnoughMoney, Ok
+	NullReceiver, NegativeAmount, SenderReceiverEquals, Ok
 }
 
 abstract class BankBalance 
@@ -16,14 +16,21 @@ abstract class BankBalance
 	
 	public TransferMoneyResult TransferMoney(BankBalance receiver, float amount)		
 	{
+		if (receiver == this) return TransferMoneyResult.SenderReceiverEquals;
 		if (receiver == null) return TransferMoneyResult.NullReceiver;
+		if (amount < 0) return TransferMoneyResult.NegativeAmount;
 		
-		if (money < amount) return TransferMoneyResult.NotEnoughMoney;
+		amount = Math.min(money, amount);
 		
 		money -= amount;
 		receiver.money += amount;
 		
 		return TransferMoneyResult.Ok;
+	}
+	
+	public boolean IsBankrupt() 
+	{
+		return money <= 0;
 	}
 	
 	public boolean CanAfford(float price) 
