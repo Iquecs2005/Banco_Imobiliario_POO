@@ -1,5 +1,10 @@
 package Model;
 
+enum TransferMoneyResult
+{
+	NullReceiver, NotEnoughMoney, Ok
+}
+
 abstract class BankBalance 
 {
 	private float money;
@@ -9,13 +14,16 @@ abstract class BankBalance
 		this.money = money;
 	}
 	
-	public boolean TransferMoney(BankBalance receiver, float amount)		
+	public TransferMoneyResult TransferMoney(BankBalance receiver, float amount)		
 	{
-		float transferAmount = Math.min(money, amount);
-		money -= amount;
-		receiver.money += transferAmount;
+		if (receiver == null) return TransferMoneyResult.NullReceiver;
 		
-		return money <= 0;
+		if (money < amount) return TransferMoneyResult.NotEnoughMoney;
+		
+		money -= amount;
+		receiver.money += amount;
+		
+		return TransferMoneyResult.Ok;
 	}
 	
 	public boolean CanAfford(float price) 

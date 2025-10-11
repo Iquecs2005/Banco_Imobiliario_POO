@@ -13,12 +13,12 @@ class Board
 		//Sets terrainList
 		this.bank = bank;
 		
-		terrainsList.add(new Property("StartSpace", 100, 10));
+		terrainsList.add(new Space("StartSpace"));
 		terrainsList.add(new Property("Leblon", 100, 10));
 		terrainsList.add(new Property("?", 100, 10));
 		terrainsList.add(new Property("Av. Presidente Vargas", 100, 10));
 		terrainsList.add(new Property("Av. Nossa Senhora de Copacabana", 100, 10));
-		terrainsList.add(new Property("Metro", 100, 10));
+		terrainsList.add(new Buyable("Metro", 100, 10));
 	}
 	
 	public Space MovePlayer(Player player, int amount) 

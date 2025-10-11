@@ -10,7 +10,7 @@ class Player extends BankBalance
 	private Space currentSpace;
 	private boolean inJail = false;
 	
-	private List<Space> ownedSpaces = new LinkedList<Space>();
+	private List<Buyable> ownedSpaces = new LinkedList<Buyable>();
 	private List<Card> heldCards = new LinkedList<Card>();
 	
 	public Player(String color, float money, Space currentSpace) 
@@ -48,17 +48,11 @@ class Player extends BankBalance
 		return null;
 	}
 	
-	@Override
-	public boolean TransferMoney(BankBalance receiver, float amount) 
+	public boolean BuySpace(Bank bank)
 	{
-		if (receiver == null) return false;
+		if (!(currentSpace instanceof Buyable)) return false;
 		
-		bankrupt = super.TransferMoney(receiver, amount);
-		return bankrupt;
-	}
-	
-	public boolean BuySpace(Bank bank, Buyable space)
-	{
+		Buyable space = (Buyable)currentSpace;
 		boolean purchaseres = space.purchaseBuyable(this, bank);
 		
 		if (purchaseres == true) {
@@ -93,7 +87,7 @@ class Player extends BankBalance
 		return currentSpace;
 	}
 	
-	public List<Space> GetOwnedSpaces() 
+	public List<Buyable> GetOwnedSpaces() 
 	{
 		return ownedSpaces;
 	}
