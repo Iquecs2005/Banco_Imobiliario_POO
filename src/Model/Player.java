@@ -8,13 +8,36 @@ class Player extends BankBalance
 	private boolean bankrupt;
 	private String color;
 	private Space currentSpace;
+	
 	private List<Space> ownedSpaces = new LinkedList<Space>();
+	private List<Card> heldCards = new LinkedList<Card>();
 	
 	public Player(String color, float money, Space currentSpace) 
 	{
 		super(money);
 		this.color = color;
 		this.currentSpace = currentSpace;
+	}
+	
+	public void AddCard(Card card) 
+	{
+		heldCards.add(card);
+	}
+	
+	public void RemoveCard(Card card) 
+	{
+		heldCards.remove(card);
+	}
+	
+	public Card FindCard(String cardId) 
+	{
+		for (Card card : heldCards) 
+		{
+			if (card.GetCardId() == cardId)
+				return card;
+		}
+		
+		return null;
 	}
 	
 	@Override
@@ -53,24 +76,19 @@ class Player extends BankBalance
 	{
 		return color;
 	}
-
-	public void SetColor(String color) 
-	{
-		this.color = color;
-	}
 	
 	public Space GetCurrentSpace() 
 	{
 		return currentSpace;
 	}
 	
-	public void SetCurrentSpace(Space currentSpace) 
-	{
-		this.currentSpace = currentSpace;
-	}
-	
 	public List<Space> GetOwnedSpaces() 
 	{
 		return ownedSpaces;
+	}
+	
+	void SetCurrentSpace(Space currentSpace) 
+	{
+		this.currentSpace = currentSpace;
 	}
 }
