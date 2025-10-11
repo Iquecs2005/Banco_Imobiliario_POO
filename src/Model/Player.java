@@ -19,14 +19,23 @@ class Player extends BankBalance
 		this.currentSpace = currentSpace;
 	}
 	
-	public void AddCard(Card card) 
+	public boolean AddCard(Card card) 
 	{
+		if (card == null) return false;
+		
 		heldCards.add(card);
+		return true;
 	}
 	
-	public void RemoveCard(Card card) 
+	public boolean RemoveCard(Card card) 
 	{
-		heldCards.remove(card);
+		if (card == null) return false;
+		
+		boolean removeStatus = heldCards.remove(card);
+		
+		System.out.println(removeStatus);
+		
+		return removeStatus;
 	}
 	
 	public Card FindCard(String cardId) 
@@ -43,6 +52,8 @@ class Player extends BankBalance
 	@Override
 	public boolean TransferMoney(BankBalance receiver, float amount) 
 	{
+		if (receiver == null) return false;
+		
 		bankrupt = super.TransferMoney(receiver, amount);
 		return bankrupt;
 	}

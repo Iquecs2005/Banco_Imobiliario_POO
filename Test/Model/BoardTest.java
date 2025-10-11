@@ -11,10 +11,10 @@ import org.junit.Test;
 public class BoardTest 
 {
 	private static Bank bank;
+	private static Board board;
 	private static Player redPlayer;
 	private static Player yellowPlayer;
 	private static Player greenPlayer;
-	private static Board board;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception 
