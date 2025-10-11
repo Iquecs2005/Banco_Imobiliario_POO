@@ -12,13 +12,13 @@ class Player extends BankBalance
 	
 	public Player(String color, float money, Space currentSpace) 
 	{
+		super(money);
 		this.color = color;
-		this.money = money;
 		this.currentSpace = currentSpace;
 	}
 	
 	@Override
-	boolean TransferMoney(BankBalance receiver, float amount) 
+	public boolean TransferMoney(BankBalance receiver, float amount) 
 	{
 		bankrupt = super.TransferMoney(receiver, amount);
 		return bankrupt;

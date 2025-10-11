@@ -5,12 +5,15 @@ import java.util.List;
 
 class Board 
 {
+	private Bank bank;
 	private List<Space> terrainsList = new LinkedList<Space>();
 	
-	public Board() 
+	public Board(Bank bank) 
 	{
 		//Sets terrainList
-		terrainsList.add(new Space());
+		this.bank = bank;
+		
+		//terrainsList.add(new Space());
 	}
 	
 	public Space MovePlayer(Player player, int amount) 
@@ -24,7 +27,7 @@ class Board
 		int spaceIndex = playerLocation + amount;
 		if (spaceIndex > terrainsList.size()) 
 		{
-			//Bank.Transfer(player, 200)
+			bank.TransferMoney(player, 200);
 			spaceIndex = spaceIndex % terrainsList.size();
 		}
 		Space newSpace = terrainsList.get(spaceIndex);

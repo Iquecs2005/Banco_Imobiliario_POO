@@ -8,6 +8,10 @@ class Property extends Buyable {
 	
 	public void setOwner(Player owner) {
 		this.owner = owner;
+	}	
+	
+	public boolean onLand(Player p) {	
+		return (p == owner);
 	}
 	
 	public Codes onLand(Player p) {
