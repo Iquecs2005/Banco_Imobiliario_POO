@@ -20,11 +20,11 @@ class Dice {
 	
 	public Vector<Integer> roll (int nrolls) {
 		
-		Vector<Integer> result = new Vector<>();
+		Vector<Integer> result = new Vector<>(nrolls);
 		
 		for (int i = 0; i < nrolls; i++) {
 			
-			result.add(roll());
+			result.set(i, roll());
 			
 		}
 		
