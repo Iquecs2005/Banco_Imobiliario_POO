@@ -3,10 +3,10 @@ package Model;
 import java.util.List;
 import java.util.LinkedList;
 
-class Player 
+class Player extends BankBalance 
 {
+	private boolean bankrupt;
 	private String color;
-	private float money;
 	private Space currentSpace;
 	private List<Space> ownedSpaces = new LinkedList<Space>();
 	
@@ -17,14 +17,21 @@ class Player
 		this.currentSpace = currentSpace;
 	}
 	
-	public boolean BuySpace()
+	@Override
+	boolean TransferMoney(BankBalance receiver, float amount) 
 	{
-		//if (Bank.Pay(this, currentSpace.price))
-		//{
-		//  currentSpace.SetOwner(this);
-		//	ownedSpaces.add(currentSpace);
-		//	return true;
-		//}
+		bankrupt = super.TransferMoney(receiver, amount);
+		return bankrupt;
+	}
+	
+	public boolean BuySpace(Bank bank)
+	{
+		/*if (TransferMoney(bank, currentSpace.price))
+		{
+			//currentSpace.SetOwner(this);
+			ownedSpaces.add(currentSpace);
+			return true;
+		}*/
 		
 		return false;
 	}
@@ -45,11 +52,6 @@ class Player
 	public float GetMoney() 
 	{
 		return money;
-	}
-	
-	public void SetMoney(float money) 
-	{
-		this.money = money;
 	}
 	
 	public String GetColor() 
