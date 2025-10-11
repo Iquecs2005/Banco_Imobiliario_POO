@@ -97,6 +97,7 @@ public class BankBalanceTest {
 		assertFalse(testPlayer1.IsBankrupt());
 	}
 	
+	//Pagar aluguel (item 5), falir e sair do jogo.
 	@Test
 	public void IsBankruptTrue() 
 	{

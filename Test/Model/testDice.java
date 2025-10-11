@@ -24,6 +24,8 @@ public class testDice {
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	//Teste 1) Realizar o lançamento virtual dos dados (procure métodos que gerem números
+	//randômicos), sem que seja necessário visualizá-los graficamente;
 	@Test
 	public void singleRoll() {
 		int roll = dice.roll();

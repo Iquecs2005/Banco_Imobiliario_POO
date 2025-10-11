@@ -84,6 +84,8 @@ public class PropertyTest {
     }
     
     @Test
+    // Teste 4) Construir uma casa em uma propriedade em que o jogador da vez caiu e que lhe
+    // pertence;
     public void testBuildHouse_Successful() {
         // Arrange
         property.setOwner(player);

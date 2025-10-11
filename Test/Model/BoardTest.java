@@ -71,6 +71,8 @@ public class BoardTest
 		assertEquals(board.GetStartSpace().name, landedSpace.name);
 	}
 	
+	//Teste 2) Deslocar piões de acordo com o jogador da vez e com os valores obtidos no
+	//lançamento dos dados
 	@Test
 	public void CorrectMovementTest() 
 	{
