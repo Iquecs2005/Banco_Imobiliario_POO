@@ -7,6 +7,10 @@ public class GoToJailSpace extends Space {
     
     @Override
     public Codes onLand(Player player) {
+    	
+    	
+    	
+    	
         return Codes.SENT_TO_JAIL;
     }
 }

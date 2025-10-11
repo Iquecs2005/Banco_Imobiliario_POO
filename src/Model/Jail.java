@@ -2,9 +2,7 @@ package Model;
 import java.util.Vector;
 
 class Jail extends Space{
-	public Jail (String name) {
-		super("Jail");
-	}
+	
 	
 	
 	
