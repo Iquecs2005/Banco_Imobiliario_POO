@@ -38,7 +38,10 @@ class Board
 		int spaceIndex = playerLocation + amount;
 		if (spaceIndex >= terrainsList.size()) 
 		{
-			bank.TransferMoney(player, 200);
+			for (int i = 0; i < spaceIndex / terrainsList.size(); i++) 
+			{
+				bank.TransferMoney(player, 200);
+			}
 			spaceIndex = spaceIndex % terrainsList.size();
 		}
 		Space newSpace = terrainsList.get(spaceIndex);
@@ -56,5 +59,10 @@ class Board
 	public int GetBoardSize() 
 	{
 		return terrainsList.size();
+	}
+	
+	Space GetSpace(int i) 
+	{
+		return terrainsList.get(i % terrainsList.size());
 	}
 }

@@ -43,6 +43,35 @@ public class BoardTest
 	}
 
 	@Test
+	public void GetStartSpaceOk() 
+	{
+		Space startSpace = board.GetStartSpace();
+		assertEquals("StartSpace", startSpace.name);
+	}
+	
+	@Test
+	public void GetSpaceOk() 
+	{
+		Space getSpace;
+		
+		getSpace = board.GetSpace(0);
+		assertEquals("StartSpace", getSpace.name);
+		getSpace = board.GetSpace(1);
+		assertEquals("Leblon", getSpace.name);
+		getSpace = board.GetSpace(2);
+		assertEquals("?", getSpace.name);
+	}
+	
+	@Test
+	public void CorrectSizeTest() 
+	{
+		int boardSize = board.GetBoardSize();
+		
+		Space landedSpace = board.GetSpace(boardSize);
+		assertEquals(board.GetStartSpace().name, landedSpace.name);
+	}
+	
+	@Test
 	public void CorrectMovementTest() 
 	{
 		Space landedSpace = board.MovePlayer(redPlayer, 1);
@@ -62,18 +91,26 @@ public class BoardTest
 	public void AroundTheBoardMovementTest() 
 	{
 		int boardSize = board.GetBoardSize();
+		float originalMoney;
+		Space landedSpace;
 		
-		Space landedSpace = board.MovePlayer(redPlayer, boardSize);
+		originalMoney = redPlayer.GetMoney();
+		landedSpace = board.MovePlayer(redPlayer, boardSize);
 		assertEquals("StartSpace", landedSpace.name);
 		assertEquals("StartSpace", redPlayer.GetCurrentSpace().name);
+		assertEquals(originalMoney + 200, redPlayer.GetMoney(), 0.01);
 		
-		//landedSpace = board.MovePlayer(yellowPlayer, 2);
-		//assertEquals("?", landedSpace.name);
-		//assertEquals("?", yellowPlayer.GetCurrentSpace().name);
+		originalMoney = yellowPlayer.GetMoney();
+		landedSpace = board.MovePlayer(yellowPlayer, boardSize * 2 + 1);
+		assertEquals("Leblon", landedSpace.name);
+		assertEquals("Leblon", yellowPlayer.GetCurrentSpace().name);
+		assertEquals(originalMoney + 200 * 2, yellowPlayer.GetMoney(), 0.01);
 		
-		//landedSpace = board.MovePlayer(greenPlayer, 2);
-		//assertEquals("?", landedSpace.name);
-		//assertEquals("?", yellowPlayer.GetCurrentSpace().name);
+		originalMoney = greenPlayer.GetMoney();
+		landedSpace = board.MovePlayer(greenPlayer, boardSize * 3 + 2);
+		assertEquals("?", landedSpace.name);
+		assertEquals("?", greenPlayer.GetCurrentSpace().name);
+		assertEquals(originalMoney + 200 * 3, greenPlayer.GetMoney(), 0.01);
 	}
 	
 	@Test
