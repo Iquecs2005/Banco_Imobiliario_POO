@@ -8,6 +8,7 @@ class Player extends BankBalance
 	private boolean bankrupt;
 	private String color;
 	private Space currentSpace;
+	private boolean inJail = false;
 	
 	private List<Space> ownedSpaces = new LinkedList<Space>();
 	private List<Card> heldCards = new LinkedList<Card>();
@@ -102,5 +103,9 @@ class Player extends BankBalance
 	void SetCurrentSpace(Space currentSpace) 
 	{
 		this.currentSpace = currentSpace;
+	}
+	
+	public boolean GetJaieldStatus () {
+		return this.inJail;
 	}
 }
