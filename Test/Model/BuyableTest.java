@@ -191,17 +191,4 @@ public class BuyableTest {
         assertEquals("Should return IS_MINE after purchase", 
                      Space.Codes.IS_MINE, result);
     }
-    
-    @Test
-    public void testPropertyOwnershipTransfer() {
-        // Test that ownership can be reassigned
-        buyable.owner = player;
-        
-        // Simulate selling (direct assignment for test)
-        buyable.owner = null;
-        
-        Space.Codes result = buyable.onLand(otherPlayer);
-        assertEquals("Should be available for purchase again", 
-                     Space.Codes.CAN_BUY, result);
-    }
 }

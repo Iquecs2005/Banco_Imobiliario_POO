@@ -1,12 +1,16 @@
 package Model;
 
 public class GoToJailSpace extends Space {
-    public GoToJailSpace(String name) {
+	
+	private Jail jail;
+	
+    public GoToJailSpace(String name, Jail jail) {
         super(name);
+        this.jail = jail;
     }
     
     
-    public Codes onLand(Player player, Jail jail) {
+    public Codes onLand(Player player) {
     	
     	if (player == null || jail == null) {
     		return Codes.NOTHING;
@@ -15,5 +19,9 @@ public class GoToJailSpace extends Space {
     	jail.sendToJail(player);
     	
         return Codes.SENT_TO_JAIL;
+    }
+    
+    public Jail getJail() {
+    	return jail;
     }
 }
