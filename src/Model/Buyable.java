@@ -38,7 +38,11 @@ public class Buyable extends Space {
 	
 	public boolean purchaseBuyable(Player p, Bank b) {
 		
-		if(p.CanAfford(price) && owner == null) {
+		if (p == null || b == null || owner != null) {
+			return false;
+		}
+		
+		if(p.CanAfford(price)) {
 			p.TransferMoney(b, price);
 			this.owner = p;
 			return true;
