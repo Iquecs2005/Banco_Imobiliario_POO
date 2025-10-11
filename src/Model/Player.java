@@ -8,7 +8,9 @@ class Player extends BankBalance
 	private boolean bankrupt;
 	private String color;
 	private Space currentSpace;
+	
 	private List<Space> ownedSpaces = new LinkedList<Space>();
+	private List<Card> heldCards = new LinkedList<Card>();
 	
 	public Player(String color, float money, Space currentSpace) 
 	{
@@ -17,9 +19,41 @@ class Player extends BankBalance
 		this.currentSpace = currentSpace;
 	}
 	
+	public boolean AddCard(Card card) 
+	{
+		if (card == null) return false;
+		
+		heldCards.add(card);
+		return true;
+	}
+	
+	public boolean RemoveCard(Card card) 
+	{
+		if (card == null) return false;
+		
+		boolean removeStatus = heldCards.remove(card);
+		
+		System.out.println(removeStatus);
+		
+		return removeStatus;
+	}
+	
+	public Card FindCard(String cardId) 
+	{
+		for (Card card : heldCards) 
+		{
+			if (card.GetCardId() == cardId)
+				return card;
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public boolean TransferMoney(BankBalance receiver, float amount) 
 	{
+		if (receiver == null) return false;
+		
 		bankrupt = super.TransferMoney(receiver, amount);
 		return bankrupt;
 	}
@@ -54,24 +88,19 @@ class Player extends BankBalance
 	{
 		return color;
 	}
-
-	public void SetColor(String color) 
-	{
-		this.color = color;
-	}
 	
 	public Space GetCurrentSpace() 
 	{
 		return currentSpace;
 	}
 	
-	public void SetCurrentSpace(Space currentSpace) 
-	{
-		this.currentSpace = currentSpace;
-	}
-	
 	public List<Space> GetOwnedSpaces() 
 	{
 		return ownedSpaces;
+	}
+	
+	void SetCurrentSpace(Space currentSpace) 
+	{
+		this.currentSpace = currentSpace;
 	}
 }
