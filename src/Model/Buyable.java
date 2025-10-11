@@ -10,6 +10,7 @@ public class Buyable extends Space {
 	public Buyable (String name, float price, float rent) {
 		super(name);
 		this.price = price;
+		this.rent = rent;
 		this.owner = null;
 	}
 	
@@ -24,8 +25,6 @@ public class Buyable extends Space {
 		
 		
 		else if (owner != null && owner!= p) {
-			
-			p.TransferMoney(owner, rent);
 			
 			return Codes.GET_RENT;
 			

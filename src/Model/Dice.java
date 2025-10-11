@@ -21,7 +21,7 @@ class Dice {
 		
 		for (int i = 0; i < nrolls; i++) 
 		{
-			result.set(i, roll());
+			result.add(roll());
 		}
 		
 		return result;

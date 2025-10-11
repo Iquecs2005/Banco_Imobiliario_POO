@@ -1,6 +1,12 @@
 package Model;
 
+
 class Property extends Buyable {
+	
+	House house;
+	Hotel hotel;
+	private float baseRent = rent;
+	
 	
 	public Property(String name, int price, int rent) {
 		super(name,price,rent);
@@ -10,20 +16,78 @@ class Property extends Buyable {
 		this.owner = owner;
 	}	
 	
-	public boolean onLand(Player p) {	
-		return (p == owner);
-	}
-	
-	public Codes onLand(Player p) {
-		if (super.onLand(p) == Codes.IS_MINE) {
-			//Offer to build house.
+	public Codes buildHouse (Player p, Bank b) {
+		
+		if (p.GetMoney() < house.GetCost()) {
+			return Codes.NOT_BUILT;
+		}
+		
+		else {
 			
+			p.TransferMoney(b, house.GetAmount());
+		
+			house.AddHouse();
+			this.UpdateRent();
 			return Codes.BUILT;
 		}
-		else 
-			return Codes.NOTBUILT;
+		
 	}
 	
+	public Codes buildHotel (Player p, Bank b) {
+		
+		if(p.GetMoney() < hotel.GetCost()) {
+			
+			return Codes.NOT_BUILT;
+			
+		}
+		
+		else {
+			
+			p.TransferMoney(b, hotel.GetCost());
+			this.UpdateRent();
+			return Codes.BUILT;
+			
+		}
+	}
+	
+	
+	
+	public Codes onLand(Player p) {
+		
+		Codes parentResult = super.onLand(p);
+		
+		if (parentResult == Codes.IS_MINE) {
+			
+			int houseNum = house.GetAmount();
+			
+			int hotelNum = hotel.GetAmount();
+			
+			boolean canBuildHouse = houseNum < 4;
+			boolean canBuildHotel = hotelNum < 1;
+			boolean canBuildBoth = canBuildHouse && canBuildHotel;
+			
+			if (canBuildBoth) {
+				return Codes.CAN_BUILD_BOTH;
+			}
+			else if (canBuildHouse) {
+				return Codes.CAN_BUILD_HOUSE;
+			}
+			else if (canBuildHotel) {
+				return Codes.CAN_BUILD_HOTEL;
+			}
+			else return Codes.CANT_BUILD;
+		}
+		
+		else return parentResult;
+	}
+	
+	
+	
+	private void UpdateRent() {
+        int hotelValue = this.hotel.GetAmount() * this.hotel.GetRent();
+        int houseValue = this.house.GetAmount() * this.house.GetRent();
+        this.rent = this.baseRent + hotelValue + houseValue;
+    }
 	
 	
 }
