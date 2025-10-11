@@ -2,9 +2,14 @@ package Model;
 
 abstract class BankBalance 
 {
-	protected float money;
+	private float money;
 	
-	boolean TransferMoney(BankBalance receiver, float amount)		
+	public BankBalance(float money) 
+	{
+		this.money = money;
+	}
+	
+	public boolean TransferMoney(BankBalance receiver, float amount)		
 	{
 		float transferAmount = Math.min(money, amount);
 		money -= amount;
@@ -13,8 +18,13 @@ abstract class BankBalance
 		return money <= 0;
 	}
 	
-	boolean CanAfford(float price) 
+	public boolean CanAfford(float price) 
 	{
 		return money > price;
+	}
+
+	public float GetMoney() 
+	{
+		return money;
 	}
 }
