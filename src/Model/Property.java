@@ -8,8 +8,11 @@ class Property extends Buyable {
 	private float baseRent = rent;
 	
 	
-	public Property(String name, int price, int rent) {
+	public Property(String name, int price, int rent, House house, Hotel hotel) {
 		super(name,price,rent);
+		
+		this.house = house;
+		this.hotel = hotel;
 	}
 	
 	public void setOwner(Player owner) {
@@ -18,13 +21,14 @@ class Property extends Buyable {
 	
 	public Codes buildHouse (Player p, Bank b) {
 		
-		if (p.GetMoney() < house.GetCost()) {
+		
+		if (p.GetMoney() < house.GetCost() || this.owner != p) {
 			return Codes.NOT_BUILT;
 		}
 		
 		else {
 			
-			p.TransferMoney(b, house.GetAmount());
+			p.TransferMoney(b, house.GetCost());
 		
 			house.AddHouse();
 			this.UpdateRent();
@@ -35,7 +39,7 @@ class Property extends Buyable {
 	
 	public Codes buildHotel (Player p, Bank b) {
 		
-		if(p.GetMoney() < hotel.GetCost()) {
+		if(p.GetMoney() < hotel.GetCost() || this.owner != p) {
 			
 			return Codes.NOT_BUILT;
 			
@@ -44,6 +48,8 @@ class Property extends Buyable {
 		else {
 			
 			p.TransferMoney(b, hotel.GetCost());
+			
+			hotel.AddHotel();
 			this.UpdateRent();
 			return Codes.BUILT;
 			
@@ -63,7 +69,7 @@ class Property extends Buyable {
 			int hotelNum = hotel.GetAmount();
 			
 			boolean canBuildHouse = houseNum < 4;
-			boolean canBuildHotel = hotelNum < 1;
+			boolean canBuildHotel = hotelNum < 1 && houseNum >= 1;
 			boolean canBuildBoth = canBuildHouse && canBuildHotel;
 			
 			if (canBuildBoth) {

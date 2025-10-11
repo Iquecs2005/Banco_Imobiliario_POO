@@ -16,6 +16,9 @@ public class Buyable extends Space {
 	
 	public Codes onLand (Player p) {
 		
+		if(p.GetCurrentSpace() != this) {
+			return Codes.NOTHING;
+		}
 		
 		if (owner == null) {
 			

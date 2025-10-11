@@ -22,8 +22,8 @@ public class BuyableTest {
             }
         };
         
-        player = new Player("Red", 500.0f, null);
-        otherPlayer = new Player("Blue", 500.0f, null);
+        player = new Player("Red", 500.0f, buyable);
+        otherPlayer = new Player("Blue", 500.0f, buyable);
         bank = new Bank(10000.0f);
     }
     
@@ -144,7 +144,7 @@ public class BuyableTest {
     public void testRentPayment_BankruptcyScenario() {
         // Arrange
         buyable.owner = otherPlayer;
-        Player poorPlayer = new Player("Bankrupt", 20.0f, null); // Only has 20, rent is 25
+        Player poorPlayer = new Player("Bankrupt", 20.0f, buyable); // Only has 20, rent is 25
         
         // Act
         Space.Codes result = buyable.onLand(poorPlayer);
