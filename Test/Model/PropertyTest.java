@@ -51,17 +51,26 @@ public class PropertyTest {
                      Space.Codes.CAN_BUY, result);
     }
     
+    
+    
+    
+    // Teste 5) Pagar, automaticamente, aluguel quando o jogador da vez cair em uma
+    // propriedade de outro jogador. Esta propriedade deve ter pelo menos uma casa;
     @Test
-    public void testOnLand_OwnedByOther_ReturnsGetRent() {
+    public void testOnLand_OwnedByOther_WithHouse_ReturnsGetRent() {
         // Arrange
         property.setOwner(otherPlayer);
         float initialPlayerMoney = player.GetMoney();
+        
+        Space.Codes buildReturn = property.buildHouse(otherPlayer, bank);
         float initialOwnerMoney = otherPlayer.GetMoney();
         
         // Act
         Space.Codes result = property.onLand(player);
         
         // Assert
+        
+        assertEquals("Should return BUILT when house is built", Space.Codes.BUILT, buildReturn);
         assertEquals("Should return GET_RENT when owned by other player", 
                      Space.Codes.GET_RENT, result);
         assertEquals("Player should pay rent", 
