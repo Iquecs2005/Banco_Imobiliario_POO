@@ -8,7 +8,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class testDice {
+public class DiceTest {
 	
 	private static int sides;
 	private static Dice dice;
