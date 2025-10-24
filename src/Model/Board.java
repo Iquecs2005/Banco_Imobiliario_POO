@@ -7,6 +7,7 @@ class Board
 {
 	private Bank bank;
 	private List<Space> terrainsList = new LinkedList<Space>();
+	private Jail jailSpace;
 	
 	public Board(Bank bank) 
 	{
@@ -14,6 +15,7 @@ class Board
 		this.bank = bank;
 		House house = new House(10, 10);
 		Hotel hotel = new Hotel(10, 10);
+		jailSpace = new Jail();
 		
 		terrainsList.add(new Space("StartSpace"));
 		terrainsList.add(new Property("Leblon", 100, 10, house, hotel));
@@ -21,6 +23,8 @@ class Board
 		terrainsList.add(new Property("Av. Presidente Vargas", 100, 10, house, hotel));
 		terrainsList.add(new Property("Av. Nossa Senhora de Copacabana", 100, 10, house, hotel));
 		terrainsList.add(new Buyable("Metro", 100, 10));
+		
+		terrainsList.add(jailSpace);
 	}
 	
 	public Space MovePlayer(Player player, int amount) 
@@ -61,6 +65,11 @@ class Board
 	public int GetBoardSize() 
 	{
 		return terrainsList.size();
+	}
+	
+	public Jail GetJail() 
+	{
+		return jailSpace;
 	}
 	
 	Space GetSpace(int i) 
