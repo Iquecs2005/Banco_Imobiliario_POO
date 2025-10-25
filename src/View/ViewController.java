@@ -1,18 +1,50 @@
 package View;
 
+import java.awt.event.*;
+
 import javax.swing.*;
 
 public class ViewController 
 {
-	static JButton b1 = new JButton("New Game");
-	static JButton b2 = new JButton("Load Game");
+	BaseFrame currentFrame;
+	
+	ViewController()
+	{
+		ActivateMainMenu();
+	}
 	
 	public static void main(String[] args) 
 	{
 		// TODO Auto-generated method stub
-		WindowFrame window = new WindowFrame(500, 500);
-		window.setTitle("Banco Imobiliario");
-		window.setVisible(true);
+		new ViewController();
 	}
 
+	void ActivateMainMenu() 
+	{
+		if (currentFrame != null)
+			currentFrame.setVisible(false);
+		
+		WindowFrame mainMenuFrame = new WindowFrame(500, 500);
+		currentFrame = mainMenuFrame;
+		mainMenuFrame.setVisible(true);
+		
+		mainMenuFrame.b1.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				ActivatePlayerSelect();
+			}
+		});
+	}
+	
+	public void ActivatePlayerSelect() 
+	{
+		if (currentFrame != null)
+			currentFrame.setVisible(false);
+		
+		PlayerSelectFrame playerSelectFrame = new PlayerSelectFrame(500, 500);
+		currentFrame = playerSelectFrame;
+		playerSelectFrame.setVisible(true);
+	}
 }

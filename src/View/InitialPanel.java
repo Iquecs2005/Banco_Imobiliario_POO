@@ -24,7 +24,6 @@ class InitialPanel extends JPanel
 		
 		setLayout(null);
 		setBounds(0, 0, width, height);
-		
 	}
 	
 	public void paintComponent(Graphics g) 
