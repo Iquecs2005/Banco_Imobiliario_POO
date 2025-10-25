@@ -4,26 +4,13 @@ import java.awt.*;
 
 import javax.swing.*;
 
-class InitialPanel extends JPanel
+class InitialPanel extends BasePanel
 {
-	Color backgroundColor;
-	
-	int width;
-	int height;
-	
 	public InitialPanel(int width, int height) 
 	{
-		super();
+		super(width, height);
 		
-		this.width = width;
-		this.height = height;
-		
-		float[] backgroundHSV = Color.RGBtoHSB(10, 100, 140, null);
-		backgroundColor = Color.getHSBColor(backgroundHSV[0], backgroundHSV[1], backgroundHSV[2]);
-		setBackground(backgroundColor);
-		
-		setLayout(null);
-		setBounds(0, 0, width, height);
+		SetBackgroundColor(10, 100, 140);
 	}
 	
 	public void paintComponent(Graphics g) 
