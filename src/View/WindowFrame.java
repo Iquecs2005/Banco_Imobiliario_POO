@@ -33,15 +33,6 @@ class WindowFrame extends JFrame
 		panel.add(b2);
 	}
 	
-	public void paintComponent(Graphics g) 
-	{
-		super.paintComponents(g);
-		
-		Dimension panelSize = panel.getSize();
-		
-		g.drawString("Banco Imobiliario", 200, 200);
-	}
-	
 	private void PositionButton(JButton button, int x, int y) 
 	{
 		Dimension buttonSize = button.getPreferredSize();
