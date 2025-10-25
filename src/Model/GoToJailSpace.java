@@ -1,6 +1,6 @@
 package Model;
 
-public class GoToJailSpace extends Space {
+class GoToJailSpace extends Space {
 	
 	private Jail jail;
 	

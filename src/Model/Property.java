@@ -62,6 +62,11 @@ class Property extends Buyable {
 		
 		Codes parentResult = super.onLand(p);
 		
+		if (parentResult == Codes.GET_RENT) {
+			p.TransferMoney(this.owner, this.rent);
+			return parentResult;
+		}
+		
 		if (parentResult == Codes.IS_MINE) {
 			
 			int houseNum = house.GetAmount();

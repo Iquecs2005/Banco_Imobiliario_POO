@@ -1,6 +1,6 @@
 package Model;
 
-public class Buyable extends Space {
+class Buyable extends Space {
 	
 	protected float price;
 	protected float rent;
@@ -28,8 +28,6 @@ public class Buyable extends Space {
 		
 		
 		else if (owner != null && owner!= p) {
-			
-			p.TransferMoney(this.owner, this.rent);
 			
 			return Codes.GET_RENT;
 			
