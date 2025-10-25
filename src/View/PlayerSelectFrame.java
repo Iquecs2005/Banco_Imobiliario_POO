@@ -10,7 +10,7 @@ class PlayerSelectFrame extends BaseFrame
 	{
 		super("Player Select", startWidth, startHeight);
 		
-		panel = new InitialPanel(frameWidth, frameHeight);
+		panel = new MainMenuPanel(frameWidth, frameHeight);
 		getContentPane().add(panel);
 	}
 }

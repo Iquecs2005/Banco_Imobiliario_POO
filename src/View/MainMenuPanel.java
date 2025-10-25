@@ -4,9 +4,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
-class InitialPanel extends BasePanel
+class MainMenuPanel extends BasePanel
 {
-	public InitialPanel(int width, int height) 
+	public MainMenuPanel(int width, int height) 
 	{
 		super(width, height);
 		

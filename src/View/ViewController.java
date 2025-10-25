@@ -24,7 +24,7 @@ public class ViewController
 		if (currentFrame != null)
 			currentFrame.setVisible(false);
 		
-		WindowFrame mainMenuFrame = new WindowFrame(500, 500);
+		MainMenuFrame mainMenuFrame = new MainMenuFrame(500, 500);
 		currentFrame = mainMenuFrame;
 		mainMenuFrame.setVisible(true);
 		
