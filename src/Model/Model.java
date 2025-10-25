@@ -16,6 +16,8 @@ public class Model
 	private Board currentBoard;
 	private Dice currentDice;
 	
+	//Initialize events.
+	
 	private Model() 
 	{
 		
@@ -46,12 +48,12 @@ public class Model
 		return true;
 	}
 		
-	public int RollDices()
+	public int RollDie()
 	{
 		return currentDice.roll();
 	}
 	
-	public Vector<Integer> RollDices(int n)
+	public Vector<Integer> RollDice(int n)
 	{
 		return currentDice.roll(n);
 	}
@@ -69,6 +71,7 @@ public class Model
 			// Do something depending on the landCode (Ex: Trigger an event, call a method, etc)
 			default:
 				return;
+				
 		}
 	} 
 	
