@@ -28,9 +28,7 @@ class Buyable extends Space {
 		
 		
 		else if (owner != null && owner!= p) {
-			
 			return Codes.GET_RENT;
-			
 		}
 		
 		

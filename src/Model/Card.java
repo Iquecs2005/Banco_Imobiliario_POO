@@ -9,6 +9,8 @@ class Card
 		this.id = id;
 	}
 	
+	
+	
 	public String GetCardId() 
 	{
 		return id;

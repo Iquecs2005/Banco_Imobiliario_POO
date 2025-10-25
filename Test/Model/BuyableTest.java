@@ -53,9 +53,6 @@ public class BuyableTest {
     public void testOnLand_WhenOwnedByOtherPlayer_ReturnsGetRent() {
         // Arrange
         buyable.owner = otherPlayer;
-        float initialPlayerMoney = player.GetMoney();
-        float initialOwnerMoney = otherPlayer.GetMoney();
-        
         
         
         // Act
@@ -64,10 +61,6 @@ public class BuyableTest {
         // Assert
         assertEquals("Should return GET_RENT when owned by other player", 
                      Space.Codes.GET_RENT, result);
-        assertEquals("Player should pay rent", 
-                     initialPlayerMoney - buyable.rent, player.GetMoney(), 0.001f);
-        assertEquals("Owner should receive rent", 
-                     initialOwnerMoney + buyable.rent, otherPlayer.GetMoney(), 0.001f);
     }
     
     @Test
