@@ -10,8 +10,8 @@ public class ViewController
 	
 	ViewController()
 	{
-		//ActivateMainMenu();
-		ActivateBoard();
+		ActivateMainMenu();
+		//ActivateBoard();
 	}
 	
 	public static void main(String[] args) 
@@ -44,7 +44,7 @@ public class ViewController
 		if (currentFrame != null)
 			currentFrame.setVisible(false);
 		
-		PlayerSelectFrame playerSelectFrame = new PlayerSelectFrame(500, 500);
+		PlayerSelectFrame playerSelectFrame = new PlayerSelectFrame(500, 500, this);
 		currentFrame = playerSelectFrame;
 		playerSelectFrame.setVisible(true);
 	}

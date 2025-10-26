@@ -48,7 +48,7 @@ public class PlayerTest
 	public void AddCardOk() 
 	{
 		Player testPlayer = new Player("Red", 4000, null);
-		Card card = new Card("Test");
+		Card card = new Card(123, Card.CardType.Lose);
 		
 		assertNull(testPlayer.FindCard(card.GetCardId()));
 		assertTrue(testPlayer.AddCard(card));
@@ -67,7 +67,7 @@ public class PlayerTest
 	public void RemoveCardOk() 
 	{
 		Player testPlayer = new Player("Red", 4000, null);
-		Card card = new Card("Test");
+		Card card = new Card(123, Card.CardType.Lose);
 		
 		assertNull(testPlayer.FindCard(card.GetCardId()));
 		assertTrue(testPlayer.AddCard(card));
@@ -88,7 +88,7 @@ public class PlayerTest
 	public void RemoveCardNotHeld() 
 	{
 		Player testPlayer = new Player("Red", 4000, null);
-		Card card = new Card("Test");
+		Card card = new Card(123, Card.CardType.Lose);
 		
 		assertFalse(testPlayer.RemoveCard(card));
 	}

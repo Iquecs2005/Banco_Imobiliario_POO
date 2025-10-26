@@ -19,7 +19,7 @@ class PlayerSelectFrame extends BaseFrame
 	private boolean b1Active = true;
 	private List<PlayerInfoForm> playerInformation = new LinkedList<PlayerInfoForm>();
 	
-	public PlayerSelectFrame(int startWidth, int startHeight) 
+	public PlayerSelectFrame(int startWidth, int startHeight, ViewController vc) 
 	{
 		super("Player Select", startWidth, startHeight);
 		
@@ -37,6 +37,15 @@ class PlayerSelectFrame extends BaseFrame
 				NewPlayer();
 			}
 		});
+		
+		b2.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				vc.ActivateBoard();
+			}
+		});	
 		
 		System.out.println(getContentPane().getClass());
 		System.out.println(Arrays.toString(getContentPane().getComponents()));
