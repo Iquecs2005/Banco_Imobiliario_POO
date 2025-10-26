@@ -22,6 +22,12 @@ abstract class BasePanel extends JPanel
 		setBounds(0, 0, width, height);
 	}
 	
+	@Override
+	protected void paintComponent(Graphics g) 
+	{
+	    super.paintComponent(g);
+	}
+	
 	public void SetBackgroundColor(int r, int g, int b) 
 	{
 		float[] backgroundHSV = Color.RGBtoHSB(r, g, b, null);

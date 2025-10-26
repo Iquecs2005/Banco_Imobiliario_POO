@@ -11,6 +11,8 @@ abstract class BaseFrame extends JFrame
 	
 	public BaseFrame(String windowName, int startWidth, int startHeight) 
 	{
+		super();
+		
 		setTitle("Banco Imobiliario");
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
@@ -28,7 +30,24 @@ abstract class BaseFrame extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	static protected void PositionButton(JButton button, int x, int y) 
+	static public void PositionComponent(JComponent component, int x, int y) 
+	{
+		Dimension buttonSize = component.getPreferredSize();
+		
+		int buttonX;
+		int buttonY;
+		int sizeX;
+		int sizeY;
+		
+		sizeX = buttonSize.width;
+		sizeY = buttonSize.height;
+		buttonX = sizeX / 2;
+		buttonY = sizeY / 2;
+		
+		component.setBounds(new Rectangle(x - buttonX, y - buttonY, sizeX, sizeY));
+	}
+	
+	static public void PositionComponent(JButton button, int x, int y) 
 	{
 		Dimension buttonSize = button.getPreferredSize();
 		

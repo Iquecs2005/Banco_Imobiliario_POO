@@ -19,9 +19,9 @@ class MainMenuFrame extends BaseFrame
 		panel = new MainMenuPanel(frameWidth, frameHeight);
 		getContentPane().add(panel);
 		
-		PositionButton(b1, frameWidth / 2 - 5, frameHeight / 2 - 25);
+		PositionComponent(b1, frameWidth / 2 - 5, frameHeight / 2 - 25);
 		panel.add(b1);
-		PositionButton(b2, frameWidth / 2 - 5, frameHeight / 2 + 25);
+		PositionComponent(b2, frameWidth / 2 - 5, frameHeight / 2 + 25);
 		panel.add(b2);
 	}
 }
