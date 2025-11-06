@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import Controller.Controller;
+
 class PlayerSelectFrame extends BaseFrame
 {
 	public final JButton b1 = new JButton("New Player");
@@ -43,6 +45,7 @@ class PlayerSelectFrame extends BaseFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				Controller.instance.CreateNewGame(nPlayers);
 				vc.ActivateBoard();
 			}
 		});	

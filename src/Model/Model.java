@@ -3,6 +3,7 @@ package Model;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import Model.Space.Codes;
@@ -162,5 +163,15 @@ public class Model
 			return false;
 		
 		return currentPlayer.SellSpace(foundSpace);
+	}
+	
+	public int GetNPlayers() 
+	{
+		return currentPlayers.size();
+	}
+	
+	public Set<String> GetPlayerColors()
+	{
+		return currentPlayers.keySet();
 	}
 }
