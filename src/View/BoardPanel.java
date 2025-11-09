@@ -156,6 +156,23 @@ public class BoardPanel extends BasePanel {
     	return propertyCards;
     }
     
+    private Map<String, BufferedImage> companyCards() {
+    	Map<String, BufferedImage> companyCards = new HashMap<String, BufferedImage>();
+    	try {
+    		BufferedImage currentCompanyCard;
+    		for (int i = 1; i < 7; i++) {
+    			String pathStr = String.format("/resources/cards/companies/company%d.png", i);
+    			String nameStr = String.format("company%d", i);
+    			currentCompanyCard = ImageIO.read(getClass().getResource(pathStr));
+    			companyCards.put(nameStr, currentCompanyCard);
+    		}
+    	}
+    	catch(IOException e) {
+    		System.err.println("Image file not found");
+            e.printStackTrace();
+    	}
+    	return companyCards;
+    }
     
     
 }
