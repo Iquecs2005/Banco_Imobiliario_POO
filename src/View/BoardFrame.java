@@ -25,18 +25,5 @@ public class BoardFrame extends BaseFrame
 		panel = new BoardPanel(frameWidth,frameHeight);
 		getContentPane().add(panel);
 		panel.AddPlayer(nPlayers);
-
-		panel.add(b1);
-		PositionComponent(b1, width/2, height/2);
-		b1.addActionListener(new ActionListener() 
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				Vector<Integer> diceResults = Controller.instance.MovePlayer();
-				panel.SetDiceResults(diceResults);
-				panel.repaint();
-			}
-		});
 	}
 }

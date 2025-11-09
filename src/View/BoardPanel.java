@@ -38,7 +38,8 @@ public class BoardPanel extends BasePanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Controller.instance.MovePlayer();
+				Vector<Integer> diceResults = Controller.instance.MovePlayer();
+				SetDiceResults(diceResults);
 				repaint();
 			}
 		});
