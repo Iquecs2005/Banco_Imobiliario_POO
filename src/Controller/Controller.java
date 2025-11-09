@@ -57,6 +57,11 @@ public class Controller
 		Model.instance.SubscribeToPlayerPos(newObserver);
 	}
 	
+	public void SubscribeToMoneyAltered(Observer newObserver)
+	{
+		Model.instance.SubscribeToMoneyPlayerAltered(newObserver);
+	}
+	
 	public int GetPlayerSpaceIndex(String playerColor) 
 	{
 		return Model.instance.GetSpaceIndex(playerColor);

@@ -79,6 +79,7 @@ public class Model
 		}
 		
 		onPlayerPosAltered.notifyObservers();
+		onMoneyPlayerAltered.notifyObservers();
 	} 
 	
 	public String GetPlayerSpaceName(String playerColor) 
