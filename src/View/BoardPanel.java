@@ -14,6 +14,7 @@ public class BoardPanel extends BasePanel {
 
     private BufferedImage boardImg;
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
+    private List<DiceUI> diceList = new ArrayList<DiceUI>();
     
     private int boardSize;
 
@@ -22,6 +23,7 @@ public class BoardPanel extends BasePanel {
         super(width, height);
         
         LoadImages();
+        LoadDice();
     }
     
     public void LoadImages()
@@ -35,6 +37,14 @@ public class BoardPanel extends BasePanel {
     		System.err.println("Image file not found");
             e.printStackTrace();
         }
+    }
+    
+    public void LoadDice()
+    {
+    	for (int i = 0; i < 6; i++) 
+    	{    		
+    		diceList.add(new DiceUI("Red", i + 1, this));
+    	}
     }
     
     public void AddPlayer(String color) 
@@ -72,6 +82,12 @@ public class BoardPanel extends BasePanel {
         {
         	playerPin.PaintComponent(g2d, boardX, boardSize, this);
         }
+        
+        // for (DiceUI dice : diceList)
+        // {
+        // 	 dice.PaintComponent(g2d, boardX + 30, boardSize, this);
+        //	 dice.PaintComponent(g2d, boardX - 30, boardSize, this);
+        // }
     }
     
     private Map<String, BufferedImage> propertyCards() {
