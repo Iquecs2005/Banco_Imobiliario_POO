@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import Model.Model;
 import Model.Observer;
@@ -9,15 +10,31 @@ import Model.Observer;
 public class Controller 
 {
 	public static final Controller instance = new Controller();
+
+	private List<String> playerColors;
+	private int currentPlayerIndex;
 	
 	public void CreateNewGame(List<String> playerColors) 
 	{
+		this.playerColors = playerColors;
+		currentPlayerIndex = 0;
 		Model.instance.NewGame(playerColors);
 	}
 	
-	public void MovePlayer(String playerColor) 
+	public Vector<Integer> MovePlayer() 
 	{
-		Model.instance.MovePlayer(playerColor, 1);
+		Vector<Integer> diceResults = Model.instance.RollDice(2);
+		
+		int diceSum = 0;
+		for (int diceResult : diceResults) 
+		{
+			diceSum += diceResult;
+		}
+		
+		Model.instance.MovePlayer(playerColors.get(currentPlayerIndex), diceSum);
+		PassTurn();
+		
+		return diceResults;
 	}
 	
 	public int GetPlayerNumber() 
@@ -37,7 +54,11 @@ public class Controller
 	
 	public int GetPlayerSpaceIndex(String playerColor) 
 	{
-		String spaceName = Model.instance.GetPlayerSpaceName(playerColor);
-		return Model.instance.GetSpaceIndex(spaceName);
+		return Model.instance.GetSpaceIndex(playerColor);
+	}
+	
+	private void PassTurn() 
+	{
+		currentPlayerIndex = (currentPlayerIndex + 1) % GetPlayerNumber();
 	}
 }

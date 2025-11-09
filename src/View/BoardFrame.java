@@ -33,7 +33,7 @@ public class BoardFrame extends BaseFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Controller.instance.MovePlayer("Red");
+				Controller.instance.MovePlayer();
 				panel.repaint();
 			}
 		});

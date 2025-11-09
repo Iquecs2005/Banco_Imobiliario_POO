@@ -83,9 +83,10 @@ public class Model
 		return currentPlayer.GetCurrentSpace().name;
 	}
 	
-	public int GetSpaceIndex(String spaceName) 
+	public int GetSpaceIndex(String playerColor) 
 	{
-		return currentBoard.GetSpaceIndex(spaceName);
+		Player currentPlayer = currentPlayers.get(playerColor);
+		return currentBoard.GetSpaceIndex(currentPlayer.GetCurrentSpace());
 	}
 	
 	public void SubscribeToPlayerPos(Observer newObserver) 

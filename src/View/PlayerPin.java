@@ -58,28 +58,49 @@ class PlayerPin implements Observer
 	private void CalculatePos(int spaceIndex)
 	{
 		float transformedSpaceIndex = spaceIndex * 1.2f;
-		//System.out.println(transformedSpaceIndex);
+
+		x = 0;
+		y = 0;
 		
-		if (spaceIndex < 11) 
+		if (spaceIndex == 0) 
 		{
-			System.out.println("a");
-			x = 12.5f - transformedSpaceIndex;
+			x = 12f;
+			y = 12f;
+		}
+		else if (spaceIndex < 10) 
+		{
+			x = 11.5f - spaceIndex;
 			y = 12;
 		}
-		else if (spaceIndex < 21) 
+		else if (spaceIndex == 10) 
+		{
+			x = 1f;
+			y = 12f;
+		}
+		else if (spaceIndex < 20) 
 		{
 			x = 1;
-			y = 12.5f - transformedSpaceIndex;
+			y = 10.25f - (spaceIndex - 11);
 		}
-		else if (spaceIndex < 31)
+		else if (spaceIndex == 20) 
 		{
-			x = 1 + transformedSpaceIndex;
+			x = 1f;
+			y = 1f;
+		}
+		else if (spaceIndex < 30)
+		{
+			x = 2.5f + (spaceIndex - 21);
 			y = 1;
+		}
+		else if (spaceIndex == 30) 
+		{
+			x = 12f;
+			y = 1f;
 		}
 		else 
 		{
-			x = 1;
-			y = 1 + transformedSpaceIndex;
+			x = 12f;
+			y = 2 + (spaceIndex - 31);
 		}
 	} 
 	
