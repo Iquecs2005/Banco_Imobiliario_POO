@@ -20,6 +20,7 @@ public class Model
 	
 	//Initialize events.
 	private Event onPlayerPosAltered = new Event();
+	private Event onMoneyPlayerAltered = new Event();
 	
 	private Model() 
 	{
@@ -95,6 +96,11 @@ public class Model
 	public void SubscribeToPlayerPos(Observer newObserver) 
 	{
 		onPlayerPosAltered.addObserver(newObserver);
+	}
+	
+	public void SubscribeToMoneyPlayerAltered(Observer newObserver) 
+	{
+		onMoneyPlayerAltered.addObserver(newObserver);
 	}
 	
 	public boolean BuyProperty(String playerColor) 

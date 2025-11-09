@@ -39,10 +39,7 @@ class PlayerPin implements Observer
         }
 		
 		Controller.instance.SubscribeToPlayerPos(this);
-		Controller.instance.GetPlayerSpaceIndex(color);
-		
-		x = 0;
-		y = 0;
+		CalculatePos(Controller.instance.GetPlayerSpaceIndex(color));
 	}
 	
 	public void PaintComponent(Graphics2D g2d, int boardX, int boardSize, BasePanel panel) 

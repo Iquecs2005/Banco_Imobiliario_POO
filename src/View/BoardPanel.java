@@ -2,7 +2,11 @@ package View;
 
 import javax.swing.*;
 
+import Controller.Controller;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.*;
 import java.io.*;
 import java.util.*;
@@ -10,11 +14,14 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class BoardPanel extends BasePanel {
-
+public class BoardPanel extends BasePanel 
+{
+	public final JButton b1 = new JButton("Roll Dice");
+	
     private BufferedImage boardImg;
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
     private List<DiceUI> diceList = new ArrayList<DiceUI>();
+	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>(); 
     
     private int boardSize;
 
@@ -24,6 +31,17 @@ public class BoardPanel extends BasePanel {
         
         LoadImages();
         LoadDice();
+        add(b1);
+        b1.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Controller.instance.MovePlayer();
+				repaint();
+			}
+		});
+        BaseFrame.PositionComponent(b1, width/2, height/2);
     }
     
     public void LoadImages()
@@ -50,6 +68,7 @@ public class BoardPanel extends BasePanel {
     public void AddPlayer(String color) 
     {
     	activePlayerList.add(new PlayerPin(color, this));
+    	moneyDisplays.add(new MoneyDisplay(this, color));
     }
     
     public void AddPlayer(int nPlayers) 
@@ -57,6 +76,7 @@ public class BoardPanel extends BasePanel {
     	for (int i = 0; i < nPlayers; i++) 
     	{    		
     		activePlayerList.add(new PlayerPin(PlayerPin.possibleColors[i], this));
+    		moneyDisplays.add(new MoneyDisplay(this, PlayerPin.possibleColors[i]));
     	}
     }
 
@@ -78,6 +98,7 @@ public class BoardPanel extends BasePanel {
             g2d.drawImage(boardImg, boardX, 0, boardSize, boardSize, this);
         }
         
+        System.out.println(boardX);
         for (PlayerPin playerPin : activePlayerList) 
         {
         	playerPin.PaintComponent(g2d, boardX, boardSize, this);
@@ -88,6 +109,15 @@ public class BoardPanel extends BasePanel {
         // 	 dice.PaintComponent(g2d, boardX + 30, boardSize, this);
         //	 dice.PaintComponent(g2d, boardX - 30, boardSize, this);
         // }
+        int offset = 50;
+        int initialOffset = -offset / (moneyDisplays.size() - 1);
+        for (MoneyDisplay moneyDisplay : moneyDisplays) 
+        {
+        	moneyDisplay.DrawDisplay(this.getWidth() - 50, boardSize / 2 + initialOffset);
+        	initialOffset += offset;
+        }
+        
+        BaseFrame.PositionComponent(b1, this.getWidth()/2, this.getHeight()/2);
     }
     
     
