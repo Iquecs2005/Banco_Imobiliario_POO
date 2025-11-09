@@ -96,7 +96,7 @@ public class BoardPanel extends BasePanel {
     		propertyCards.put("av_europa", currentPropertyCard);
 
     		currentPropertyCard = ImageIO.read(getClass().getResource("/resources/cards/properties/av_nossa_s..de_copacabana.png"));
-    		propertyCards.put("av_nossa_s..de_copacabana", currentPropertyCard);
+    		propertyCards.put("av_nossa_sra_de_copacabana", currentPropertyCard);
 
     		currentPropertyCard = ImageIO.read(getClass().getResource("/resources/cards/properties/av_pacaembu.png"));
     		propertyCards.put("av_pacaembu", currentPropertyCard);
