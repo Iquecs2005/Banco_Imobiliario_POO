@@ -10,7 +10,7 @@ import Controller.Controller;
 import Model.Event;
 import Model.Observer;
 
-public class CardUI {
+public class CardUI{
 	
 	public enum CardType {
 		Company,
@@ -55,11 +55,10 @@ public class CardUI {
 	}
 	
 	public void PaintComponent(Graphics2D g2d, int boardX, int boardSize, BasePanel panel) {
+		int width = (int)(0.10 * boardSize);
+		int height = (int)(0.10 * boardSize);
 		
+		g2d.drawImage(image, (int)x, (int)y, width, height, panel);
 	}
-	
-	
-	
-	
-	
+
 }
