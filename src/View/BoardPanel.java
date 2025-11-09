@@ -51,7 +51,8 @@ public class BoardPanel extends BasePanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) 
+    {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 

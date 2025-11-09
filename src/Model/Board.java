@@ -72,6 +72,18 @@ class Board
 		return jailSpace;
 	}
 	
+	public int GetSpaceIndex(String spaceName) 
+	{
+		int i = 0;
+		for (Space space : terrainsList)
+		{
+			if (space.name == spaceName)
+				return i;
+			i++;
+		}
+		return -1;
+	}
+	
 	Space GetSpace(int i) 
 	{
 		return terrainsList.get(i % terrainsList.size());

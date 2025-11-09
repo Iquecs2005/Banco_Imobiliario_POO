@@ -18,6 +18,7 @@ public class Model
 	private Dice currentDice;
 	
 	//Initialize events.
+	private Event onPlayerPosAltered = new Event();
 	
 	private Model() 
 	{
@@ -69,10 +70,28 @@ public class Model
 		{
 			// Do something depending on the landCode (Ex: Trigger an event, call a method, etc)
 			default:
-				return;
+				break;
 				
 		}
+		
+		onPlayerPosAltered.notifyObservers();
 	} 
+	
+	public String GetPlayerSpaceName(String playerColor) 
+	{
+		Player currentPlayer = currentPlayers.get(playerColor);
+		return currentPlayer.GetCurrentSpace().name;
+	}
+	
+	public int GetSpaceIndex(String spaceName) 
+	{
+		return currentBoard.GetSpaceIndex(spaceName);
+	}
+	
+	public void SubscribeToPlayerPos(Observer newObserver) 
+	{
+		onPlayerPosAltered.addObserver(newObserver);
+	}
 	
 	public boolean BuyProperty(String playerColor) 
 	{
