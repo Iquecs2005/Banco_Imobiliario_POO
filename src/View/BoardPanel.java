@@ -22,6 +22,7 @@ public class BoardPanel extends BasePanel
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
     private List<DiceUI> diceList = new ArrayList<DiceUI>();
 	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>(); 
+    private Vector<Integer> diceResults;
     
     private int boardSize;
 
@@ -65,6 +66,11 @@ public class BoardPanel extends BasePanel
     	}
     }
     
+    public void SetDiceResults(Vector<Integer> diceResults)
+    {
+    	this.diceResults = diceResults;
+    }
+    
     public void AddPlayer(String color) 
     {
     	activePlayerList.add(new PlayerPin(color, this));
@@ -104,11 +110,6 @@ public class BoardPanel extends BasePanel
         	playerPin.PaintComponent(g2d, boardX, boardSize, this);
         }
         
-        // for (DiceUI dice : diceList)
-        // {
-        // 	 dice.PaintComponent(g2d, boardX + 30, boardSize, this);
-        //	 dice.PaintComponent(g2d, boardX - 30, boardSize, this);
-        // }
         int offset = 50;
         int initialOffset = -offset / (moneyDisplays.size() - 1);
         for (MoneyDisplay moneyDisplay : moneyDisplays) 
@@ -118,6 +119,12 @@ public class BoardPanel extends BasePanel
         }
         
         BaseFrame.PositionComponent(b1, this.getWidth()/2, this.getHeight()/2);
+
+        if (diceResults != null)
+        {
+            diceList.get(diceResults.get(0) - 1).PaintComponent(g2d, boardX + 30, boardSize, this);
+            diceList.get(diceResults.get(1) - 1).PaintComponent(g2d, boardX - 30, boardSize, this);
+        }
     }
     
     
