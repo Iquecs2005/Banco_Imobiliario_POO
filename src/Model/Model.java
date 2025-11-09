@@ -182,6 +182,13 @@ public class Model
 		return currentPlayer.SellSpace(foundSpace);
 	}
 	
+	public float GetPlayerMoney(String playerColor) 
+	{
+		Player currentPlayer = currentPlayers.get(playerColor);
+		
+		return currentPlayer.GetMoney();
+	}
+	
 	public int GetNPlayers() 
 	{
 		return currentPlayers.size();

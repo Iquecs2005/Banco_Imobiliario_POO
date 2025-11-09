@@ -47,6 +47,11 @@ public class Controller
 		return Model.instance.GetPlayerColors();
 	}
 	
+	public float GetMoney(String playerColor) 
+	{
+		return Model.instance.GetPlayerMoney(playerColor);
+	}
+	
 	public void SubscribeToPlayerPos(Observer newObserver) 
 	{
 		Model.instance.SubscribeToPlayerPos(newObserver);

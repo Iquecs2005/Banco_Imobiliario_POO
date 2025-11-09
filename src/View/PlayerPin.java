@@ -16,8 +16,8 @@ class PlayerPin implements Observer
 		{"Red", "Blue", "Yellow", "Orange", "Purple", "Grey"};
 	
 	public BufferedImage pinImage;
-	public float x;
-	public float y;
+	private float x;
+	private float y;
 	
 	private final String color;
 	private final String pinsPath = "/resources/pins/";
@@ -49,16 +49,14 @@ class PlayerPin implements Observer
 	{
 		int width = (int)(0.05 * boardSize);
 		int height = (int)(0.075 * boardSize);
-		CalculatePos(Controller.instance.GetPlayerSpaceIndex(color));
 		int pixelX = (int)(boardX + x * boardSize / 13 - width / 2);
 		int pixelY = (int)(y * boardSize / 13 - height / 2);
+		
 		g2d.drawImage(pinImage, pixelX, pixelY, width, height, panel);
 	}
 	
 	private void CalculatePos(int spaceIndex)
 	{
-		float transformedSpaceIndex = spaceIndex * 1.2f;
-
 		x = 0;
 		y = 0;
 		
@@ -106,6 +104,6 @@ class PlayerPin implements Observer
 	
 	public void update(Event event) 
 	{
-		
+		CalculatePos(Controller.instance.GetPlayerSpaceIndex(color));
 	}
 }
