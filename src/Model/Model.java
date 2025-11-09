@@ -24,8 +24,10 @@ public class Model
 		
 	}
 	
-	public boolean NewGame(int nPlayers) 
+	public boolean NewGame(List<String> playerColors) 
 	{
+		int nPlayers = playerColors.size();
+		
 		if (nPlayers < 3 || nPlayers > 6) 
 		{
 			return false;
@@ -36,14 +38,10 @@ public class Model
 		currentPlayers = new HashMap<String, Player>();
 		currentDice = new Dice(6);
 		
-		String[] possibleColors = {"Red", "Green", "Blue", "Yellow", "Purple", "Pink"};
-		
-		String currentColor;
 		Space startSpace = currentBoard.GetStartSpace();
-		for (int i = 0; i < nPlayers; i++) 
+		for (String color : playerColors)
 		{
-			currentColor = possibleColors[i];
-			currentPlayers.put(currentColor, new Player(currentColor, 4000.0f, startSpace));
+			currentPlayers.put(color, new Player(color, 4000.0f, startSpace));
 		}
 		
 		return true;

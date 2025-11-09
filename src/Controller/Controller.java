@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.List;
 import java.util.Set;
 
 import Model.Model;
@@ -8,9 +9,9 @@ public class Controller
 {
 	public static final Controller instance = new Controller();
 	
-	public void CreateNewGame(int nPlayers) 
+	public void CreateNewGame(List<String> playerColors) 
 	{
-		Model.instance.NewGame(nPlayers);
+		Model.instance.NewGame(playerColors);
 	}
 	
 	public int GetPlayerNumber() 

@@ -13,8 +13,9 @@ import javax.imageio.ImageIO;
 public class BoardPanel extends BasePanel {
 
     private BufferedImage boardImg;
-    private Map<String, BufferedImage> playerPinsImg = new HashMap<String, BufferedImage>();
-    private List<String> activePlayerList = new ArrayList<String>();
+    private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
+    
+    private int boardSize;
 
     public BoardPanel(int width, int height) 
     {
@@ -28,26 +29,6 @@ public class BoardPanel extends BasePanel {
     	try 
     	{
             boardImg = ImageIO.read(getClass().getResource("/resources/tabuleiro.png"));
-            
-            BufferedImage currentPlayerPin;
-            
-            currentPlayerPin = ImageIO.read(getClass().getResource("/resources/pin0.png"));
-            playerPinsImg.put("Red", currentPlayerPin);
-            
-            currentPlayerPin = ImageIO.read(getClass().getResource("/resources/pin1.png"));
-            playerPinsImg.put("Blue", currentPlayerPin);
-            
-            currentPlayerPin = ImageIO.read(getClass().getResource("/resources/pin2.png"));
-            playerPinsImg.put("Orange", currentPlayerPin);
-            
-            currentPlayerPin = ImageIO.read(getClass().getResource("/resources/pin3.png"));
-            playerPinsImg.put("Yellow", currentPlayerPin);
-            
-            currentPlayerPin = ImageIO.read(getClass().getResource("/resources/pin4.png"));
-            playerPinsImg.put("Purple", currentPlayerPin);
-            
-            currentPlayerPin = ImageIO.read(getClass().getResource("/resources/pin5.png"));
-            playerPinsImg.put("Grey", currentPlayerPin);
         } 
     	catch (IOException e) 
     	{
@@ -58,7 +39,15 @@ public class BoardPanel extends BasePanel {
     
     public void AddPlayer(String color) 
     {
-    	activePlayerList.add(color);
+    	activePlayerList.add(new PlayerPin(color, this));
+    }
+    
+    public void AddPlayer(int nPlayers) 
+    {
+    	for (int i = 0; i < nPlayers; i++) 
+    	{    		
+    		activePlayerList.add(new PlayerPin(PlayerPin.possibleColors[i], this));
+    	}
     }
 
     @Override
@@ -66,15 +55,21 @@ public class BoardPanel extends BasePanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
+        int boardX = 0;
         if (boardImg != null) 
         {
-            g2d.drawImage(boardImg, 0, 0, getWidth(), getHeight(), this);
+        	if (getWidth() > getHeight())
+        		boardSize = getHeight();
+        	else
+        		boardSize = getWidth();
+        	
+        	boardX = getWidth() / 2 - boardSize / 2;
+            g2d.drawImage(boardImg, boardX, 0, boardSize, boardSize, this);
         }
-        int i = 0;
-        for (String playerColor : activePlayerList) 
+        
+        for (PlayerPin playerPin : activePlayerList) 
         {
-        	g2d.drawImage(playerPinsImg.get(playerColor), i * 50, 0, 25, 40, this);
-        	i++;
+        	playerPin.PaintComponent(g2d, boardX, boardSize, this);
         }
     }
 }

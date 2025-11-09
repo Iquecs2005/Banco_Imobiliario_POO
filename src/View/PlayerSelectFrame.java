@@ -11,6 +11,8 @@ import Controller.Controller;
 
 class PlayerSelectFrame extends BaseFrame
 {
+	private ViewController vc;
+	
 	public final JButton b1 = new JButton("New Player");
 	public final JButton b2 = new JButton("Start Game");
 	
@@ -24,6 +26,8 @@ class PlayerSelectFrame extends BaseFrame
 	public PlayerSelectFrame(int startWidth, int startHeight, ViewController vc) 
 	{
 		super("Player Select", startWidth, startHeight);
+		
+		this.vc = vc;
 		
 		panel = new PlayerSelectPanel(frameWidth, frameHeight);
 		getContentPane().add(panel);
@@ -45,13 +49,15 @@ class PlayerSelectFrame extends BaseFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Controller.instance.CreateNewGame(nPlayers);
+				List<String> playersColorList = new LinkedList<String>();
+				for (int i = 0; i < nPlayers; i++) 
+				{
+					playersColorList.add(PlayerPin.possibleColors[i]);
+				}
+				Controller.instance.CreateNewGame(playersColorList);
 				vc.ActivateBoard();
 			}
 		});	
-		
-		System.out.println(getContentPane().getClass());
-		System.out.println(Arrays.toString(getContentPane().getComponents()));
 	}
 	
 	public void NewPlayer() 
@@ -64,6 +70,7 @@ class PlayerSelectFrame extends BaseFrame
 		newForm.exitButton.addActionListener(new ExitButtonListener(this, newForm));
 		playerInformation.add(newForm);
 		nPlayers++;
+		vc.SetNPlayers(nPlayers);
 		
 		if (nPlayers >= 6) 
 		{
@@ -89,6 +96,7 @@ class PlayerSelectFrame extends BaseFrame
 		playerInformation.get(playerInformation.indexOf(id)).Destructor();
 		playerInformation.remove(id);
 		nPlayers--;
+		vc.SetNPlayers(nPlayers);
 		
 		if (nPlayers < 3) 
 		{

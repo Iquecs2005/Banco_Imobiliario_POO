@@ -8,6 +8,8 @@ public class ViewController
 {
 	BaseFrame currentFrame;
 	
+	int nPlayers;
+	
 	ViewController()
 	{
 		ActivateMainMenu();
@@ -54,9 +56,13 @@ public class ViewController
 		if (currentFrame != null)
 			currentFrame.setVisible(false);
 		
-		BoardFrame boardFrame = new BoardFrame(500, 500);
+		BoardFrame boardFrame = new BoardFrame(500, 500, nPlayers);
 		currentFrame = boardFrame;
 		boardFrame.setVisible(true);
 	}
 	
+	public void SetNPlayers(int nPlayers) 
+	{
+		this.nPlayers = nPlayers;
+	}
 }
