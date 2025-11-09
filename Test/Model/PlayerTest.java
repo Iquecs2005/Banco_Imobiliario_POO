@@ -45,55 +45,6 @@ public class PlayerTest
 	}
 	
 	@Test
-	public void AddCardOk() 
-	{
-		Player testPlayer = new Player("Red", 4000, null);
-		Card card = new Card(123, Card.CardType.Lose);
-		
-		assertNull(testPlayer.FindCard(card.GetCardId()));
-		assertTrue(testPlayer.AddCard(card));
-		assertEquals(card.GetCardId(), testPlayer.FindCard(card.GetCardId()).GetCardId());
-	}
-	
-	@Test
-	public void AddCardNull() 
-	{
-		Player testPlayer = new Player("Red", 4000, null);
-		
-		assertFalse(testPlayer.AddCard(null));
-	}
-
-	@Test
-	public void RemoveCardOk() 
-	{
-		Player testPlayer = new Player("Red", 4000, null);
-		Card card = new Card(123, Card.CardType.Lose);
-		
-		assertNull(testPlayer.FindCard(card.GetCardId()));
-		assertTrue(testPlayer.AddCard(card));
-		assertEquals(card.GetCardId(), testPlayer.FindCard(card.GetCardId()).GetCardId());
-		assertTrue(testPlayer.RemoveCard(card));
-		assertNull(testPlayer.FindCard(card.GetCardId()));
-	}
-	
-	@Test
-	public void RemoveCardNull() 
-	{
-		Player testPlayer = new Player("Red", 4000, null);
-		
-		assertFalse(testPlayer.RemoveCard(null));
-	}
-	
-	@Test
-	public void RemoveCardNotHeld() 
-	{
-		Player testPlayer = new Player("Red", 4000, null);
-		Card card = new Card(123, Card.CardType.Lose);
-		
-		assertFalse(testPlayer.RemoveCard(card));
-	}
-	
-	@Test
 	public void BuySpaceOk()
 	{
 		Bank bank = new Bank(4000);

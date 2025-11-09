@@ -9,9 +9,9 @@ class Player extends BankBalance
 	private String color;
 	private Space currentSpace;
 	private boolean inJail = false;
+	private boolean hasJailCard = false;
 	
 	private List<Buyable> ownedSpaces = new LinkedList<Buyable>();
-	private List<Card> heldCards = new LinkedList<Card>();
 	
 	public Player(String color, float money, Space currentSpace) 
 	{
@@ -20,32 +20,21 @@ class Player extends BankBalance
 		this.currentSpace = currentSpace;
 	}
 	
-	public boolean AddCard(Card card) 
+	public boolean AddJailCard(Card card) 
 	{
-		if (card == null) return false;
+		if (card.GetOwner() != null) return false;
 		
-		heldCards.add(card);
+		hasJailCard = true;
 		return true;
 	}
 	
-	public boolean RemoveCard(Card card) 
+	public boolean UseJailCard(Deck deck) 
 	{
-		if (card == null) return false;
+		if (!hasJailCard) return false;
 		
-		boolean removeStatus = heldCards.remove(card);
-		
-		return removeStatus;
-	}
-	
-	public Card FindCard(String cardId) 
-	{
-		for (Card card : heldCards) 
-		{
-			if (card.GetCardId() == cardId)
-				return card;
-		}
-		
-		return null;
+		hasJailCard = false;
+		deck.GetJailCard().SetOwner(null);
+		return true;
 	}
 	
 	public boolean BuySpace(Bank bank)

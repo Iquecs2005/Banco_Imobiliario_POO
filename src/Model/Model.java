@@ -16,6 +16,7 @@ public class Model
 	private Bank currentBank;
 	private Board currentBoard;
 	private Dice currentDice;
+	private Deck currentDeck;
 	
 	//Initialize events.
 	private Event onPlayerPosAltered = new Event();
@@ -38,6 +39,8 @@ public class Model
 		currentBoard = new Board(currentBank);
 		currentPlayers = new HashMap<String, Player>();
 		currentDice = new Dice(6);
+		List<Player> playerList = List.copyOf(currentPlayers.values());
+		currentDeck = new Deck(playerList, currentBank, currentBoard);
 		
 		Space startSpace = currentBoard.GetStartSpace();
 		for (String color : playerColors)
@@ -140,14 +143,10 @@ public class Model
 	public boolean GetOutOfJailWithCard(String playerColor) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
-		Card jailCard = currentPlayer.FindCard("GetOutOfJail");
-		
-		if (jailCard == null)
-			return false;
+		boolean hasCard = currentPlayer.UseJailCard(currentDeck);
 		
 		Jail jailSpace = currentBoard.GetJail();
-		jailSpace.tryToLeaveJail(currentPlayer, null, true);
-		currentPlayer.RemoveCard(jailCard);
+		jailSpace.tryToLeaveJail(currentPlayer, null, hasCard);
 		
 		return !currentPlayer.GetJailedStatus();
 	}

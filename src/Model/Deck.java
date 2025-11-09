@@ -8,10 +8,10 @@ public class Deck {
 	private HashMap<Integer, Card> deck = new HashMap<Integer, Card>();
 	private List<Player> players = new LinkedList<Player>();
 	
-	public Deck(List<Player> players, Bank bank, Board board, Jail jail)
+	public Deck(List<Player> players, Bank bank, Board board)
 	{
 		this.players = players;
-		Card.SetStaticVariables(bank, board, jail);
+		Card.SetStaticVariables(bank, board, board.GetJail());
 		CreateDeck();
 	}
 	
@@ -49,10 +49,20 @@ public class Deck {
 		deck.put(30, new Card(50, Card.CardType.Lose));
 	}
 	
+	public Card GetJailCard()
+	{
+		return deck.get(9);
+	}
+	
 	public void GetCard(Player player)
 	{
-		Card card = deck.get((int)(Math.random()*(30) + 1));
-		card.SetOwner(player);
-		card.UseCard(players);
+		boolean gotCard = false;
+		while(!gotCard)
+		{
+			Card card = deck.get((int)(Math.random()*(30) + 1));
+			if (card == GetJailCard() && card.GetOwner() != null) continue;
+			card.SetOwner(player);
+			gotCard = card.UseCard(players);
+		}
 	}
 }

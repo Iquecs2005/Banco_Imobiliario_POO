@@ -45,7 +45,12 @@ class Card
 		this.owner = owner;
 	}
 	
-	private void ReceiveAll(List<Player> players)
+	public Player GetOwner()
+	{
+		return owner;
+	}
+	
+	private boolean ReceiveAll(List<Player> players)
 	{
 		for (Player player: players)
 		{
@@ -54,43 +59,48 @@ class Card
 				player.TransferMoney(owner, 50);
 			}
 		}
+		return true;
 	}
 	
-	private void GoToBeginning(Board board)
+	private boolean GoToBeginning(Board board)
 	{
 		Space startSpace = board.GetStartSpace();
 		owner.SetCurrentSpace(startSpace);
 		bank.TransferMoney(owner, 200);
+		return true;
 	}
 	
-	private void GoToJail(Jail jail)
+	private boolean GoToJail(Jail jail)
 	{
 		jail.sendToJail(owner);
+		return true;
 	}
 	
-	private void LeaveJail()
+	private boolean LeaveJail()
 	{
-		//player.hasJailCard = true;
+		return owner.AddJailCard(this);
 	}
 	
-	public void UseCard(List<Player> players)
+	public boolean UseCard(List<Player> players)
 	{
 		switch (this.type)
 		{
 		case Receive:
 			bank.TransferMoney(owner, amount);
+			return true;
 		case Lose:
 			owner.TransferMoney(bank, amount);
+			return true;
 		case ReceiveFromAll:
-			ReceiveAll(players);
+			return ReceiveAll(players);
 		case GoToBeginning:
-			GoToBeginning(board);
+			return GoToBeginning(board);
 		case GoToJail:
-			GoToJail(jail);
+			return GoToJail(jail);
 		case LeaveJail:
-			LeaveJail();
+			return LeaveJail();
 		default:
-			break;
+			return false;
 		}
 	}
 }
