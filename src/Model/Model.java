@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.List;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,7 @@ public class Model
 	private Dice currentDice;
 	private Deck currentDeck;
 	private Vector<Integer> lastRoll;
+	private Color currentColor;
 	
 	//Initialize events.
 	private Event onPlayerPosAltered = new Event();
@@ -75,6 +77,7 @@ public class Model
 	public void MovePlayer(String playerColor, int amount) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
+		DetermineCurrentPlayerColor(playerColor);
 		Space landedSpace;
 		
 		landedSpace = currentBoard.MovePlayer(currentPlayer, amount);
@@ -102,6 +105,38 @@ public class Model
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
 		return currentBoard.GetSpaceIndex(currentPlayer.GetCurrentSpace());
+	}
+	
+	private void DetermineCurrentPlayerColor(String playerColor)
+	{
+		switch(playerColor)
+		{
+			case "Red":
+				this.currentColor = Color.red;
+				break;
+			case "Blue":
+				this.currentColor = Color.blue;
+				break;
+			case "Yellow":
+				this.currentColor = Color.yellow;
+				break;
+			case "Orange":
+				this.currentColor = Color.orange;
+				break;
+			case "Purple":
+				this.currentColor = Color.magenta;
+				break;
+			case "Grey":
+				this.currentColor = Color.gray;
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public Color getCurrentPlayerColor()
+	{
+		return this.currentColor;
 	}
 	
 	public void SubscribeToPlayerPos(Observer newObserver) 

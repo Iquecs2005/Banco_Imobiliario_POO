@@ -35,7 +35,7 @@ public class DiceContainer implements Observer
 		Vector<Integer> LastRoll = Model.instance.GetLastRoll();
 		for(Integer i : LastRoll) 
 		{
-			diceList.add(new DiceUI("Red", i));
+			diceList.add(new DiceUI(i));
 		}
 	}
 

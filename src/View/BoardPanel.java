@@ -20,7 +20,6 @@ public class BoardPanel extends BasePanel
 	
     private BufferedImage boardImg;
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
-    private List<DiceUI> diceList = new ArrayList<DiceUI>();
 	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>();
     private CardUI currentCard;
     

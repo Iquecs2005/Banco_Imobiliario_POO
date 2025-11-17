@@ -11,18 +11,17 @@ import javax.imageio.ImageIO;
 import Controller.Controller;
 import Model.Event;
 import Model.Observer;
+import Model.Model;
 
 class DiceUI
 {
 	public BufferedImage diceImage;
 	
-	private final String color;
 	private final int number;
 	private final String dicePath = "/resources/dice/";
 	
-	public DiceUI(String color, int number) 
+	public DiceUI(int number) 
 	{
-		this.color = color;
 		this.number = number;
 		
 		try 
@@ -42,9 +41,9 @@ class DiceUI
 		int height = (int)(0.1 * boardSize);
 		int pixelX = (int)(boardX + boardSize / 2 - width / 2 + 5);
 		int pixelY = (int)(boardSize / 2 - height / 2 - 30);
-	    // g2d.setColor(Color.RED);
-	    // g2d.setStroke(new BasicStroke(10)); 
-	    // g2d.drawRect(pixelX, pixelY, width, height);
+	    g2d.setColor(Model.instance.getCurrentPlayerColor());
+	    g2d.setStroke(new BasicStroke(10)); 
+	    g2d.drawRect(pixelX, pixelY, width, height);
 		g2d.drawImage(diceImage, pixelX, pixelY, width, height, panel);
 	}
 }
