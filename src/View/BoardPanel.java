@@ -21,8 +21,8 @@ public class BoardPanel extends BasePanel
     private BufferedImage boardImg;
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
     private List<DiceUI> diceList = new ArrayList<DiceUI>();
-	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>(); 
-    private Vector<Integer> diceResults;
+	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>();
+    private CardUI currentCard;
     
     private int boardSize;
 
@@ -31,15 +31,13 @@ public class BoardPanel extends BasePanel
         super(width, height);
         
         LoadImages();
-        LoadDice();
         add(b1);
         b1.addActionListener(new ActionListener() 
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Vector<Integer> diceResults = Controller.instance.MovePlayer();
-				SetDiceResults(diceResults);
+				Controller.instance.MovePlayer();
 				repaint();
 			}
 		});
@@ -57,19 +55,6 @@ public class BoardPanel extends BasePanel
     		System.err.println("Image file not found");
             e.printStackTrace();
         }
-    }
-    
-    public void LoadDice()
-    {
-    	for (int i = 0; i < 6; i++) 
-    	{    		
-    		diceList.add(new DiceUI("Red", i + 1, this));
-    	}
-    }
-    
-    public void SetDiceResults(Vector<Integer> diceResults)
-    {
-    	this.diceResults = diceResults;
     }
     
     public void AddPlayer(String color) 
@@ -106,6 +91,9 @@ public class BoardPanel extends BasePanel
         }
         
         System.out.println(boardX);
+        
+        DiceContainer.instance.PaintComponent(g2d, boardX, boardSize, this);
+        
         for (PlayerPin playerPin : activePlayerList) 
         {
         	playerPin.PaintComponent(g2d, boardX, boardSize, this);
@@ -121,13 +109,7 @@ public class BoardPanel extends BasePanel
         
         BaseFrame.PositionComponent(b1, this.getWidth()/2, this.getHeight()/2);
 
-        if (diceResults != null)
-        {
-            diceList.get(diceResults.get(0) - 1).PaintComponent(g2d, boardX + 30, boardSize, this);
-            diceList.get(diceResults.get(1) - 1).PaintComponent(g2d, boardX - 30, boardSize, this);
-        }
     }
-    
     
     
 }

@@ -17,10 +17,12 @@ public class Model
 	private Board currentBoard;
 	private Dice currentDice;
 	private Deck currentDeck;
+	private Vector<Integer> lastRoll;
 	
 	//Initialize events.
 	private Event onPlayerPosAltered = new Event();
 	private Event onMoneyPlayerAltered = new Event();
+	private Event onDiceRoll = new Event();
 	
 	private Model() 
 	{
@@ -59,7 +61,15 @@ public class Model
 	
 	public Vector<Integer> RollDice(int n)
 	{
-		return currentDice.roll(n);
+		Vector<Integer> res = currentDice.roll(n);
+		this.lastRoll = res;
+		onDiceRoll.notifyObservers();
+		return res;
+	}
+	
+	public Vector<Integer> GetLastRoll()
+	{
+		return this.lastRoll;
 	}
 	
 	public void MovePlayer(String playerColor, int amount) 
@@ -102,6 +112,11 @@ public class Model
 	public void SubscribeToMoneyPlayerAltered(Observer newObserver) 
 	{
 		onMoneyPlayerAltered.addObserver(newObserver);
+	}
+	
+	public void SubscribeToDiceRoll(Observer newObserver)
+	{
+		onDiceRoll.addObserver(newObserver);
 	}
 	
 	public boolean BuyProperty(String playerColor) 

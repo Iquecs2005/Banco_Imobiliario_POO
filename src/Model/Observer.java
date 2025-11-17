@@ -1,5 +1,6 @@
 package Model;
 
-public interface Observer {
+public interface Observer 
+{
 	void update(Event event);
 }

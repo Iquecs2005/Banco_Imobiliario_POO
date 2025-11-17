@@ -26,4 +26,5 @@ public class BoardFrame extends BaseFrame
 		getContentPane().add(panel);
 		panel.AddPlayer(nPlayers);
 	}
+	
 }

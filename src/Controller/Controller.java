@@ -13,7 +13,6 @@ public class Controller
 
 	private List<String> playerColors;
 	private int currentPlayerIndex;
-	
 	public void CreateNewGame(List<String> playerColors) 
 	{
 		this.playerColors = playerColors;
@@ -61,6 +60,12 @@ public class Controller
 	{
 		Model.instance.SubscribeToMoneyPlayerAltered(newObserver);
 	}
+	
+	public void SubscribeToRollDice(Observer newObserver)
+	{
+		Model.instance.SubscribeToDiceRoll(newObserver);
+	}
+	
 	
 	public int GetPlayerSpaceIndex(String playerColor) 
 	{

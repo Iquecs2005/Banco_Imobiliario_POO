@@ -62,7 +62,7 @@ class PlayerPin implements Observer
 			x = 12f;
 			y = 12f;
 		}
-		else if (spaceIndex < 10) 
+		else if (spaceIndex < 10)
 		{
 			x = 11.5f - spaceIndex;
 			y = 12;

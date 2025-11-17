@@ -12,24 +12,22 @@ import Controller.Controller;
 import Model.Event;
 import Model.Observer;
 
-class DiceUI implements Observer 
+class DiceUI
 {
 	public BufferedImage diceImage;
 	
 	private final String color;
 	private final int number;
 	private final String dicePath = "/resources/dice/";
-	private final BasePanel panel;
 	
-	public DiceUI(String color, int number, BasePanel panel) 
+	public DiceUI(String color, int number) 
 	{
 		this.color = color;
 		this.number = number;
-		this.panel = panel;
 		
 		try 
 		{			
-			diceImage = ImageIO.read(panel.getClass().getResource(dicePath + "die_face_" + number + ".png"));
+			diceImage = ImageIO.read(getClass().getResource(dicePath + "die_face_" + number + ".png"));
 		}
 		catch (IOException e) 
     	{
@@ -48,10 +46,5 @@ class DiceUI implements Observer
 	    // g2d.setStroke(new BasicStroke(10)); 
 	    // g2d.drawRect(pixelX, pixelY, width, height);
 		g2d.drawImage(diceImage, pixelX, pixelY, width, height, panel);
-	}
-	
-	public void update(Event event) 
-	{
-		
 	}
 }
