@@ -4,15 +4,22 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Deck {
+public class Deck 
+{
 	private HashMap<Integer, Card> deck = new HashMap<Integer, Card>();
 	private List<Player> players = new LinkedList<Player>();
 	
-	public Deck(List<Player> players, Bank bank, Board board)
+	private int lastCardId;
+	
+	public Deck()
+	{
+		CreateDeck();
+	}
+	
+	public void SetVariables(List<Player> players, Bank bank, Board board) 
 	{
 		this.players = players;
 		Card.SetStaticVariables(bank, board, board.GetJail());
-		CreateDeck();
 	}
 	
 	private void CreateDeck()
@@ -59,10 +66,16 @@ public class Deck {
 		boolean gotCard = false;
 		while(!gotCard)
 		{
-			Card card = deck.get((int)(Math.random()*(30) + 1));
+			lastCardId = (int)(Math.random()*(30) + 1);
+			Card card = deck.get(lastCardId);
 			if (card == GetJailCard() && card.GetOwner() != null) continue;
 			card.SetOwner(player);
 			gotCard = card.UseCard(players);
 		}
+	}
+	
+	public int GetLastCardID() 
+	{
+		return lastCardId;
 	}
 }

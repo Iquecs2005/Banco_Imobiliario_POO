@@ -18,7 +18,6 @@ public class CardUI{
 		Luck
 	}
 	
-	
 	private String name;
 	private BufferedImage image;
 	private CardType type;
@@ -33,19 +32,23 @@ public class CardUI{
 		this.x = x;
 		this.y = y;
 		
-		switch(type) {
+		path = "/resources/cards";
 		
-		case Company:
-			this.path = "/resources/cards/companies/" + name + ".png";
-		
-		case Property:
-			this.path = "/resources/cards/properties/" + name + ".png";
-		
-		case Luck:
-			this.path = "resources/cards/luck/" + name + ".png";
-		
+		switch(type) 
+		{
+			case Company:
+				path += "/companies/" + name + ".png";
+				break;
+			case Property:
+				path += "/properties/" + name + ".png";
+				break;
+			case Luck:
+				path += "/luck/" + name + ".png";
+				break;
 		}
-		try {
+		
+		try 
+		{
 			this.image = ImageIO.read(getClass().getResource(path));
 		}
 		catch (IOException e) {
@@ -55,10 +58,16 @@ public class CardUI{
 	}
 	
 	public void PaintComponent(Graphics2D g2d, int boardX, int boardSize, BasePanel panel) {
-		int width = (int)(0.10 * boardSize);
-		int height = (int)(0.10 * boardSize);
+		int width = (int)(boardSize);
+		int height = (int)(boardSize);
 		
 		g2d.drawImage(image, (int)x, (int)y, width, height, panel);
+	}
+	
+	public void SetPos(int x, int y) 
+	{
+		this.x = x;
+		this.y = y;
 	}
 
 }

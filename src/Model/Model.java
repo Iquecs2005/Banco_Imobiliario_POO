@@ -25,6 +25,7 @@ public class Model
 	private Event onPlayerPosAltered = new Event();
 	private Event onMoneyPlayerAltered = new Event();
 	private Event onDiceRoll = new Event();
+	private Event onCardDrawn = new Event();
 	
 	private Model() 
 	{
@@ -41,17 +42,18 @@ public class Model
 		}
 		
 		currentBank = new Bank(200000);
-		currentBoard = new Board(currentBank);
+		currentDeck = new Deck();
+		currentBoard = new Board(currentBank, currentDeck);
 		currentPlayers = new HashMap<String, Player>();
 		currentDice = new Dice(6);
-		List<Player> playerList = List.copyOf(currentPlayers.values());
-		currentDeck = new Deck(playerList, currentBank, currentBoard);
 		
 		Space startSpace = currentBoard.GetStartSpace();
 		for (String color : playerColors)
 		{
 			currentPlayers.put(color, new Player(color, 4000.0f, startSpace));
 		}
+		List<Player> playerList = List.copyOf(currentPlayers.values());
+		currentDeck.SetVariables(playerList, currentBank, currentBoard);
 		
 		return true;
 	}
@@ -86,6 +88,10 @@ public class Model
 		switch (landCode)
 		{
 			// Do something depending on the landCode (Ex: Trigger an event, call a method, etc)
+			case Codes.GET_CARD:
+				onCardDrawn.notifyObservers();
+				break;
+				
 			default:
 				break;
 				
@@ -152,6 +158,11 @@ public class Model
 	public void SubscribeToDiceRoll(Observer newObserver)
 	{
 		onDiceRoll.addObserver(newObserver);
+	}
+	
+	public void SubscribeToCardDrawn(Observer newObserver)
+	{
+		onCardDrawn.addObserver(newObserver);
 	}
 	
 	public boolean BuyProperty(String playerColor) 
@@ -254,5 +265,10 @@ public class Model
 	public Set<String> GetPlayerColors()
 	{
 		return currentPlayers.keySet();
+	}
+	
+	public int getLastCardId() 
+	{
+		return currentDeck.GetLastCardID();
 	}
 }

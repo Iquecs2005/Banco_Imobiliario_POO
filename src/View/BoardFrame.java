@@ -18,11 +18,13 @@ import javax.imageio.ImageIO;
 public class BoardFrame extends BaseFrame 
 {
 	private BoardPanel panel;
+	private CardContainer cardContainer;
 	
 	public BoardFrame(int width,int height, int nPlayers) {
 		super("Tabuleiro", width, height);
 		
 		panel = new BoardPanel(frameWidth,frameHeight);
+		cardContainer = new CardContainer();
 		getContentPane().add(panel);
 		panel.AddPlayer(nPlayers);
 	}

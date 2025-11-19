@@ -66,6 +66,15 @@ public class Controller
 		Model.instance.SubscribeToDiceRoll(newObserver);
 	}
 	
+	public void SubscribeToCardDrawn(Observer newObserver)
+	{
+		Model.instance.SubscribeToCardDrawn(newObserver);
+	}
+	
+	public int getLastCardId() 
+	{
+		return Model.instance.getLastCardId();
+	}
 	
 	public int GetPlayerSpaceIndex(String playerColor) 
 	{
