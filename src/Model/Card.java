@@ -13,7 +13,6 @@ class Card
 	private static Board board;
 	private static Jail jail;
 	private Player owner;
-	private String id = "0";
 	private int amount = 0;
 	private CardType type;
 	
@@ -33,11 +32,6 @@ class Card
 		Card.bank = bank;
 		Card.board = board;
 		Card.jail = jail;
-	}
-	
-	public String GetCardId() 
-	{
-		return id;
 	}
 	
 	public void SetOwner(Player owner)
