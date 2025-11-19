@@ -93,4 +93,8 @@ class Player extends BankBalance
 	public boolean GetJailedStatus () {
 		return inJail;
 	}
+	
+	public boolean HasJailedCard() {
+		return this.hasJailCard;
+	}
 }

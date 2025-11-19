@@ -92,7 +92,15 @@ class Property extends Buyable {
 		else return parentResult;
 	}
 	
+	public House GetHouse() 
+	{
+		return this.house;
+	}
 	
+	public Hotel GetHotel()
+	{
+		return this.hotel;
+	}
 	
 	private void UpdateRent() {
         int hotelValue = this.hotel.GetAmount() * this.hotel.GetRent();
