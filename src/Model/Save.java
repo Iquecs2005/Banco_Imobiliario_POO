@@ -1,45 +1,51 @@
 package Model;
 
-import java.awt.Color;
-import java.util.ArrayList;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 public class Save {
 	private Map<String, Player> playerList;
-	private Board board;
 	public Save(Board b) {
-		this.board = b;
-		
+		this.playerList = Model.instance.GetPlayersList();
 	}
 	
-	public void writeToSaveFile() {
-		
-		
-		
-		for (Player p : playerList.values()) {
-			float bal = p.GetMoney();
-			boolean inJail = p.GetJailedStatus();
-			boolean hasJailCard = p.HasJailedCard();
-			Space currSpace = p.GetCurrentSpace();
-			Color currTurn = Model.instance.getCurrentPlayerColor();
-			
-			
-			List<Buyable> ownedSpaces = p.GetOwnedSpaces();
-			for(Buyable b : ownedSpaces)
-			{
-				String name = b.name;
-				if (b instanceof Property)
-				{
-					Property prop = (Property) b;
-					prop.GetHouse().GetAmount();
-					prop.GetHotel().GetAmount();
-				}
-			}
-			
-			
-		}
-		
-		return;
-	}
+	public void writeToSaveFile(String filePath) {
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+
+            for (Player p : playerList.values()) {
+
+                writer.write("PLAYER " + p.GetColor() + "\n");
+
+                writer.write("BALANCE " + p.GetMoney() + "\n");
+                writer.write("IN_JAIL " + p.GetJailedStatus() + "\n");
+                writer.write("HAS_JAIL_CARD " + p.HasJailedCard() + "\n");
+                writer.write("CURRENT_SPACE " + p.GetCurrentSpace().getName() + "\n");
+
+                writer.write("OWNED_SPACES:\n");
+
+                List<Buyable> ownedSpaces = p.GetOwnedSpaces();
+                for (Buyable b : ownedSpaces) {
+
+                    if (b instanceof Property) {
+                        Property prop = (Property) b;
+                        writer.write("    " + prop.name +
+                                " TYPE(Property) HOUSES " + prop.GetHouse().GetAmount() +
+                                " HOTEL " + prop.GetHotel().GetAmount() + "\n");
+                    } else {
+                        writer.write("    " + b.name + " TYPE(Company)\n");
+                    }
+                }
+
+                writer.write("END_PLAYER\n");
+                writer.write("\n");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

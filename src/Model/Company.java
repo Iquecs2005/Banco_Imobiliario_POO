@@ -12,7 +12,7 @@ class Company extends Buyable{
 	public Codes onLand(Player p, int diceSum) {
 		Codes parentResult = super.onLand(p);
 		if (parentResult == Codes.GET_RENT) {
-			p.TransferMoney(this.owner, this.rent + (multiplier * diceSum));
+			p.TransferMoney(this.getOwner(), this.getRent() + (multiplier * diceSum));
 		}
 		return parentResult;	
 	}

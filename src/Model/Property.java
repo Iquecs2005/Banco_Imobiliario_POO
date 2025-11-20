@@ -5,7 +5,7 @@ class Property extends Buyable {
 	
 	House house;
 	Hotel hotel;
-	private float baseRent = rent;
+	private float baseRent = this.getRent();
 	
 	
 	public Property(String name, int price, int rent, House house, Hotel hotel) {
@@ -15,14 +15,10 @@ class Property extends Buyable {
 		this.hotel = hotel;
 	}
 	
-	public void setOwner(Player owner) {
-		this.owner = owner;
-	}	
-	
 	public Codes buildHouse (Player p, Bank b) {
 		
 		
-		if (p.GetMoney() < house.GetCost() || this.owner != p) {
+		if (p.GetMoney() < house.GetCost() || this.getOwner() != p) {
 			return Codes.NOT_BUILT;
 		}
 		
@@ -39,7 +35,7 @@ class Property extends Buyable {
 	
 	public Codes buildHotel (Player p, Bank b) {
 		
-		if(p.GetMoney() < hotel.GetCost() || this.owner != p) {
+		if(p.GetMoney() < hotel.GetCost() || this.getOwner() != p) {
 			
 			return Codes.NOT_BUILT;
 			
@@ -63,7 +59,7 @@ class Property extends Buyable {
 		Codes parentResult = super.onLand(p);
 		
 		if (parentResult == Codes.GET_RENT) {
-			p.TransferMoney(this.owner, this.rent);
+			p.TransferMoney(this.getOwner(), this.getRent());
 			return parentResult;
 		}
 		
@@ -105,7 +101,7 @@ class Property extends Buyable {
 	private void UpdateRent() {
         int hotelValue = this.hotel.GetAmount() * this.hotel.GetRent();
         int houseValue = this.house.GetAmount() * this.house.GetRent();
-        this.rent = this.baseRent + hotelValue + houseValue;
+        this.setRent(this.baseRent + hotelValue + houseValue);
     }
 	
 	

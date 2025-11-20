@@ -20,6 +20,7 @@ public class Model
 	private Deck currentDeck;
 	private Vector<Integer> lastRoll;
 	private Color currentColor;
+	private String currentColorName;
 	
 	//Initialize events.
 	private Event onPlayerPosAltered = new Event();
@@ -115,6 +116,7 @@ public class Model
 	
 	private void DetermineCurrentPlayerColor(String playerColor)
 	{
+		this.currentColorName = playerColor;
 		switch(playerColor)
 		{
 			case "Red":
@@ -138,11 +140,19 @@ public class Model
 			default:
 				break;
 		}
+		
+		
+		
 	}
 	
 	public Color getCurrentPlayerColor()
 	{
 		return this.currentColor;
+	}
+	
+	public String getCurrentPlayerColorName()
+	{
+		return this.currentColorName;
 	}
 	
 	public void SubscribeToPlayerPos(Observer newObserver) 
@@ -260,6 +270,11 @@ public class Model
 	public int GetNPlayers() 
 	{
 		return currentPlayers.size();
+	}
+	
+	public Map<String, Player> GetPlayersList()
+	{
+		return this.currentPlayers;
 	}
 	
 	public Set<String> GetPlayerColors()

@@ -14,6 +14,11 @@ class Space {
 		this.name = name;
 	}
 	
+	public String getName()
+	{
+		return this.name;
+	}
+	
 	public Codes onLand (Player p) 
 	{
 		return Codes.NOTHING;
