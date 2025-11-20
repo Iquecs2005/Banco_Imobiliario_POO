@@ -136,7 +136,6 @@ public class Model
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			case Codes.CANT_AFFORD:
-				System.out.println("aaa");
 				onCantAffordRent.notifyObservers();
 				break;
 			default:
