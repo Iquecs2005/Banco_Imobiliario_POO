@@ -62,7 +62,6 @@ public class SaveHandler {
 	public void loadFromSaveFile(String filePath) {
 
 	    Map<String, Player> loadedPlayers = new HashMap<>();
-	    Board board = Model.instance.getCurrentBoard();
 
 	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
@@ -107,7 +106,7 @@ public class SaveHandler {
 	            }
 
 	            if (line.equals("OWNED_SPACES:")) {
-	                continue; // next lines contain them
+	                continue;
 	            }
 
 	            if (line.startsWith("END_PLAYER")) {
