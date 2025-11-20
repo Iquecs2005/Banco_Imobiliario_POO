@@ -1,8 +1,11 @@
 package Controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
+
+import javax.swing.JFileChooser;
 
 import Model.Model;
 import Model.Observer;
@@ -100,6 +103,10 @@ public class Controller
 		return Model.instance.GetSpaceIndex(playerColor);
 	}
 	
+	public void LoadGame(String path)
+	{
+		Model.instance.LoadGame(path);
+	}
 	public void EndTurn() 
 	{
 		currentPlayerIndex = (currentPlayerIndex + 1) % GetPlayerNumber();
