@@ -5,6 +5,8 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import Controller.Controller;
+
 public class ViewController 
 {
 	BaseFrame currentFrame;
@@ -40,7 +42,33 @@ public class ViewController
 				ActivatePlayerSelect();
 			}
 		});
+		
+		mainMenuFrame.b2.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        String path = showFileChooser();
+		        if (path != null) {
+		            Controller.instance.LoadGame(path);
+		            ActivateBoard();
+		        }
+		    }
+		});
 	}
+
+
+	private String showFileChooser() {
+	    JFileChooser chooser = new JFileChooser();
+	    chooser.setDialogTitle("Choose Save File");
+
+	    int result = chooser.showOpenDialog(null);  
+	    if (result == JFileChooser.APPROVE_OPTION) {
+	        return chooser.getSelectedFile().getAbsolutePath();
+	    }
+	    return null;
+	}
+
 	
 	public void ActivatePlayerSelect() 
 	{

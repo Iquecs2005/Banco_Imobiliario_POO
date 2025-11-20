@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 public class BoardPanel extends BasePanel 
 {
 	public final JButton b1 = new JButton("Roll Dice");
+	public final JButton b2 = new JButton("Save Game");
 	
     private BufferedImage boardImg;
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
@@ -41,6 +42,19 @@ public class BoardPanel extends BasePanel
 			}
 		});
         BaseFrame.PositionComponent(b1, width/2, height/2);
+        
+        add(b2);
+        b2.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+			}
+		});
+        BaseFrame.PositionComponent(b2, width/2, (height/2) + 60);
+        
+        
     }
     
     public void LoadImages()
@@ -107,6 +121,8 @@ public class BoardPanel extends BasePanel
         }
         
         BaseFrame.PositionComponent(b1, this.getWidth()/2, this.getHeight()/2);
+        BaseFrame.PositionComponent(b2, this.getWidth()/2, this.getHeight()/2 + 60);
+        
 
     }
     
