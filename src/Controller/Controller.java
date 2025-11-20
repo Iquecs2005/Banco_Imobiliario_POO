@@ -71,9 +71,19 @@ public class Controller
 		Model.instance.SubscribeToCardDrawn(newObserver);
 	}
 	
+	public void SubscribeToBuyablePropertyLand(Observer newObserver)
+	{
+		Model.instance.SubscribeToBuyablePropertyLand(newObserver);
+	}
+	
 	public int getLastCardId() 
 	{
 		return Model.instance.getLastCardId();
+	}
+	
+	public boolean LandedSpaceIsProperty()
+	{
+		return Model.instance.LandedSpaceIsProperty();
 	}
 	
 	public int GetPlayerSpaceIndex(String playerColor) 

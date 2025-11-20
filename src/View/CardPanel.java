@@ -29,7 +29,6 @@ public class CardPanel extends BasePanel
         int i = 0;
 		for (CardUI card : cardList) 
 		{
-			System.out.println(i);
 			card.SetPos(i * cardSize, 0);
 			card.PaintComponent(g2d, 0, cardSize, this);
 			i++;

@@ -20,12 +20,14 @@ public class Model
 	private Deck currentDeck;
 	private Vector<Integer> lastRoll;
 	private Color currentColor;
+	private Buyable lastLandedSpace;
 	
 	//Initialize events.
 	private Event onPlayerPosAltered = new Event();
 	private Event onMoneyPlayerAltered = new Event();
 	private Event onDiceRoll = new Event();
 	private Event onCardDrawn = new Event();
+	private Event onBuyablePropertyLand = new Event();
 	
 	private Model() 
 	{
@@ -91,7 +93,9 @@ public class Model
 			case Codes.GET_CARD:
 				onCardDrawn.notifyObservers();
 				break;
-				
+			case Codes.CAN_BUY:
+				onBuyablePropertyLand.notifyObservers();
+				break;
 			default:
 				break;
 				
@@ -165,11 +169,21 @@ public class Model
 		onCardDrawn.addObserver(newObserver);
 	}
 	
+	public void SubscribeToBuyablePropertyLand(Observer newObserver)
+	{
+		onBuyablePropertyLand.addObserver(newObserver);
+	}
+	
 	public boolean BuyProperty(String playerColor) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
 		
-		return currentPlayer.BuySpace(currentBank);
+		boolean status = currentPlayer.BuySpace(currentBank);
+		
+		if (status)
+			lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
+		
+		return status;
 	}
 	
 	public boolean BuyHouse(String playerColor) 
@@ -270,5 +284,10 @@ public class Model
 	public int getLastCardId() 
 	{
 		return currentDeck.GetLastCardID();
+	}
+	
+	public boolean LandedSpaceIsProperty() 
+	{
+		return (lastLandedSpace instanceof Property); 
 	}
 }
