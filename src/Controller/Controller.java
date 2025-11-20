@@ -40,7 +40,7 @@ public class Controller
 	
 	public void BuySpace() 
 	{
-		System.out.println(Model.instance.BuyProperty(playerColors.get(currentPlayerIndex)));
+		Model.instance.BuyProperty(playerColors.get(currentPlayerIndex));
 	}
 	
 	public int GetPlayerNumber() 
