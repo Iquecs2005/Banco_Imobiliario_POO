@@ -31,9 +31,13 @@ public class Controller
 		}
 		
 		Model.instance.MovePlayer(playerColors.get(currentPlayerIndex), diceSum);
-		PassTurn();
 		
 		return diceResults;
+	}
+	
+	public void BuySpace() 
+	{
+		System.out.println(Model.instance.BuyProperty(playerColors.get(currentPlayerIndex)));
 	}
 	
 	public int GetPlayerNumber() 
@@ -96,7 +100,7 @@ public class Controller
 		return Model.instance.GetSpaceIndex(playerColor);
 	}
 	
-	private void PassTurn() 
+	public void EndTurn() 
 	{
 		currentPlayerIndex = (currentPlayerIndex + 1) % GetPlayerNumber();
 	}

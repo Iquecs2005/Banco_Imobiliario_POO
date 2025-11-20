@@ -28,5 +28,11 @@ public class CardFrame extends BaseFrame
 	public void ClearCards() 
 	{
 		panel.ClearCards();
+		panel.ToggleBuyButton(false);
+	}
+	
+	public void ToggleBuyButton(boolean state) 
+	{
+		panel.ToggleBuyButton(state);
 	}
 }

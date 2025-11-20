@@ -117,6 +117,7 @@ public class Model
 				break;
 			case Codes.CAN_BUY:
 				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
+				System.out.println(lastLandedSpace.name);
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			default:
@@ -211,6 +212,7 @@ public class Model
 		Player currentPlayer = currentPlayers.get(playerColor);
 		
 		boolean status = currentPlayer.BuySpace(currentBank);
+		onMoneyPlayerAltered.notifyObservers();
 		
 		return status;
 	}
@@ -230,6 +232,8 @@ public class Model
 		if (codes == Codes.NOT_BUILT)
 			return false;
 		
+		onMoneyPlayerAltered.notifyObservers();
+		
 		return true;
 	}
 	
@@ -247,6 +251,8 @@ public class Model
 		
 		if (codes == Codes.NOT_BUILT)
 			return false;
+		
+		onMoneyPlayerAltered.notifyObservers();
 		
 		return true;
 	}
@@ -290,7 +296,10 @@ public class Model
 		if (foundSpace == null)
 			return false;
 		
-		return currentPlayer.SellSpace(currentBank, foundSpace);
+		boolean status = currentPlayer.SellSpace(currentBank, foundSpace);
+		onMoneyPlayerAltered.notifyObservers();
+
+		return status;
 	}
 	
 	public float GetPlayerMoney(String playerColor) 

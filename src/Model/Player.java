@@ -41,6 +41,8 @@ class Player extends BankBalance
 	
 	public boolean BuySpace(Bank bank)
 	{
+		System.out.println(currentSpace instanceof Buyable);
+		System.out.println(currentSpace.name);
 		if (!(currentSpace instanceof Buyable)) return false;
 		
 		Buyable space = (Buyable)currentSpace;

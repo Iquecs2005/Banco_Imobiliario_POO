@@ -16,12 +16,14 @@ import javax.imageio.ImageIO;
 
 public class BoardPanel extends BasePanel 
 {
-	public final JButton b1 = new JButton("Roll Dice");
+	public final JButton rollDiceButton = new JButton("Roll Dice");
+	public final JButton endTurnButton = new JButton("End Turn");
 	
     private BufferedImage boardImg;
+    private CardContainer cardContainer;
+
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
 	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>();
-    private CardUI currentCard;
     
     private int boardSize;
 
@@ -29,18 +31,40 @@ public class BoardPanel extends BasePanel
     {
         super(width, height);
         
+        cardContainer = new CardContainer();
+        
         LoadImages();
-        add(b1);
-        b1.addActionListener(new ActionListener() 
+        
+        add(rollDiceButton);
+        add(endTurnButton);
+        
+        rollDiceButton.addActionListener(new ActionListener() 
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				Controller.instance.MovePlayer();
+				ToggleEndTurnButton(true); 
+				ToggleRollDiceButton(false); 
 				repaint();
 			}
 		});
-        BaseFrame.PositionComponent(b1, width/2, height/2);
+        endTurnButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Controller.instance.EndTurn();
+				ToggleEndTurnButton(false); 
+				ToggleRollDiceButton(true); 
+				cardContainer.ClearCards();
+				repaint();
+			}
+		});
+        ToggleEndTurnButton(false);
+        
+        BaseFrame.PositionComponent(rollDiceButton, width/2, height/2 - 30);
+        BaseFrame.PositionComponent(endTurnButton, width/2, height/2 - 30);
     }
     
     public void LoadImages()
@@ -89,8 +113,6 @@ public class BoardPanel extends BasePanel
             g2d.drawImage(boardImg, boardX, 0, boardSize, boardSize, this);
         }
         
-        System.out.println(boardX);
-        
         DiceContainer.instance.PaintComponent(g2d, boardX, boardSize, this);
         
         for (PlayerPin playerPin : activePlayerList) 
@@ -106,9 +128,17 @@ public class BoardPanel extends BasePanel
         	initialOffset += offset;
         }
         
-        BaseFrame.PositionComponent(b1, this.getWidth()/2, this.getHeight()/2);
-
+        BaseFrame.PositionComponent(rollDiceButton, this.getWidth()/2, this.getHeight()/2 + 30);
+        BaseFrame.PositionComponent(endTurnButton, this.getWidth()/2, this.getHeight()/2 + 30);
     }
     
+    public void ToggleRollDiceButton(boolean state) 
+    {
+    	rollDiceButton.setVisible(state);
+    }
     
+    public void ToggleEndTurnButton(boolean state) 
+    {
+    	endTurnButton.setVisible(state);
+    }
 }

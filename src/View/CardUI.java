@@ -49,7 +49,6 @@ public class CardUI{
 		
 		try 
 		{
-			System.out.println(path);
 			this.image = ImageIO.read(getClass().getResource(path));
 		}
 		catch (IOException e) {
