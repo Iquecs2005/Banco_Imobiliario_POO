@@ -144,5 +144,6 @@ public class Controller
 	public void EndTurn() 
 	{
 		currentPlayerIndex = (currentPlayerIndex + 1) % GetPlayerNumber();
+		Model.instance.PassTurn();
 	}
 }
