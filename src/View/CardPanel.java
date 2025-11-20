@@ -16,13 +16,19 @@ public class CardPanel extends BasePanel
 {
 	private List<CardUI> cardList = new LinkedList<CardUI>();
 	private JButton buyButton = new JButton("Buy Space");
+	private JButton houseButton = new JButton("Buy House");
+	private JButton hotelButton = new JButton("Buy Hotel");
 
 	public CardPanel(int width, int height) 
 	{
 		super(width, height);
 		
 		add(buyButton);
+		add(houseButton);
+		add(hotelButton);
 		buyButton.setVisible(false);
+		houseButton.setVisible(false);
+		hotelButton.setVisible(false);
 		buyButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -30,6 +36,26 @@ public class CardPanel extends BasePanel
 			{
 				Controller.instance.BuySpace();
 				ToggleBuyButton(false);
+			}
+		});
+		houseButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Controller.instance.BuyHouse();
+				ToggleHouseButton(false);
+				ToggleHotelButton(false);
+			}
+		});
+		hotelButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Controller.instance.BuyHotel();
+				ToggleHouseButton(false);
+				ToggleHotelButton(false);
 			}
 		});
 		
@@ -56,6 +82,8 @@ public class CardPanel extends BasePanel
 		}
 		
 		BaseFrame.PositionComponent(buyButton, frameSize / 2, getHeight() - 30);
+		BaseFrame.PositionComponent(houseButton, frameSize / 2, getHeight() - 30);
+		BaseFrame.PositionComponent(hotelButton, frameSize / 2, getHeight() - 60);
 	}
 	
 	public void AddCard(String cardName, CardType cardType) 
@@ -72,6 +100,18 @@ public class CardPanel extends BasePanel
 	public void ToggleBuyButton(boolean state) 
 	{
 		buyButton.setVisible(state);
+		repaint();
+	}
+	
+	public void ToggleHouseButton(boolean state) 
+	{
+		houseButton.setVisible(state);
+		repaint();
+	}
+	
+	public void ToggleHotelButton(boolean state) 
+	{
+		hotelButton.setVisible(state);
 		repaint();
 	}
 }

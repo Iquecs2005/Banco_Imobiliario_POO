@@ -33,6 +33,33 @@ class CardContainer
 				OnPropertyBought();
 			}
 		});
+		
+		Controller.instance.SubscribeToBuyableHotelHouse(new Observer() 
+		{
+			@Override
+			public void update(Event event)  
+			{
+				OnPropertyOwned(true, true);
+			}
+		});
+		
+		Controller.instance.SubscribeToBuyableHouse(new Observer() 
+		{
+			@Override
+			public void update(Event event)  
+			{
+				OnPropertyOwned(true, false);
+			}
+		});
+		
+		Controller.instance.SubscribeToBuyableHotel(new Observer() 
+		{
+			@Override
+			public void update(Event event)  
+			{
+				OnPropertyOwned(false, true);
+			}
+		});
 	}
 	
 	public void DisplayPlayerCards() 
@@ -75,5 +102,15 @@ class CardContainer
 		
 		DisplayCard(cardName, cardType);
 		cardFrame.ToggleBuyButton(true);
+	}
+	
+	public void OnPropertyOwned(boolean houseState, boolean hotelState) 
+	{
+		String cardName = Controller.instance.GetLandedBuyableName();
+		CardType cardType = CardType.Property;	
+		
+		DisplayCard(cardName, cardType);
+		cardFrame.ToggleHouseButton(houseState);
+		cardFrame.ToggleHotelButton(hotelState);
 	}
 }

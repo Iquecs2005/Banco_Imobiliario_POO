@@ -32,6 +32,9 @@ public class Model
 	private Event onDiceRoll = new Event();
 	private Event onCardDrawn = new Event();
 	private Event onBuyablePropertyLand = new Event();
+	private Event onBuyableHotelHouse = new Event();
+	private Event onBuyableHotel = new Event();
+	private Event onBuyableHouse = new Event();
 	private Event onCantAffordRent = new Event();
 	private Event onTurnStart = new Event();
 	private Event onTurnEnd = new Event();
@@ -140,6 +143,18 @@ public class Model
 			case Codes.CANT_AFFORD:
 				onCantAffordRent.notifyObservers();
 				break;
+			case Codes.CAN_BUILD_BOTH:
+				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
+				onBuyableHotelHouse.notifyObservers();
+				break;
+			case Codes.CAN_BUILD_HOUSE:
+				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
+				onBuyableHouse.notifyObservers();
+				break;
+			case Codes.CAN_BUILD_HOTEL:
+				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
+				onBuyableHotel.notifyObservers();
+				break;
 			default:
 				break;
 				
@@ -225,6 +240,21 @@ public class Model
 	public void SubscribeToBuyablePropertyLand(Observer newObserver)
 	{
 		onBuyablePropertyLand.addObserver(newObserver);
+	}
+	
+	public void SubscribeToBuyableHotelHouse(Observer newObserver)
+	{
+		onBuyableHotelHouse.addObserver(newObserver);
+	}
+	
+	public void SubscribeToBuyableHouse(Observer newObserver)
+	{
+		onBuyableHouse.addObserver(newObserver);
+	}
+	
+	public void SubscribeToBuyableHotel(Observer newObserver)
+	{
+		onBuyableHotel.addObserver(newObserver);
 	}
 	
 	public boolean BuyProperty(String playerColor) 

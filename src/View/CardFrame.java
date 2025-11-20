@@ -29,10 +29,22 @@ public class CardFrame extends BaseFrame
 	{
 		panel.ClearCards();
 		panel.ToggleBuyButton(false);
+		panel.ToggleHouseButton(false);
+		panel.ToggleHotelButton(false);
 	}
 	
 	public void ToggleBuyButton(boolean state) 
 	{
 		panel.ToggleBuyButton(state);
+	}
+	
+	public void ToggleHouseButton(boolean state) 
+	{
+		panel.ToggleHouseButton(state);
+	}
+	
+	public void ToggleHotelButton(boolean state) 
+	{
+		panel.ToggleHotelButton(state);
 	}
 }

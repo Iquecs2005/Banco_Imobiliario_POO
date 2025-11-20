@@ -56,6 +56,16 @@ public class Controller
 		Model.instance.BuyProperty(playerColors.get(currentPlayerIndex));
 	}
 	
+	public void BuyHouse() 
+	{
+		Model.instance.BuyHouse(playerColors.get(currentPlayerIndex));
+	}
+	
+	public void BuyHotel() 
+	{
+		Model.instance.BuyHotel(playerColors.get(currentPlayerIndex));
+	}
+	
 	public int GetPlayerNumber() 
 	{
 		return Model.instance.GetNPlayers();
@@ -94,6 +104,21 @@ public class Controller
 	public void SubscribeToBuyablePropertyLand(Observer newObserver)
 	{
 		Model.instance.SubscribeToBuyablePropertyLand(newObserver);
+	}
+	
+	public void SubscribeToBuyableHotelHouse(Observer newObserver)
+	{
+		Model.instance.SubscribeToBuyableHotelHouse(newObserver);
+	}
+	
+	public void SubscribeToBuyableHouse(Observer newObserver)
+	{
+		Model.instance.SubscribeToBuyableHouse(newObserver);
+	}
+	
+	public void SubscribeToBuyableHotel(Observer newObserver)
+	{
+		Model.instance.SubscribeToBuyableHotel(newObserver);
 	}
 	
 	public int getLastCardId() 
