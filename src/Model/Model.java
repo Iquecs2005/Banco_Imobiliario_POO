@@ -22,6 +22,7 @@ public class Model
 	private Color currentColor;
 	private Buyable lastLandedSpace;
 	private String currentColorName;
+	private SaveHandler saveHandler;
 	
 	//Initialize events.
 	private Event onPlayerPosAltered = new Event();
@@ -46,24 +47,32 @@ public class Model
 		
 		currentBank = new Bank(200000);
 		currentDeck = new Deck();
-		currentBoard = new Board(currentBank, currentDeck);
+		setCurrentBoard(new Board(currentBank, currentDeck));
 		currentPlayers = new HashMap<String, Player>();
 		currentDice = new Dice(6);
 		
-		Space startSpace = currentBoard.GetStartSpace();
+		Space startSpace = getCurrentBoard().GetStartSpace();
 		for (String color : playerColors)
 		{
 			currentPlayers.put(color, new Player(color, 4000.0f, startSpace));
 		}
 		List<Player> playerList = List.copyOf(currentPlayers.values());
-		currentDeck.SetVariables(playerList, currentBank, currentBoard);
+		currentDeck.SetVariables(playerList, currentBank, getCurrentBoard());
+		this.saveHandler = new SaveHandler(getCurrentBoard());
 		
 		return true;
 	}
 	
-	public boolean SaveGame()
+	public boolean SaveGame(String filepath)
+	{
+		saveHandler.writeToSaveFile(filepath);
+		return true;
+	}
+	
+	public boolean LoadGame(String filepath)
 	{
 		
+		return true;
 	}
 		
 	public int RollDie()
@@ -90,7 +99,7 @@ public class Model
 		DetermineCurrentPlayerColor(playerColor);
 		Space landedSpace;
 		
-		landedSpace = currentBoard.MovePlayer(currentPlayer, amount);
+		landedSpace = getCurrentBoard().MovePlayer(currentPlayer, amount);
 		Codes landCode = landedSpace.onLand(currentPlayer);
 		
 		switch (landCode)
@@ -121,7 +130,7 @@ public class Model
 	public int GetSpaceIndex(String playerColor) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
-		return currentBoard.GetSpaceIndex(currentPlayer.GetCurrentSpace());
+		return getCurrentBoard().GetSpaceIndex(currentPlayer.GetCurrentSpace());
 	}
 	
 	private void DetermineCurrentPlayerColor(String playerColor)
@@ -240,7 +249,7 @@ public class Model
 		Player currentPlayer = currentPlayers.get(playerColor);
 		boolean hasCard = currentPlayer.UseJailCard(currentDeck);
 		
-		Jail jailSpace = currentBoard.GetJail();
+		Jail jailSpace = getCurrentBoard().GetJail();
 		jailSpace.tryToLeaveJail(currentPlayer, null, hasCard);
 		
 		return !currentPlayer.GetJailedStatus();
@@ -250,7 +259,7 @@ public class Model
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
 		
-		Jail jailSpace = currentBoard.GetJail();
+		Jail jailSpace = getCurrentBoard().GetJail();
 		jailSpace.tryToLeaveJail(currentPlayer, dice, false);
 		
 		return !currentPlayer.GetJailedStatus();
@@ -312,5 +321,18 @@ public class Model
 	public String GetLandedBuyableName() 
 	{
 		return lastLandedSpace.name; 
+	}
+
+	public Board getCurrentBoard() {
+		return currentBoard;
+	}
+
+	public void setCurrentBoard(Board currentBoard) {
+		this.currentBoard = currentBoard;
+	}
+	
+	public Deck getCurrentDeck()
+	{
+		return this.currentDeck;
 	}
 }

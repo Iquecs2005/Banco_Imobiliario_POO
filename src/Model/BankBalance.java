@@ -37,6 +37,11 @@ abstract class BankBalance
 	{
 		return money > price;
 	}
+	
+	public void SetMoney(float moneyval)
+	{
+		this.money = moneyval;
+	}
 
 	public float GetMoney() 
 	{

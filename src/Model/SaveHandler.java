@@ -1,17 +1,22 @@
 package Model;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SaveHandler {
 	private Map<String, Player> playerList;
-	public static final SaveHandler instance = new SaveHandler();
+	private Deck deck;
+	
 	
 	public SaveHandler(Board b) {
 		this.playerList = Model.instance.GetPlayersList();
+		this.deck = Model.instance.getCurrentDeck();
 	}
 	
 	public void writeToSaveFile(String filePath) {
@@ -52,7 +57,74 @@ public class SaveHandler {
     }
 	
 	public void loadFromSaveFile(String filePath) {
-		
+
+	    Map<String, Player> loadedPlayers = new HashMap<>();
+	    Board board = Model.instance.getCurrentBoard();  // IMPORTANT – board is already initialized
+
+	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+	        String line;
+	        Player currentPlayer = null;
+	        String currentColor = null;
+
+	        while ((line = reader.readLine()) != null) {
+
+	            if (line.startsWith("PLAYER ")) {
+	                currentColor = line.substring(7).trim();
+	                Space start = board.GetStartSpace();
+	                currentPlayer = new Player(currentColor, 0f, start); // Money updated later
+	                loadedPlayers.put(currentColor, currentPlayer);
+	                continue;
+	            }
+
+	            if (line.startsWith("BALANCE ")) {
+	                currentPlayer.SetMoney(Float.parseFloat(line.substring(8).trim()));
+	                continue;
+	            }
+
+	            if (line.startsWith("IN_JAIL ")) {
+	                currentPlayer.SetInJail(Boolean.parseBoolean(line.substring(8).trim()));
+	                continue;
+	            }
+
+	            if (line.startsWith("HAS_JAIL_CARD ")) {
+	            	
+	            	boolean hasCard = Boolean.parseBoolean(line.substring(14).trim());
+	            	if(hasCard)
+	            	{
+	            		currentPlayer.AddJailCard(this.deck.GetJailCard());
+	            	}
+	                continue;
+	            }
+
+	            if (line.startsWith("CURRENT_SPACE ")) {
+	                Space space = findSpaceByName(board, line.substring(14).trim());
+	                currentPlayer.SetCurrentSpace(space);
+	                continue;
+	            }
+
+	            if (line.equals("OWNED_SPACES:")) {
+	                continue; // next lines contain them
+	            }
+
+	            if (line.startsWith("END_PLAYER")) {
+	                currentPlayer = null;
+	                continue;
+	            }
+
+	            // owned space line:
+	            if (line.startsWith("    ")) {
+	                parseOwnedSpace(line.trim(), currentPlayer, board);
+	            }
+	        }
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    // Assign players back to model
+	    Model.instance.currentPlayers = loadedPlayers;
 	}
+
 	
 }

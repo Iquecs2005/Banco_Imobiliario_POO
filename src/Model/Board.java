@@ -117,6 +117,14 @@ class Board
 		return -1;
 	}
 	
+	public Space getSpaceByName(String name)
+	{
+		for (Space s : this.terrainsList)
+		{
+			if (s.getName().equals(name)) return s;
+		}
+	}
+	
 	Space GetSpace(int i) 
 	{
 		return terrainsList.get(i % terrainsList.size());

@@ -37,6 +37,8 @@ class Player extends BankBalance
 		return true;
 	}
 	
+	
+	
 	public boolean BuySpace(Bank bank)
 	{
 		if (!(currentSpace instanceof Buyable)) return false;
