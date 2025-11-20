@@ -162,7 +162,13 @@ public class Model
 		
 		onPlayerPosAltered.notifyObservers();
 		onMoneyPlayerAltered.notifyObservers();
+		onTurnEnd.notifyObservers();
 	} 
+	
+	public void PassTurn() 
+	{
+		onTurnStart.notifyObservers();
+	}
 	
 	public String GetPlayerSpaceName(String playerColor) 
 	{
