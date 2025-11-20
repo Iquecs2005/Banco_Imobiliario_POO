@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Space.Codes;
 
 class Property extends Buyable {
 	
@@ -58,11 +59,6 @@ class Property extends Buyable {
 	public Codes onLand(Player p) {
 		
 		Codes parentResult = super.onLand(p);
-		
-		if (parentResult == Codes.GET_RENT) {
-			p.TransferMoney(this.getOwner(), this.getRent());
-			return parentResult;
-		}
 		
 		if (parentResult == Codes.IS_MINE) {
 			

@@ -1,20 +1,28 @@
 package Model;
 
+import java.util.Vector;
+
 class Company extends Buyable{
 	
 	private int multiplier;
 	
-	public Company(String name, float price, float rent, int multiplier) {
+	public Company(String name, float price, float rent, int multiplier) 
+	{
 		super(name,price,rent);
 		this.multiplier = multiplier;
 	}
 	
-	public Codes onLand(Player p, int diceSum) {
-		Codes parentResult = super.onLand(p);
-		if (parentResult == Codes.GET_RENT) {
-			p.TransferMoney(this.getOwner(), this.getRent() + (multiplier * diceSum));
-		}
-		return parentResult;	
+	public float getRent() 
+	{
+		float baseRent = super.getRent();
+		
+		Vector<Integer> values = Model.instance.GetLastRoll();
+		
+		int diceSum = 0;
+		for (int value : values)
+			diceSum += value;
+		
+		return baseRent + (multiplier * diceSum);
 	}
 	
 	public int getMultiplier(){

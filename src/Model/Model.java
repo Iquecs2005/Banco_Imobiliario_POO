@@ -32,6 +32,7 @@ public class Model
 	private Event onDiceRoll = new Event();
 	private Event onCardDrawn = new Event();
 	private Event onBuyablePropertyLand = new Event();
+	private Event onCantAffordRent = new Event();
 	private Event onTurnStart = new Event();
 	private Event onTurnEnd = new Event();
 	
@@ -79,6 +80,8 @@ public class Model
 		currentDice = new Dice(6);
 	
 		currentBoard.CreateSpaces(currentJail, currentDeck);
+		List<Player> playerList = List.copyOf(currentPlayers.values());
+		currentDeck.SetVariables(playerList, currentBank, getCurrentBoard());
 		saveHandler = new SaveHandler();
 		
 		saveHandler.loadFromSaveFile(filepath);
@@ -131,6 +134,10 @@ public class Model
 			case Codes.CAN_BUY:
 				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
 				onBuyablePropertyLand.notifyObservers();
+				break;
+			case Codes.CANT_AFFORD:
+				System.out.println("aaa");
+				onCantAffordRent.notifyObservers();
 				break;
 			default:
 				break;
@@ -267,27 +274,6 @@ public class Model
 		onMoneyPlayerAltered.notifyObservers();
 		
 		return true;
-	}
-	
-	public boolean GetOutOfJailWithCard(String playerColor) 
-	{
-		Player currentPlayer = currentPlayers.get(playerColor);
-		boolean hasCard = currentPlayer.UseJailCard(currentDeck);
-		
-		Jail jailSpace = getCurrentBoard().GetJail();
-		jailSpace.tryToLeaveJail(currentPlayer, null, hasCard);
-		
-		return !currentPlayer.GetJailedStatus();
-	}
-	
-	public boolean GetOutOfJailWithDice(String playerColor, Vector<Integer> dice) 
-	{
-		Player currentPlayer = currentPlayers.get(playerColor);
-		
-		Jail jailSpace = getCurrentBoard().GetJail();
-		jailSpace.tryToLeaveJail(currentPlayer, dice, false);
-		
-		return !currentPlayer.GetJailedStatus();
 	}
 	
 	public boolean SellProperty(String playerColor, String propertyName) 

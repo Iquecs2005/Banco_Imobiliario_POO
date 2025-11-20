@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Space.Codes;
+
 class Buyable extends Space {
 	
 	private float price;
@@ -14,23 +16,28 @@ class Buyable extends Space {
 		this.owner = null;
 	}
 	
-	public Codes onLand (Player p) {
-		
-		if(p.GetCurrentSpace() != this) {
+	public Codes onLand (Player p) 
+	{	
+		if(p.GetCurrentSpace() != this) 
+		{
 			return Codes.NOTHING;
 		}
-		
-		if (owner == null) {
-			
+
+		if (owner == null) 
+		{
 			return Codes.CAN_BUY;
-			
 		}
-		
-		
-		else if (owner != null && owner!= p) {
+		else if (owner != null && owner!= p) 
+		{
+			float rentValue = this.getRent();
+			
+			if (!p.CanAfford(rentValue))
+				return Codes.CANT_AFFORD;
+			
+			p.TransferMoney(this.getOwner(), this.getRent());
+			
 			return Codes.GET_RENT;
 		}
-		
 		
 		return Codes.IS_MINE;
 	}
@@ -43,7 +50,8 @@ class Buyable extends Space {
 		this.price = price;
 	}
 
-	public float getRent() {
+	public float getRent() 
+	{
 		return rent;
 	}
 
