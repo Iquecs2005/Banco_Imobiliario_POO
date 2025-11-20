@@ -123,6 +123,7 @@ class Board
 		{
 			if (s.getName().equals(name)) return s;
 		}
+		return null;
 	}
 	
 	Space GetSpace(int i) 

@@ -31,4 +31,9 @@ abstract class Building {
 	{
 		return this.amount;
 	}
+	
+	public void SetAmount(int i)
+	{
+		this.amount = i;
+	}
 }

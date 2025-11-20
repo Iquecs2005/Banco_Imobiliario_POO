@@ -58,9 +58,14 @@ public class Model
 		}
 		List<Player> playerList = List.copyOf(currentPlayers.values());
 		currentDeck.SetVariables(playerList, currentBank, getCurrentBoard());
-		this.saveHandler = new SaveHandler(getCurrentBoard());
+		this.saveHandler = new SaveHandler();
 		
 		return true;
+	}
+	
+	public boolean LoadGame(String filepath)
+	{
+		
 	}
 	
 	public boolean SaveGame(String filepath)
@@ -334,5 +339,10 @@ public class Model
 	public Deck getCurrentDeck()
 	{
 		return this.currentDeck;
+	}
+	
+	public void SetCurrentPlayers(Map<String, Player> newPlayers)
+	{
+		this.currentPlayers = newPlayers;
 	}
 }

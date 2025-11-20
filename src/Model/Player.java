@@ -102,4 +102,8 @@ class Player extends BankBalance
 	public boolean HasJailedCard() {
 		return this.hasJailCard;
 	}
+
+	public void AddOwnedSpace(Buyable b) {
+		this.ownedSpaces.add(b);
+	}
 }

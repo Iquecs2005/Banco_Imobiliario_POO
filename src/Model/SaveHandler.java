@@ -11,10 +11,12 @@ import java.util.Map;
 
 public class SaveHandler {
 	private Map<String, Player> playerList;
+	private Board board;
 	private Deck deck;
 	
 	
-	public SaveHandler(Board b) {
+	public SaveHandler() {
+		this.board = Model.instance.getCurrentBoard();
 		this.playerList = Model.instance.GetPlayersList();
 		this.deck = Model.instance.getCurrentDeck();
 	}
@@ -46,7 +48,8 @@ public class SaveHandler {
                         writer.write("    " + b.name + " TYPE(Company)\n");
                     }
                 }
-
+                
+                writer.write("CURRENT TURN:" + Model.instance.getCurrentPlayerColorName() +"\n");
                 writer.write("END_PLAYER\n");
                 writer.write("\n");
             }
@@ -98,7 +101,7 @@ public class SaveHandler {
 	            }
 
 	            if (line.startsWith("CURRENT_SPACE ")) {
-	                Space space = findSpaceByName(board, line.substring(14).trim());
+	                Space space = board.getSpaceByName(line.substring(14).trim());
 	                currentPlayer.SetCurrentSpace(space);
 	                continue;
 	            }
@@ -123,7 +126,37 @@ public class SaveHandler {
 	    }
 
 	    // Assign players back to model
-	    Model.instance.currentPlayers = loadedPlayers;
+	    Model.instance.SetCurrentPlayers(loadedPlayers);
+	}
+	
+	private void parseOwnedSpace(String line, Player player, Board board) {
+
+	    // Example:
+	    // Av Paulista TYPE(Property) HOUSES 2 HOTEL 1
+
+	    String[] parts = line.split(" ");
+	    String spaceName = parts[0];
+
+	    Space s = board.getSpaceByName(spaceName);
+	    if (!(s instanceof Buyable)) return;
+	    Buyable b = (Buyable) s;
+
+	    // Set owner in the existing board space
+	    b.setOwner(player);
+	    player.AddOwnedSpace(b);
+
+	    if (b instanceof Property) {
+	        Property prop = (Property) b;
+
+	        for (int i = 0; i < parts.length; i++) {
+	            if (parts[i].equals("HOUSES")) {
+	                prop.GetHouse().SetAmount(Integer.parseInt(parts[i + 1]));
+	            }
+	            if (parts[i].equals("HOTEL")) {
+	                prop.GetHotel().SetAmount(Integer.parseInt(parts[i + 1]));
+	            }
+	        }
+	    }
 	}
 
 	
