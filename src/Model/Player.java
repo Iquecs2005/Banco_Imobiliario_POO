@@ -53,15 +53,18 @@ class Player extends BankBalance
 		return false;
 	}
 	
-	public boolean SellSpace(Space soldSpace) 
+	public boolean SellSpace(Bank bank, Space soldSpace) 
 	{
 		int spaceIndex = ownedSpaces.indexOf(soldSpace);
 		
 		if (spaceIndex == -1) 
 			return false;
 		
-		//Bank.Transfer(this, currentSpace.sellValue);
-		//currentSpace.SetOwner(null);
+		if (!(soldSpace instanceof Property)) return false;
+		
+		Property space = (Property)soldSpace;
+		bank.TransferMoney(this, (space.GetRent() * 0.9f));
+		space.setOwner(null);
 		
 		return true;
 	}

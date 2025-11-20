@@ -99,10 +99,12 @@ class Property extends Buyable {
 	}
 	
 	private void UpdateRent() {
-        int hotelValue = this.hotel.GetAmount() * this.hotel.GetRent();
-        int houseValue = this.house.GetAmount() * this.house.GetRent();
+        float hotelValue = this.hotel.GetAmount() * (this.baseRent * 0.3f);
+        float houseValue = this.house.GetAmount() * (this.baseRent * 0.15f);
         this.setRent(this.baseRent + hotelValue + houseValue);
     }
 	
 	
 }
+
+
