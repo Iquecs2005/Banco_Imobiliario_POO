@@ -290,7 +290,7 @@ public class Model
 		if (foundSpace == null)
 			return false;
 		
-		return currentPlayer.SellSpace(foundSpace);
+		return currentPlayer.SellSpace(currentBank, foundSpace);
 	}
 	
 	public float GetPlayerMoney(String playerColor) 
