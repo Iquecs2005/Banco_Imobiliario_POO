@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import Controller.Controller;
 
 public class SaveHandler {
 
@@ -49,11 +50,11 @@ public class SaveHandler {
                     }
                 }
                 
-                writer.write("CURRENT TURN:" + Model.instance.getCurrentPlayerColorName() +"\n");
                 writer.write("END_PLAYER\n");
                 writer.write("\n");
             }
-
+            int currIndex = Controller.instance.GetCurrentPlayerIndex();
+            writer.write("CURRENT TURN:" + Controller.instance.GetCurrentPlayerByIndex(currIndex) +"\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

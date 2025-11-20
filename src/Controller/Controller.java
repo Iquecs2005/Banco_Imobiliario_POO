@@ -141,6 +141,16 @@ public class Controller
 		return Model.instance.GetSpaceIndex(playerColor);
 	}
 	
+	public int GetCurrentPlayerIndex()
+	{
+		return this.currentPlayerIndex;
+	}
+	
+	public String GetCurrentPlayerByIndex(int index)
+	{
+		return playerColors.get(index);
+	}
+	
 	public void EndTurn() 
 	{
 		currentPlayerIndex = (currentPlayerIndex + 1) % GetPlayerNumber();
