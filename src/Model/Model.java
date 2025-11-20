@@ -305,4 +305,9 @@ public class Model
 	{
 		return (lastLandedSpace instanceof Property); 
 	}
+	
+	public String GetLandedBuyableName() 
+	{
+		return lastLandedSpace.name; 
+	}
 }

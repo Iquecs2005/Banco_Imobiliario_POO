@@ -62,9 +62,9 @@ class CardContainer
 	{
 		String cardName;
 		if (Controller.instance.LandedSpaceIsProperty())
-			cardName = "";
+			cardName = Controller.instance.GetLandedBuyableName();
 		else
-			cardName = "";
+			cardName = Controller.instance.GetLandedBuyableName();
 		cardName += String.valueOf(Controller.instance.getLastCardId());
 		DisplayCard(cardName, CardType.Luck);
 	}

@@ -86,6 +86,11 @@ public class Controller
 		return Model.instance.LandedSpaceIsProperty();
 	}
 	
+	public String GetLandedBuyableName() 
+	{
+		return Model.instance.GetLandedBuyableName(); 
+	}
+	
 	public int GetPlayerSpaceIndex(String playerColor) 
 	{
 		return Model.instance.GetSpaceIndex(playerColor);
