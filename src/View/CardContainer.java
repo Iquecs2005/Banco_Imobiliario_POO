@@ -60,12 +60,12 @@ class CardContainer
 	
 	public void OnPropertyBought() 
 	{
-		String cardName;
+		String cardName = Controller.instance.GetLandedBuyableName();
+		CardType cardType = CardType.Company;
+		
 		if (Controller.instance.LandedSpaceIsProperty())
-			cardName = Controller.instance.GetLandedBuyableName();
-		else
-			cardName = Controller.instance.GetLandedBuyableName();
-		cardName += String.valueOf(Controller.instance.getLastCardId());
-		DisplayCard(cardName, CardType.Luck);
+			cardType = CardType.Property;
+		
+		DisplayCard(cardName, cardType);
 	}
 }

@@ -95,6 +95,7 @@ public class Model
 				onCardDrawn.notifyObservers();
 				break;
 			case Codes.CAN_BUY:
+				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			default:
@@ -189,9 +190,6 @@ public class Model
 		Player currentPlayer = currentPlayers.get(playerColor);
 		
 		boolean status = currentPlayer.BuySpace(currentBank);
-		
-		if (status)
-			lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
 		
 		return status;
 	}
