@@ -121,7 +121,8 @@ class Board
 	{
 		for (Space s : this.terrainsList)
 		{
-			if (s.getName().equals(name)) return s;
+			if (s.getName().equals(name)) 
+				return s;
 		}
 		return null;
 	}

@@ -40,12 +40,18 @@ class CardContainer
 		
 	}
 	
+	public void ClearCards() 
+	{
+		if (cardFrame != null)
+			cardFrame.ClearCards();
+	}
+	
 	public void DisplayCard(String cardName, CardType cardType) 
 	{
 		if (cardFrame == null)
-			cardFrame = new CardFrame("Cards Window", 200, 100);
+			cardFrame = new CardFrame("Cards Window", 300, 400);
 		else
-			cardFrame.ClearCards();
+			ClearCards();
 		cardFrame.setVisible(true);
 		
 		cardFrame.AddCard(cardName, cardType);
@@ -66,6 +72,8 @@ class CardContainer
 		if (Controller.instance.LandedSpaceIsProperty())
 			cardType = CardType.Property;
 		
+		
 		DisplayCard(cardName, cardType);
+		cardFrame.ToggleBuyButton(true);
 	}
 }
