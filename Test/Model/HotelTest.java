@@ -9,13 +9,11 @@ import org.junit.Test;
 public class HotelTest {
 	
 	private static int cost;
-	private static int rent;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception 
 	{
 		cost = 10;
-		rent = 5;
 	}
 
 	@AfterClass
@@ -24,14 +22,13 @@ public class HotelTest {
 
 	@Test
 	public void testCreateHotel() {
-		Hotel hotel = new Hotel(cost, rent);
+		Hotel hotel = new Hotel(cost);
 		assertEquals("Hotel cost not set correctly", cost, hotel.GetCost());
-		assertEquals("Hotel rent not set correctly", rent, hotel.GetRent());
 	}
 	
 	@Test
 	public void testAddHotel() {
-		Hotel hotel = new Hotel(cost, rent);
+		Hotel hotel = new Hotel(cost);
 		hotel.AddBuilding();
 		assertEquals("Hotel not added correctly", 1, hotel.GetAmount());
 	}

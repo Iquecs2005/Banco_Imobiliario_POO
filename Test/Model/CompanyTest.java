@@ -21,11 +21,11 @@ public class CompanyTest {
 	@Test
     public void testConstructor() {
         assertEquals("Test Company", company.name);
-        assertEquals(100.0f, company.price, 0.001f);
-        assertEquals(20.0f, company.rent, 0.001f);
+        assertEquals(100.0f, company.getPrice(), 0.001f);
+        assertEquals(20.0f, company.getRent(), 0.001f);
         assertEquals(10, company.getMultiplier());
 
-        assertNull("Owner should be null initially", company.owner);
+        assertNull("Owner should be null initially", company.getOwner());
     }
 	
 	@Test
@@ -34,15 +34,15 @@ public class CompanyTest {
 		float initialOwnerMoney = player2.GetMoney();
 		int diceSum = 10;
 		
-		company.owner = player2;
+		company.setOwner(player2);
 		Space.Codes result = company.onLand(player1, diceSum);
 		
 		float endPlayerMoney = player1.GetMoney();
 		float endOwnerMoney = player2.GetMoney();
 		
 		assertEquals("Should return GET_RENT when player lands on company owned by other player", Space.Codes.GET_RENT, result);
-		assertEquals("Player money should update adequately", initialPlayerMoney - (company.rent + diceSum * company.getMultiplier()), endPlayerMoney, 0.001f);
-		assertEquals("Owner money should update adequately", initialOwnerMoney + (company.rent + diceSum * company.getMultiplier()), endOwnerMoney, 0.001f);
+		assertEquals("Player money should update adequately", initialPlayerMoney - (company.getRent() + diceSum * company.getMultiplier()), endPlayerMoney, 0.001f);
+		assertEquals("Owner money should update adequately", initialOwnerMoney + (company.getRent() + diceSum * company.getMultiplier()), endOwnerMoney, 0.001f);
 	}
 	
 

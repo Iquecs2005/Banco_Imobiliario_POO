@@ -1,8 +1,8 @@
 package Model;
 
 class House extends Building{
-	public House(int cost, int rent)
+	public House(int cost)
 	{
-		super(cost, rent);
+		super(cost);
 	}
 }
