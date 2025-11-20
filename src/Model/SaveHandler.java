@@ -62,7 +62,7 @@ public class SaveHandler {
 	public void loadFromSaveFile(String filePath) {
 
 	    Map<String, Player> loadedPlayers = new HashMap<>();
-	    Board board = Model.instance.getCurrentBoard();  // IMPORTANT – board is already initialized
+	    Board board = Model.instance.getCurrentBoard();
 
 	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
@@ -75,7 +75,7 @@ public class SaveHandler {
 	            if (line.startsWith("PLAYER ")) {
 	                currentColor = line.substring(7).trim();
 	                Space start = board.GetStartSpace();
-	                currentPlayer = new Player(currentColor, 0f, start); // Money updated later
+	                currentPlayer = new Player(currentColor, 0f, start);
 	                loadedPlayers.put(currentColor, currentPlayer);
 	                continue;
 	            }
@@ -126,6 +126,7 @@ public class SaveHandler {
 	    }
 
 	    // Assign players back to model
+	    
 	    Model.instance.SetCurrentPlayers(loadedPlayers);
 	}
 	

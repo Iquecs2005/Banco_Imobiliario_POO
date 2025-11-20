@@ -40,7 +40,7 @@ public class Model
 	{
 		int nPlayers = playerColors.size();
 		
-		if (nPlayers < 3 || nPlayers > 6) 
+		if (nPlayers < 3 || nPlayers > 6)
 		{
 			return false;
 		}
@@ -63,20 +63,22 @@ public class Model
 		return true;
 	}
 	
-	public boolean LoadGame(String filepath)
+	public void LoadGame(String filepath)
 	{
+		currentBank = new Bank(200000);
+		currentDeck = new Deck();
+		setCurrentBoard(new Board(currentBank, currentDeck));
+		currentPlayers = new HashMap<String, Player>();
+		currentDice = new Dice(6);
+	
+		saveHandler = new SaveHandler();
 		
+		saveHandler.loadFromSaveFile(filepath);
 	}
 	
 	public boolean SaveGame(String filepath)
 	{
 		saveHandler.writeToSaveFile(filepath);
-		return true;
-	}
-	
-	public boolean LoadGame(String filepath)
-	{
-		
 		return true;
 	}
 		
