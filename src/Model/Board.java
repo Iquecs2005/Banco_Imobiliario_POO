@@ -9,13 +9,15 @@ class Board
 	private List<Space> terrainsList = new LinkedList<Space>();
 	private Jail jailSpace;
 	
-	public Board(Bank bank, Deck deck) 
+	public Board(Bank bank) 
 	{
 		//Sets terrainList
 		this.bank = bank;
-		
-		this.jailSpace = new Jail();
-		
+	}
+	
+	public void CreateSpaces(Jail jail, Deck deck) 
+	{
+		this.jailSpace = jail;
 		
 		terrainsList.add(new Space("Ponto de Partida")); // Ponto de Partida (Start)
 		terrainsList.add(new Property("Leblon", 100, 0, new House(50), new Hotel(50)));
@@ -57,7 +59,6 @@ class Board
 		terrainsList.add(new LuckSpace(deck)); // Sorte
 		terrainsList.add(new Property("Jardim Paulista", 280, 0, new House(140), new Hotel(140)));
 		terrainsList.add(new Property("Brooklin", 260, 0, new House(130), new Hotel(130)));
-		
 	}
 	
 	public Space MovePlayer(Player player, int amount) 
@@ -88,6 +89,15 @@ class Board
 		player.SetCurrentSpace(newSpace);
 		
 		return newSpace;
+	}
+	
+	public boolean MovePlayerToJail(Player player) 
+	{
+		if (player == null)
+			return false;
+		
+		player.SetCurrentSpace(jailSpace);
+		return true;
 	}
 	
 	public Space GetStartSpace() 

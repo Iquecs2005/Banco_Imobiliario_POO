@@ -18,6 +18,8 @@ public class Model
 	private Board currentBoard;
 	private Dice currentDice;
 	private Deck currentDeck;
+	private Jail currentJail;
+	
 	private Vector<Integer> lastRoll;
 	private Color currentColor;
 	private Buyable lastLandedSpace;
@@ -30,6 +32,8 @@ public class Model
 	private Event onDiceRoll = new Event();
 	private Event onCardDrawn = new Event();
 	private Event onBuyablePropertyLand = new Event();
+	private Event onTurnStart = new Event();
+	private Event onTurnEnd = new Event();
 	
 	private Model() 
 	{
@@ -47,10 +51,12 @@ public class Model
 		
 		currentBank = new Bank(200000);
 		currentDeck = new Deck();
-		setCurrentBoard(new Board(currentBank, currentDeck));
+		currentBoard = new Board(currentBank);
+		currentJail = new Jail(currentBoard, currentDeck);
 		currentPlayers = new HashMap<String, Player>();
 		currentDice = new Dice(6);
 		
+		currentBoard.CreateSpaces(currentJail, currentDeck);
 		Space startSpace = getCurrentBoard().GetStartSpace();
 		for (String color : playerColors)
 		{
@@ -67,10 +73,12 @@ public class Model
 	{
 		currentBank = new Bank(200000);
 		currentDeck = new Deck();
-		setCurrentBoard(new Board(currentBank, currentDeck));
+		currentBoard = new Board(currentBank);
+		currentJail = new Jail(currentBoard, currentDeck);
 		currentPlayers = new HashMap<String, Player>();
 		currentDice = new Dice(6);
 	
+		currentBoard.CreateSpaces(currentJail, currentDeck);
 		saveHandler = new SaveHandler();
 		
 		saveHandler.loadFromSaveFile(filepath);
@@ -106,7 +114,12 @@ public class Model
 		DetermineCurrentPlayerColor(playerColor);
 		Space landedSpace;
 		
+		if (currentPlayer.GetJailedStatus())
+			if (currentJail.tryToLeaveJail(currentPlayer, lastRoll) == 0)
+				return;
+		
 		landedSpace = getCurrentBoard().MovePlayer(currentPlayer, amount);
+		
 		Codes landCode = landedSpace.onLand(currentPlayer);
 		
 		switch (landCode)

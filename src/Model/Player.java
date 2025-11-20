@@ -101,8 +101,9 @@ class Player extends BankBalance
 		return inJail;
 	}
 	
-	public boolean HasJailedCard() {
-		return this.hasJailCard;
+	public boolean HasJailedCard() 
+	{
+		return hasJailCard;
 	}
 
 	public void AddOwnedSpace(Buyable b) {
