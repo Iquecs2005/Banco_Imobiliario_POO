@@ -74,6 +74,10 @@ public class Model
 		saveHandler = new SaveHandler();
 		
 		saveHandler.loadFromSaveFile(filepath);
+		
+		List<Player> playerList = List.copyOf(currentPlayers.values());
+		
+		currentDeck.SetVariables(playerList, currentBank, currentBoard);
 	}
 	
 	public boolean SaveGame(String filepath)

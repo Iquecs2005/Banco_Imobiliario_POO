@@ -70,7 +70,6 @@ class PlayerSelectFrame extends BaseFrame
 		newForm.exitButton.addActionListener(new ExitButtonListener(this, newForm));
 		playerInformation.add(newForm);
 		nPlayers++;
-		vc.SetNPlayers(nPlayers);
 		
 		if (nPlayers >= 6) 
 		{
@@ -96,7 +95,6 @@ class PlayerSelectFrame extends BaseFrame
 		playerInformation.get(playerInformation.indexOf(id)).Destructor();
 		playerInformation.remove(id);
 		nPlayers--;
-		vc.SetNPlayers(nPlayers);
 		
 		if (nPlayers < 3) 
 		{

@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -21,6 +22,17 @@ public class Controller
 		this.playerColors = playerColors;
 		currentPlayerIndex = 0;
 		Model.instance.NewGame(playerColors);
+	}
+	
+	public void SaveGame(String path)
+	{
+		Model.instance.SaveGame(path);
+	}
+	
+	public void LoadGame(String path)
+	{
+		Model.instance.LoadGame(path);
+		this.playerColors = new ArrayList<> (Model.instance.GetPlayerColors());
 	}
 	
 	public Vector<Integer> MovePlayer() 
@@ -103,10 +115,6 @@ public class Controller
 		return Model.instance.GetSpaceIndex(playerColor);
 	}
 	
-	public void LoadGame(String path)
-	{
-		Model.instance.LoadGame(path);
-	}
 	public void EndTurn() 
 	{
 		currentPlayerIndex = (currentPlayerIndex + 1) % GetPlayerNumber();
