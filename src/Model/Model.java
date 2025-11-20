@@ -117,7 +117,6 @@ public class Model
 				break;
 			case Codes.CAN_BUY:
 				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
-				System.out.println(lastLandedSpace.name);
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			default:
