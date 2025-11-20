@@ -10,21 +10,21 @@ import java.util.List;
 import java.util.Map;
 
 public class SaveHandler {
-	private Map<String, Player> playerList;
+
 	private Board board;
 	private Deck deck;
 	
 	
 	public SaveHandler() {
 		this.board = Model.instance.getCurrentBoard();
-		this.playerList = Model.instance.GetPlayersList();
 		this.deck = Model.instance.getCurrentDeck();
 	}
 	
 	public void writeToSaveFile(String filePath) {
 
         try (FileWriter writer = new FileWriter(filePath)) {
-
+        	Map<String, Player> playerList = Model.instance.GetPlayersList();
+        	
             for (Player p : playerList.values()) {
 
                 writer.write("PLAYER " + p.GetColor() + "\n");

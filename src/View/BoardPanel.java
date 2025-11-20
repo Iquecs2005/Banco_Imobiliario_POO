@@ -69,7 +69,11 @@ public class BoardPanel extends BasePanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				String path = showSaveFileChooser();
+				if (path != null)
+				{
+					Controller.instance.SaveGame(path);
+				}
 			}
 		});
         
@@ -156,4 +160,16 @@ public class BoardPanel extends BasePanel
     {
     	endTurnButton.setVisible(state);
     }
+    
+    private String showSaveFileChooser() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Save Game");
+
+        int result = chooser.showSaveDialog(null);   // DIFFERENT FROM LOAD
+        if (result == JFileChooser.APPROVE_OPTION) {
+            return chooser.getSelectedFile().getAbsolutePath();
+        }
+        return null;
+    }
+
 }
