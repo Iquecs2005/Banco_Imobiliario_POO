@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class Save {
+public class SaveHandler {
 	private Map<String, Player> playerList;
-	public Save(Board b) {
+	public static final SaveHandler instance = new SaveHandler();
+	
+	public SaveHandler(Board b) {
 		this.playerList = Model.instance.GetPlayersList();
 	}
 	
@@ -48,4 +50,9 @@ public class Save {
             e.printStackTrace();
         }
     }
+	
+	public void loadFromSaveFile(String filePath) {
+		
+	}
+	
 }

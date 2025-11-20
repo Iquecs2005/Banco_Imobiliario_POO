@@ -60,6 +60,11 @@ public class Model
 		
 		return true;
 	}
+	
+	public boolean SaveGame()
+	{
+		
+	}
 		
 	public int RollDie()
 	{
