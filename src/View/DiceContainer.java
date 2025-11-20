@@ -20,12 +20,13 @@ public class DiceContainer implements Observer
 	
 	public void PaintComponent(Graphics2D g2d, int boardX, int boardSize, BasePanel panel)
 	{
-		int startpos = -30;
+	    int spacing = (int)(boardSize * 0.14);  // instead of +60 pixels
+	    int startX  = boardX - (int)(boardSize * 0.07); 
 		//iterate dicelist and paint.
 		for (DiceUI diceUI : diceList)
 		{
-			diceUI.PaintComponent(g2d, boardX + startpos, boardSize, panel);
-			startpos += 60;
+			diceUI.PaintComponent(g2d, startX, boardSize, panel);
+			startX += spacing;
 		}
 	}
 	
