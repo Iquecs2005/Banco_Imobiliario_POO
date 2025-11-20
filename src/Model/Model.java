@@ -80,8 +80,6 @@ public class Model
 		currentDice = new Dice(6);
 	
 		currentBoard.CreateSpaces(currentJail, currentDeck);
-		List<Player> playerList = List.copyOf(currentPlayers.values());
-		currentDeck.SetVariables(playerList, currentBank, getCurrentBoard());
 		saveHandler = new SaveHandler();
 		
 		saveHandler.loadFromSaveFile(filepath);

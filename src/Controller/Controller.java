@@ -33,7 +33,7 @@ public class Controller
 	public void LoadGame(String path)
 	{
 		Model.instance.LoadGame(path);
-		this.playerColors = new ArrayList<> (Model.instance.GetPlayerColors());
+		this.playerColors = List.copyOf(Model.instance.GetPlayerColors());
 	}
 	
 	public Vector<Integer> MovePlayer() 
