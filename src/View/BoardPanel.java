@@ -38,6 +38,7 @@ public class BoardPanel extends BasePanel
         
         add(rollDiceButton);
         add(endTurnButton);
+        add(saveGameButton);
         
         rollDiceButton.addActionListener(new ActionListener() 
 		{
@@ -62,10 +63,22 @@ public class BoardPanel extends BasePanel
 				repaint();
 			}
 		});
+        
+        saveGameButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+			}
+		});
+        
+        
         ToggleEndTurnButton(false);
         
         BaseFrame.PositionComponent(rollDiceButton, width/2, height/2 - 30);
         BaseFrame.PositionComponent(endTurnButton, width/2, height/2 - 30);
+        BaseFrame.PositionComponent(saveGameButton, width/2, height/2 + 80);
     }
     
     public void LoadImages()
@@ -131,6 +144,7 @@ public class BoardPanel extends BasePanel
         
         BaseFrame.PositionComponent(rollDiceButton, this.getWidth()/2, this.getHeight()/2 + 30);
         BaseFrame.PositionComponent(endTurnButton, this.getWidth()/2, this.getHeight()/2 + 30);
+        BaseFrame.PositionComponent(saveGameButton, this.getWidth()/2, this.getHeight()/2 + 80);
     }
     
     public void ToggleRollDiceButton(boolean state) 
