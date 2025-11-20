@@ -15,8 +15,8 @@ public class PropertyTest {
     public void setUp() {
         bank = new Bank(10000.0f);
         
-        House testHouse = new House(50, 10); // cost 50, rent 10
-        Hotel testHotel = new Hotel(100, 50); // cost 100, rent 50
+        House testHouse = new House(50); // cost 50
+        Hotel testHotel = new Hotel(100); // cost 100
         
         
         property = new Property("Test Property", 100, 25, testHouse, testHotel);
@@ -27,9 +27,9 @@ public class PropertyTest {
     @Test
     public void testConstructor() {
         assertEquals("Test Property", property.name);
-        assertEquals(100.0f, property.price, 0.001f);
-        assertEquals(25.0f, property.rent, 0.001f);
-        assertNull("Owner should be null initially", property.owner);
+        assertEquals(100.0f, property.getPrice(), 0.001f);
+        assertEquals(25.0f, property.getRent(), 0.001f);
+        assertNull("Owner should be null initially", property.getOwner());
     }
     
     @Test
@@ -38,7 +38,7 @@ public class PropertyTest {
         property.setOwner(player);
         
         // Assert
-        assertEquals("Owner should be set correctly", player, property.owner);
+        assertEquals("Owner should be set correctly", player, property.getOwner());
     }
     
     @Test
@@ -74,9 +74,9 @@ public class PropertyTest {
         assertEquals("Should return GET_RENT when owned by other player", 
                      Space.Codes.GET_RENT, result);
         assertEquals("Player should pay rent", 
-                     initialPlayerMoney - property.rent, player.GetMoney(), 0.001f);
+                     initialPlayerMoney - property.getRent(), player.GetMoney(), 0.001f);
         assertEquals("Owner should receive rent", 
-                     initialOwnerMoney + property.rent, otherPlayer.GetMoney(), 0.001f);
+                     initialOwnerMoney + property.getRent(), otherPlayer.GetMoney(), 0.001f);
     }
     
     @Test
@@ -194,7 +194,7 @@ public class PropertyTest {
     public void testRentCalculation_WithBuildings() {
         // Arrange
         property.setOwner(player);
-        float baseRent = property.rent;
+        float baseRent = property.getRent();
         
         // Act - Build houses and hotel
         property.buildHouse(player, bank);
@@ -240,8 +240,8 @@ public class PropertyTest {
     public void testMultiplePropertiesSameOwner() {
         // Test that owner can build on multiple properties
 
-        House prop2House = new House(50, 10);
-        Hotel prop2Hotel = new Hotel(100, 50);
+        House prop2House = new House(50);
+        Hotel prop2Hotel = new Hotel(100);
         Property property2 = new Property("Second Property", 150, 35, prop2House, prop2Hotel);
         
         property.setOwner(player);

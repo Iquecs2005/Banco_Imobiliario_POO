@@ -5,7 +5,7 @@ class Property extends Buyable {
 	
 	House house;
 	Hotel hotel;
-	private float baseRent = this.getRent();
+	private float baseRent = this.getPrice() * 0.1f;
 	
 	
 	public Property(String name, int price, int rent, House house, Hotel hotel) {
@@ -13,6 +13,7 @@ class Property extends Buyable {
 		
 		this.house = house;
 		this.hotel = hotel;
+		this.setRent(this.baseRent);
 	}
 	
 	public Codes buildHouse (Player p, Bank b) {
@@ -99,8 +100,8 @@ class Property extends Buyable {
 	}
 	
 	private void UpdateRent() {
-        float hotelValue = this.hotel.GetAmount() * (this.baseRent * 0.3f);
-        float houseValue = this.house.GetAmount() * (this.baseRent * 0.15f);
+        float hotelValue = this.hotel.GetAmount() * (this.getPrice() * 0.3f);
+        float houseValue = this.house.GetAmount() * (this.getPrice() * 0.15f);
         this.setRent(this.baseRent + hotelValue + houseValue);
     }
 	

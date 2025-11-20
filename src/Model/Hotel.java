@@ -1,8 +1,8 @@
 package Model;
 
 class Hotel extends Building{
-	public Hotel(int cost, int rent)
+	public Hotel(int cost)
 	{
-		super(cost, rent);
+		super(cost);
 	}
 }

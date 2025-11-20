@@ -48,20 +48,22 @@ public class PlayerTest
 	public void BuySpaceOk()
 	{
 		Bank bank = new Bank(4000);
-		Board board = new Board(bank);
+		Deck deck = new Deck();
+		Board board = new Board(bank, deck);
 		Player testPlayer1 = new Player("Red", 4000, board.GetSpace(1));
 		
 		assertTrue(testPlayer1.BuySpace(bank));
 		assertEquals(testPlayer1.GetOwnedSpaces().get(0), board.GetSpace(1));
-		assertEquals(testPlayer1.GetMoney(), 4000 - ((Buyable)board.GetSpace(1)).price, 0.01);
-		assertEquals(bank.GetMoney(), 4000 + ((Buyable)board.GetSpace(1)).price, 0.01);
+		assertEquals(testPlayer1.GetMoney(), 4000 - ((Buyable)board.GetSpace(1)).getPrice(), 0.01);
+		assertEquals(bank.GetMoney(), 4000 + ((Buyable)board.GetSpace(1)).getPrice(), 0.01);
 	}
 	
 	@Test
 	public void BuySpaceNonBuyableSpace()
 	{
 		Bank bank = new Bank(4000);
-		Board board = new Board(bank);
+		Deck deck = new Deck();
+		Board board = new Board(bank, deck);
 		Player testPlayer1 = new Player("Red", 4000, board.GetStartSpace());
 		
 		assertFalse(testPlayer1.BuySpace(bank));
@@ -82,13 +84,14 @@ public class PlayerTest
 	public void BuySpaceOwnedSpace()
 	{
 		Bank bank = new Bank(4000);
-		Board board = new Board(bank);
+		Deck deck = new Deck();
+		Board board = new Board(bank, deck);
 		Player testPlayer1 = new Player("Red", 4000, board.GetSpace(1));
 		Player testPlayer2 = new Player("Yellow", 4000, board.GetSpace(1));
 		Buyable BuyableTerrain = (Buyable)board.GetSpace(1);
 		
 		assertTrue(testPlayer1.BuySpace(bank));
-		assertEquals(testPlayer1.GetMoney(), 4000 - BuyableTerrain.price, 0.01);
+		assertEquals(testPlayer1.GetMoney(), 4000 - BuyableTerrain.getPrice(), 0.01);
 		assertFalse(testPlayer2.BuySpace(bank));
 		assertEquals(testPlayer2.GetMoney(), 4000, 0.01);
 	}

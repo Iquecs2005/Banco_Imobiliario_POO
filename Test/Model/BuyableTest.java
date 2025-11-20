@@ -30,9 +30,9 @@ public class BuyableTest {
     @Test
     public void testConstructor() {
         assertEquals("Test Property", buyable.name);
-        assertEquals(100.0f, buyable.price, 0.001f);
-        assertEquals(25.0f, buyable.rent, 0.001f);
-        assertNull("Owner should be null initially", buyable.owner);
+        assertEquals(100.0f, buyable.getPrice(), 0.001f);
+        assertEquals(25.0f, buyable.getRent(), 0.001f);
+        assertNull("Owner should be null initially", buyable.getOwner());
     }
     
     @Test
@@ -45,14 +45,14 @@ public class BuyableTest {
         // Assert
         assertEquals("Should return CAN_BUY for unowned property", 
                      Space.Codes.CAN_BUY, result);
-        assertNull("Owner should remain null", buyable.owner);
+        assertNull("Owner should remain null", buyable.getOwner());
     }
     
     
     @Test
     public void testOnLand_WhenOwnedByOtherPlayer_ReturnsGetRent() {
         // Arrange
-        buyable.owner = otherPlayer;
+        buyable.setOwner(otherPlayer);
         
         
         // Act
@@ -66,7 +66,7 @@ public class BuyableTest {
     @Test
     public void testOnLand_WhenOwnedBySamePlayer_ReturnsIsMine() {
         // Arrange
-        buyable.owner = player;
+        buyable.setOwner(player);
         float initialMoney = player.GetMoney();
         
         // Act
@@ -91,11 +91,11 @@ public class BuyableTest {
         
         // Assert
         assertTrue("Purchase should be successful", result);
-        assertEquals("Player should be set as owner", player, buyable.owner);
+        assertEquals("Player should be set as owner", player, buyable.getOwner());
         assertEquals("Player money should decrease by price", 
-                     initialPlayerMoney - buyable.price, player.GetMoney(), 0.001f);
+                     initialPlayerMoney - buyable.getPrice(), player.GetMoney(), 0.001f);
         assertEquals("Bank money should increase by price", 
-                     initialBankMoney + buyable.price, bank.GetMoney(), 0.001f);
+                     initialBankMoney + buyable.getPrice(), bank.GetMoney(), 0.001f);
     }
     
     @Test
@@ -110,7 +110,7 @@ public class BuyableTest {
         
         // Assert
         assertFalse("Purchase should fail with insufficient funds", result);
-        assertNull("Owner should remain null", buyable.owner);
+        assertNull("Owner should remain null", buyable.getOwner());
         assertEquals("Player money should not change", 
                      initialMoney, poorPlayer.GetMoney(), 0.001f);
         assertEquals("Bank money should not change", 
@@ -124,7 +124,7 @@ public class BuyableTest {
         
         // Assert
         assertFalse("Purchase should fail with null player", result);
-        assertNull("Owner should remain null", buyable.owner);
+        assertNull("Owner should remain null", buyable.getOwner());
     }
     
     @Test
@@ -134,13 +134,13 @@ public class BuyableTest {
         
         // Assert
         assertFalse("Purchase should fail with null bank", result);
-        assertNull("Owner should remain null", buyable.owner);
+        assertNull("Owner should remain null", buyable.getOwner());
     }
     
     @Test
     public void testRentPayment_BankruptcyScenario() {
         // Arrange
-        buyable.owner = otherPlayer;
+        buyable.setOwner(otherPlayer);
         Player poorPlayer = new Player("Bankrupt", 20.0f, buyable); // Only has 20, rent is 25
         
         // Act
@@ -171,9 +171,9 @@ public class BuyableTest {
         assertTrue("First purchase should succeed", firstPurchase);
         assertTrue("Second purchase should succeed", secondPurchase);
         assertEquals("Both properties should have same owner", 
-                     player, buyable.owner);
+                     player, buyable.getOwner());
         assertEquals("Both properties should have same owner", 
-                     player, secondProperty.owner);
+                     player, secondProperty.getOwner());
     }
     
     @Test
