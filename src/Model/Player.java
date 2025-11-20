@@ -63,7 +63,7 @@ class Player extends BankBalance
 		if (!(soldSpace instanceof Property)) return false;
 		
 		Property space = (Property)soldSpace;
-		bank.TransferMoney(this, (space.GetRent() * 0.9f));
+		bank.TransferMoney(this, (space.getRent() * 0.9f));
 		space.setOwner(null);
 		
 		return true;

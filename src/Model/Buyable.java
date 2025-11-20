@@ -2,9 +2,9 @@ package Model;
 
 class Buyable extends Space {
 	
-	protected float price;
-	protected float rent;
-	protected Player owner;
+	private float price;
+	private float rent;
+	private Player owner;
 	
 	
 	public Buyable (String name, float price, float rent) {
@@ -35,6 +35,30 @@ class Buyable extends Space {
 		return Codes.IS_MINE;
 	}
 	
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public float getRent() {
+		return rent;
+	}
+
+	public void setRent(float rent) {
+		this.rent = rent;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+
 	public boolean purchaseBuyable(Player p, Bank b) {
 		
 		if (p == null || b == null || owner != null) {
@@ -50,6 +74,8 @@ class Buyable extends Space {
 		return false;
 		
 	}
+	
+	
 	
 	
 	
