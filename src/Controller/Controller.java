@@ -47,6 +47,11 @@ public class Controller
 		vc.ActivateBoard();
 	}
 	
+	public void OnEndGameButton()
+	{
+		Model.instance.NotifyEndGame();
+	}
+	
 	public void OnEndGame()
 	{
 		Model.instance.EndGame();
