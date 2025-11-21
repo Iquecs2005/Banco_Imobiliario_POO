@@ -51,8 +51,17 @@ public class BoardPanel extends BasePanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				if (debug && debugDice.getText() != null)
-					Controller.instance.MovePlayer(Integer.parseInt(debugDice.getText()));
+				if (debug && debugDice.getText() != "") 
+				{
+					try 
+					{
+						Controller.instance.MovePlayer(Integer.parseInt(debugDice.getText()));											
+					}
+					catch (NumberFormatException except)
+					{
+						Controller.instance.MovePlayer();
+					}
+				}
 				else
 					Controller.instance.MovePlayer();
 				ToggleEndTurnButton(true); 
