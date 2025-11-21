@@ -6,10 +6,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Controller.Controller;
-import Model.Event;
-import Model.Observer;
-
 public class CardUI{
 	
 	public enum CardType {

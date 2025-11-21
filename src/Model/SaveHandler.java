@@ -53,8 +53,7 @@ public class SaveHandler {
                 writer.write("END_PLAYER\n");
                 writer.write("\n");
             }
-            int currIndex = Controller.instance.GetCurrentPlayerIndex();
-            writer.write("CURRENT TURN:" + Controller.instance.GetCurrentPlayerByIndex(currIndex) +"\n");
+            writer.write("CURRENT TURN:" + Model.instance.getCurrentPlayerColorName() +"\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

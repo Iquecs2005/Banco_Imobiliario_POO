@@ -8,9 +8,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Controller.Controller;
-import Model.Event;
-import Model.Observer;
 import Model.Model;
 
 class DiceUI
@@ -41,9 +38,33 @@ class DiceUI
 		int height = (int)(0.1 * boardSize);
 		int pixelX = (int)(boardX + boardSize / 2 - width / 2 + 5);
 		int pixelY = (int)(boardSize / 2 - height / 2 - 30);
-	    g2d.setColor(Model.instance.getCurrentPlayerColor());
+		
+		String colorName = Model.instance.getCurrentPlayerColorName();
+		Color diceColor = StringToColor(colorName);
+		
+	    g2d.setColor(diceColor);
 	    g2d.setStroke(new BasicStroke(10)); 
 	    g2d.drawRect(pixelX, pixelY, width, height);
 		g2d.drawImage(diceImage, pixelX, pixelY, width, height, panel);
+	}
+	
+	private Color StringToColor(String playerColor)
+	{
+		switch(playerColor)
+		{
+			case "Red":
+				return Color.red;
+			case "Blue":
+				return Color.blue;
+			case "Yellow":
+				return Color.yellow;
+			case "Orange":
+				return Color.orange;
+			case "Purple":
+				return Color.magenta;
+			case "Grey":
+				return Color.gray;
+		}
+		return null;
 	}
 }

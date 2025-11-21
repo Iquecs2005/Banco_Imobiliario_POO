@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.List;
-import java.awt.Color;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -12,25 +11,26 @@ import Model.Space.Codes;
 
 public class Model 
 {
+	//References
 	public static final Model instance = new Model();
-	
-	private Map<String, Player> currentPlayers;
-	private List<String> playerColors;
-	private Player currentPlayer;
-	private int currentPlayerIndex;
+
 	private Bank currentBank;
 	private Board currentBoard;
 	private Dice currentDice;
 	private Deck currentDeck;
 	private Jail currentJail;
-	
-	private Vector<Integer> lastRoll;
-	private Color currentColor;
-	private Buyable lastLandedSpace;
-	private String currentColorName;
 	private SaveHandler saveHandler;
 	
-	//Initialize events.
+	//Data Structures
+	private Map<String, Player> currentPlayers;
+	private List<String> playerColors;
+	private Player currentPlayer;
+	private int currentPlayerIndex;
+	
+	private Vector<Integer> lastRoll;
+	private Buyable lastLandedSpace;
+	
+	//Events.
 	private Event onPlayerPosAltered = new Event();
 	private Event onMoneyPlayerAltered = new Event();
 	private Event onDiceRoll = new Event();
@@ -134,7 +134,6 @@ public class Model
 	public void MovePlayer(String playerColor, int amount) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
-		DetermineCurrentPlayerColor(playerColor);
 		Space landedSpace;
 		
 		if (currentPlayer.GetJailedStatus())
@@ -289,45 +288,9 @@ public class Model
 		return getCurrentBoard().GetSpaceIndex(currentPlayer.GetCurrentSpace());
 	}
 	
-	private void DetermineCurrentPlayerColor(String playerColor)
-	{
-		this.currentColorName = playerColor;
-		switch(playerColor)
-		{
-			case "Red":
-				this.currentColor = Color.red;
-				break;
-			case "Blue":
-				this.currentColor = Color.blue;
-				break;
-			case "Yellow":
-				this.currentColor = Color.yellow;
-				break;
-			case "Orange":
-				this.currentColor = Color.orange;
-				break;
-			case "Purple":
-				this.currentColor = Color.magenta;
-				break;
-			case "Grey":
-				this.currentColor = Color.gray;
-				break;
-			default:
-				break;
-		}
-		
-		
-		
-	}
-	
-	public Color getCurrentPlayerColor()
-	{
-		return this.currentColor;
-	}
-	
 	public String getCurrentPlayerColorName()
 	{
-		return this.currentColorName;
+		return currentPlayer.GetColor();
 	}
 	
 	public void SubscribeToPlayerPos(Observer newObserver) 
