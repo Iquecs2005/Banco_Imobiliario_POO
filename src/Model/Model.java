@@ -43,6 +43,7 @@ public class Model
 	private Event onCantAffordRent = new Event();
 	private Event onTurnStart = new Event();
 	private Event onTurnEnd = new Event();
+	private Event onGameEnd = new Event();
 	
 	//Constructor
 	
@@ -261,9 +262,9 @@ public class Model
 	
 	public void EndGame()
 	{
+		onGameEnd.notifyObservers();
 	    onPlayerPosAltered.clearObservers();
 	    onMoneyPlayerAltered.clearObservers();
-	    onDiceRoll.clearObservers();
 	    onCardDrawn.clearObservers();
 	    onBuyablePropertyLand.clearObservers();
 	    onBuyableHotelHouse.clearObservers();
@@ -272,6 +273,7 @@ public class Model
 	    onCantAffordRent.clearObservers();
 	    onTurnStart.clearObservers();
 	    onTurnEnd.clearObservers();
+	    onGameEnd.clearObservers();
 	}
 	
 	//Getters and Setters
@@ -360,6 +362,11 @@ public class Model
 	public void SubscribeToCantAffordRent(Observer newObserver)
 	{
 		onCantAffordRent.addObserver(newObserver);
+	}
+	
+	public void SubscribeToGameEnd(Observer newObserver)
+	{
+		onGameEnd.addObserver(newObserver);
 	}
 	
 	public float GetPlayerMoney(String playerColor) 

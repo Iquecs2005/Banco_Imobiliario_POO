@@ -71,6 +71,15 @@ class CardContainer
 				DisplayPlayerCards(Controller.instance.GetCurrentPlayerColor());
 			}
 		});
+		
+		Controller.instance.SubscribeToGameEnd(new Observer() 
+		{
+			@Override
+			public void update(Event event)  
+			{
+				OnGameEnd();
+			}
+		});
 	
 		
 	}
@@ -160,5 +169,10 @@ class CardContainer
 		DisplayCard(cardName, cardType);
 		cardFrame.ToggleHouseButton(houseState);
 		cardFrame.ToggleHotelButton(hotelState);
+	}
+	
+	public void OnGameEnd()
+	{
+		cardFrame.dispose();
 	}
 }

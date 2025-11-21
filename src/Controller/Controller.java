@@ -160,6 +160,11 @@ public class Controller
 		Model.instance.SubscribeToCantAffordRent(newObserver);
 	}
 	
+	public void SubscribeToGameEnd(Observer newObserver)
+	{
+		Model.instance.SubscribeToGameEnd(newObserver);
+	}
+	
 	public int getLastCardId() 
 	{
 		return Model.instance.getLastCardId();
