@@ -43,6 +43,13 @@ public class Controller
 		vc.ActivateBoard();
 	}
 	
+	public void OnEndGame()
+	{
+		Model.instance.EndGame();
+		vc.DestroyCurrentBoard();
+		vc.ActivateMainMenu();
+	}
+	
 	public void CreateNewGame(List<String> playerColors) 
 	{
 		Model.instance.NewGame(playerColors);

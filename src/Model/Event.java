@@ -26,6 +26,11 @@ public class Event {
 		return true;
 	}
 	
+	public void clearObservers()
+	{
+		observerList.clear();
+	}
+	
 	public void notifyObservers() {
 		for(Observer o : observerList) {
 			o.update(this);

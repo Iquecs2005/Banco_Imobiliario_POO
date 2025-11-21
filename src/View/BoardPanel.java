@@ -19,6 +19,7 @@ public class BoardPanel extends BasePanel
 	public final JButton saveGameButton = new JButton("Save Game");
 	public final JButton rollDiceButton = new JButton("Roll Dice");
 	public final JButton endTurnButton = new JButton("End Turn");
+	public final JButton endGameButton = new JButton("End Game");
 	
     private BufferedImage boardImg;
     private CardContainer cardContainer;
@@ -39,6 +40,7 @@ public class BoardPanel extends BasePanel
         add(rollDiceButton);
         add(endTurnButton);
         add(saveGameButton);
+        add(endGameButton);
         
         rollDiceButton.addActionListener(new ActionListener() 
 		{
@@ -77,12 +79,17 @@ public class BoardPanel extends BasePanel
 			}
 		});
         
+        endGameButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Controller.instance.OnEndGame();
+			}
+		});
+        
         
         ToggleEndTurnButton(false);
-        
-        BaseFrame.PositionComponent(rollDiceButton, width/2, height/2 - 30);
-        BaseFrame.PositionComponent(endTurnButton, width/2, height/2 - 30);
-        BaseFrame.PositionComponent(saveGameButton, width/2, height/2 + 80);
     }
     
     public void LoadImages()
@@ -148,7 +155,8 @@ public class BoardPanel extends BasePanel
         
         BaseFrame.PositionComponent(rollDiceButton, this.getWidth()/2, this.getHeight()/2 + 30);
         BaseFrame.PositionComponent(endTurnButton, this.getWidth()/2, this.getHeight()/2 + 30);
-        BaseFrame.PositionComponent(saveGameButton, this.getWidth()/2, this.getHeight()/2 + 80);
+        BaseFrame.PositionComponent(saveGameButton, this.getWidth()/2, this.getHeight()/2 + 90);
+        BaseFrame.PositionComponent(endGameButton, this.getWidth()/2, this.getHeight()/2 + 60);
     }
     
     public void ToggleRollDiceButton(boolean state) 

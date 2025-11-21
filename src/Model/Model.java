@@ -258,6 +258,21 @@ public class Model
 		onTurnStart.notifyObservers();
 	}
 	
+	public void EndGame()
+	{
+	    onPlayerPosAltered.clearObservers();
+	    onMoneyPlayerAltered.clearObservers();
+	    onDiceRoll.clearObservers();
+	    onCardDrawn.clearObservers();
+	    onBuyablePropertyLand.clearObservers();
+	    onBuyableHotelHouse.clearObservers();
+	    onBuyableHotel.clearObservers();
+	    onBuyableHouse.clearObservers();
+	    onCantAffordRent.clearObservers();
+	    onTurnStart.clearObservers();
+	    onTurnEnd.clearObservers();
+	}
+	
 	//Getters and Setters
 	
 	public Vector<Integer> GetLastRoll()

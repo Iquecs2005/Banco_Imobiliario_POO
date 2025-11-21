@@ -73,4 +73,11 @@ public class ViewController
 		currentFrame = boardFrame;
 		boardFrame.setVisible(true);
 	}
+	
+	public void DestroyCurrentBoard()
+	{
+		if (currentFrame != null)
+			currentFrame.dispose();
+			currentFrame = null;
+	}
 }
