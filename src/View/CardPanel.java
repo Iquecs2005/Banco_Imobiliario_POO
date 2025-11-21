@@ -125,6 +125,7 @@ public class CardPanel extends BasePanel
 		repaint();
 	}
 	
+	
 	public void AddSellButton(String color, String propName)
 	{
 		JButton sellButton = new JButton("Sell space");
@@ -134,6 +135,8 @@ public class CardPanel extends BasePanel
 			public void actionPerformed(ActionEvent e) 
 			{
 				Controller.instance.SellProperty(color, propName);
+				sellButton.setVisible(false);
+				repaint();
 			}
 		});
 		
