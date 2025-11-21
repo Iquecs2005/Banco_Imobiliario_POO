@@ -11,17 +11,20 @@ import View.ViewController;
 
 public class Controller 
 {
-	public static final Controller instance = new Controller();
+	public static Controller instance;
 
 	private ViewController vc;
 	
+	private boolean debugModeActive;
+	
 	public static void main(String[] args) 
 	{
-		
+		new Controller();
 	}
 	
 	private Controller()
 	{
+		instance = this;
 		vc = new ViewController();
 		vc.ActivateMainMenu();
 	}
@@ -76,6 +79,15 @@ public class Controller
 		Model.instance.MoveCurrentPlayer(diceSum);
 		
 		return diceResults;
+	}
+	
+	public void MovePlayer(int amount) 
+	{
+		int dice1 = amount / 2 + amount % 2;
+		int dice2 = amount / 2;
+		
+		Model.instance.SetLastRoll(dice1, dice2);
+		Model.instance.MoveCurrentPlayer(amount);
 	}
 
 	public void BuySpace() 
@@ -192,5 +204,15 @@ public class Controller
 	public Map<String, String> GetPlayerOwnedSpaces(String color)
 	{
 		return Model.instance.GetPlayerOwnedSpaces(Model.instance.GetPlayerByColor(color));
+	}
+	
+	public boolean GetDebugModeActive() 
+	{
+		return debugModeActive;
+	}
+	
+	public void ToggleDebugMode() 
+	{
+		debugModeActive = !debugModeActive;
 	}
 }

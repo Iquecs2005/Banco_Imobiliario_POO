@@ -18,24 +18,6 @@ public class ViewController
 		MainMenuFrame mainMenuFrame = new MainMenuFrame(500, 500);
 		currentFrame = mainMenuFrame;
 		mainMenuFrame.setVisible(true);
-		
-		mainMenuFrame.b1.addActionListener(new ActionListener() 
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				Controller.instance.OnNewGameButton();
-			}
-		});
-		
-		mainMenuFrame.b2.addActionListener(new ActionListener() 
-		{
-		    @Override
-		    public void actionPerformed(ActionEvent e)
-		    {
-		    	Controller.instance.OnLoadGameButton();
-		    }
-		});
 	}
 
 
