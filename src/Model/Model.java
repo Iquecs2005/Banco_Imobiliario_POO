@@ -302,6 +302,7 @@ public class Model
 		roll.add(firstDice);
 		roll.add(secondDice);
 		this.lastRoll = roll;
+		onDiceRoll.notifyObservers();
 	}
 	
 	public String GetPlayerSpaceName(String playerColor) 

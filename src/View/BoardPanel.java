@@ -20,6 +20,7 @@ public class BoardPanel extends BasePanel
 	public final JButton rollDiceButton = new JButton("Roll Dice");
 	public final JButton endTurnButton = new JButton("End Turn");
 	public final JButton endGameButton = new JButton("End Game");
+	public final JTextField debugDice = new JTextField("Dice Value");
 	
     private BufferedImage boardImg;
     private CardContainer cardContainer;
@@ -28,10 +29,13 @@ public class BoardPanel extends BasePanel
 	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>();
     
     private int boardSize;
+    private boolean debug;
 
     public BoardPanel(int width, int height) 
     {
         super(width, height);
+        
+        debug = Controller.instance.GetDebugModeActive();
         
         cardContainer = new CardContainer();
         
@@ -47,7 +51,10 @@ public class BoardPanel extends BasePanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Controller.instance.MovePlayer();
+				if (debug && debugDice.getText() != null)
+					Controller.instance.MovePlayer(Integer.parseInt(debugDice.getText()));
+				else
+					Controller.instance.MovePlayer();
 				ToggleEndTurnButton(true); 
 				ToggleRollDiceButton(false); 
 				repaint();
@@ -88,6 +95,8 @@ public class BoardPanel extends BasePanel
 			}
 		});
         
+        if (debug)
+        	add(debugDice);
         
         ToggleEndTurnButton(false);
     }
@@ -158,6 +167,8 @@ public class BoardPanel extends BasePanel
         BaseFrame.PositionComponent(endTurnButton, this.getWidth()/2, this.getHeight()/2 + 30);
         BaseFrame.PositionComponent(saveGameButton, this.getWidth()/2, this.getHeight()/2 + 90);
         BaseFrame.PositionComponent(endGameButton, this.getWidth()/2, this.getHeight()/2 + 60);
+        if (debug)
+        	BaseFrame.PositionComponent(debugDice, 100, 50);
     }
     
     public void ToggleRollDiceButton(boolean state) 
