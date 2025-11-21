@@ -7,16 +7,18 @@ class Player extends BankBalance
 {
 	//private boolean bankrupt;
 	private String color;
+	private String name;
 	private Space currentSpace;
 	private boolean inJail = false;
 	private boolean hasJailCard = false;
 	
 	private List<Buyable> ownedSpaces = new LinkedList<Buyable>();
 	
-	public Player(String color, float money, Space currentSpace) 
+	public Player(String color, String name, float money, Space currentSpace) 
 	{
 		super(money);
 		this.color = color;
+		this.name = name;
 		this.currentSpace = currentSpace;
 	}
 	

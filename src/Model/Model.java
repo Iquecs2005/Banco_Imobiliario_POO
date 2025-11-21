@@ -54,7 +54,7 @@ public class Model
 	
 	//Functions
 	
-	public boolean NewGame(List<String> playerColors) 
+	public boolean NewGame(List<String> playerColors, List<String> playerNames) 
 	{
 		int nPlayers = playerColors.size();
 		
@@ -74,9 +74,11 @@ public class Model
 		
 		currentBoard.CreateSpaces(currentJail, currentDeck);
 		Space startSpace = getCurrentBoard().GetStartSpace();
+		int i = 0;
 		for (String color : playerColors)
 		{
-			currentPlayers.put(color, new Player(color, 4000.0f, startSpace));
+			currentPlayers.put(color, new Player(color, playerNames.get(i), 4000.0f, startSpace));
+			i++;
 		}
 		
 		currentPlayerIndex = 0;

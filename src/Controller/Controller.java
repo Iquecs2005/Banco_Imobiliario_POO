@@ -53,7 +53,7 @@ public class Controller
 	
 	public void CreateNewGame(List<String> playerColors, List<String> playerNames) 
 	{
-		Model.instance.NewGame(playerColors);
+		Model.instance.NewGame(playerColors, playerNames);
 		vc.ActivateBoard();
 	}
 	
