@@ -43,7 +43,7 @@ public class SaveHandler {
                     if (b instanceof Property) {
                         Property prop = (Property) b;
                         writer.write("    " + prop.name + ":" + "HOUSES:" + 
-                        prop.GetHouse().GetAmount() + ":" + "HOTELS:" + ":" + prop.GetHotel().GetAmount() + "\n");
+                        prop.GetHouse().GetAmount() + ":" + "HOTELS:" + prop.GetHotel().GetAmount() + "\n");
                     } else {
                         writer.write("    " + b.name + " TYPE(Company)\n");
                     }
