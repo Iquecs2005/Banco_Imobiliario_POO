@@ -46,11 +46,14 @@ class PlayerSelectFrame extends BaseFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				List<String> playersColorList = new LinkedList<String>();
+				List<String> playersName = new LinkedList<String>();
 				for (int i = 0; i < nPlayers; i++) 
 				{
 					playersColorList.add(PlayerPin.possibleColors[i]);
+					PlayerInfoForm currentInfo = playerInformation.get(i);
+					playersName.add(currentInfo.textField.getText().strip());
 				}
-				Controller.instance.CreateNewGame(playersColorList);
+				Controller.instance.CreateNewGame(playersColorList, playersName);
 			}
 		});	
 	}

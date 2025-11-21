@@ -51,7 +51,7 @@ public class Controller
 		vc.ActivateMainMenu();
 	}
 	
-	public void CreateNewGame(List<String> playerColors) 
+	public void CreateNewGame(List<String> playerColors, List<String> playerNames) 
 	{
 		Model.instance.NewGame(playerColors);
 		vc.ActivateBoard();
