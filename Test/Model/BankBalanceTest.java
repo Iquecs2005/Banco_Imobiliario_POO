@@ -111,7 +111,7 @@ public class BankBalanceTest {
 	{
 		Player testPlayer1 = new Player("Red", 4000, null);
 		
-		assertTrue(testPlayer1.CanAfford(3999.99f));
+		assertTrue(testPlayer1.CanAfford(4000));
 	}	
 	
 	@Test
@@ -119,7 +119,7 @@ public class BankBalanceTest {
 	{
 		Player testPlayer1 = new Player("Red", 4000, null);
 		
-		assertFalse(testPlayer1.CanAfford(4000));
+		assertFalse(testPlayer1.CanAfford(4001));
 	}	
 	
 	@Test

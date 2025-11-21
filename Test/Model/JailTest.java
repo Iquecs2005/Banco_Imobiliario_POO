@@ -68,7 +68,8 @@ public class JailTest {
         nonMatchingDice.add(4); // Non-matching dice
         
         // Act
-        jail.tryToLeaveJail(player, nonMatchingDice); // Has leave card
+        player.AddJailCard(new Card(Card.CardType.LeaveJail));
+        jail.tryToLeaveJail(player, nonMatchingDice); 
         
         // Assert
         assertFalse("Player should be released with leave card", player.GetJailedStatus());
@@ -175,6 +176,7 @@ public class JailTest {
         nonMatchingDice.add(1);
         nonMatchingDice.add(6);
         
+        player.AddJailCard(new Card(Card.CardType.LeaveJail));
         jail.tryToLeaveJail(player, nonMatchingDice); // Has card
         
         assertFalse("Player should be released with card despite non-matching dice", 

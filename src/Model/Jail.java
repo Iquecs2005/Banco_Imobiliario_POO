@@ -40,7 +40,11 @@ class Jail extends Space{
         prisoners.put(p, turns);
         
         if (p.HasJailedCard())
+        {
         	p.UseJailCard(deck);
+	        releasePlayer(p);
+	        return 1;
+        }
         
         boolean hasLeave = (diceRes.get(0).equals(diceRes.get(1))) || turns >= MAX_TURNS;
 

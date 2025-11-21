@@ -276,6 +276,14 @@ public class Model
 		return diceSum;
 	}
 	
+	public void SetLastRoll(int firstDice, int secondDice)
+	{
+		Vector<Integer> roll = new Vector<>(2);
+		roll.add(firstDice);
+		roll.add(secondDice);
+		this.lastRoll = roll;
+	}
+	
 	public String GetPlayerSpaceName(String playerColor) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
