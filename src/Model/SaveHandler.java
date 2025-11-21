@@ -27,6 +27,7 @@ public class SaveHandler {
             for (Player p : playerList.values()) {
 
                 writer.write("PLAYER " + p.GetColor() + "\n");
+                writer.write("NAME " + p.GetName() + "\n");
 
                 writer.write("BALANCE " + p.GetMoney() + "\n");
                 writer.write("IN_JAIL " + p.GetJailedStatus() + "\n");
@@ -72,9 +73,15 @@ public class SaveHandler {
 	            if (line.startsWith("PLAYER ")) {
 	                currentColor = line.substring(7).trim();
 	                Space start = board.GetStartSpace();
-	                currentPlayer = new Player(currentColor, 0f, start);
+	                currentPlayer = new Player(currentColor,"tempname", 0f, start);
 	                loadedPlayers.put(currentColor, currentPlayer);
 	                continue;
+	            }
+	            
+	            if(line.startsWith("NAME ")) {
+	            	String currName = line.substring(5).trim();
+	            	currentPlayer.SetName(currName);
+	            	continue;
 	            }
 
 	            if (line.startsWith("BALANCE ")) {
@@ -114,11 +121,13 @@ public class SaveHandler {
 	            
 	            if (line.startsWith("CURRENT TURN:")) {
 	            	currTurnColor = line.substring(13).trim();
+	            	continue;
 	            }
 
 	            // owned space line:
 	            if (line.startsWith("    ")) {
 	                parseOwnedSpace(line.trim(), currentPlayer, board);
+	                
 	            }
 	        }
 
