@@ -181,7 +181,16 @@ public class Model
 		onPlayerPosAltered.notifyObservers();
 		onMoneyPlayerAltered.notifyObservers();
 		onTurnEnd.notifyObservers();
-	} 
+	}
+	
+	public void RemovePlayer(String playerColor)
+	{
+		currentPlayers.remove(playerColor);
+		if (currentPlayers.size() == 1)
+		{
+			onGameEnd.notifyObservers();
+		}
+	}
 	
 	public boolean BuyProperty() 
 	{
@@ -264,7 +273,6 @@ public class Model
 	
 	public void EndGame()
 	{
-		onGameEnd.notifyObservers();
 	    onPlayerPosAltered.clearObservers();
 	    onMoneyPlayerAltered.clearObservers();
 	    onCardDrawn.clearObservers();
@@ -276,6 +284,11 @@ public class Model
 	    onTurnStart.clearObservers();
 	    onTurnEnd.clearObservers();
 	    onGameEnd.clearObservers();
+	}
+	
+	public void NotifyEndGame()
+	{
+		onGameEnd.notifyObservers();
 	}
 	
 	//Getters and Setters

@@ -91,7 +91,7 @@ public class BoardPanel extends BasePanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Controller.instance.OnEndGame();
+				Controller.instance.OnEndGameButton();
 			}
 		});
         
