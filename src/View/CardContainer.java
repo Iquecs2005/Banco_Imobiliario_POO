@@ -173,6 +173,7 @@ class CardContainer
 	
 	public void OnGameEnd()
 	{
+		Controller.instance.OnEndGame();
 		cardFrame.dispose();
 	}
 }
