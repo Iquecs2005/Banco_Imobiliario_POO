@@ -35,7 +35,7 @@ abstract class BankBalance
 	
 	public boolean CanAfford(float price) 
 	{
-		return money > price;
+		return money >= price;
 	}
 	
 	public void SetMoney(float moneyval)

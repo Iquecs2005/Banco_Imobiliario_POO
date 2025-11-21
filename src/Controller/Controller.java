@@ -93,7 +93,6 @@ public class Controller
 		Model.instance.PassTurn();
 	}
 	
-	
 	//Getters and Setters
 	
 	public int GetPlayerNumber() 
@@ -170,5 +169,4 @@ public class Controller
 	{
 		return Model.instance.GetSpaceIndex(playerColor);
 	}
-	
 }

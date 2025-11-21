@@ -35,7 +35,7 @@ public class CompanyTest {
 		int diceSum = 10;
 		
 		company.setOwner(player2);
-		Space.Codes result = company.onLand(player1, diceSum);
+		Space.Codes result = company.onLand(player1);
 		
 		float endPlayerMoney = player1.GetMoney();
 		float endOwnerMoney = player2.GetMoney();
