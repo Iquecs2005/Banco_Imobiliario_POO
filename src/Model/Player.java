@@ -69,6 +69,7 @@ class Player extends BankBalance
 		Property space = (Property)soldSpace;
 		bank.TransferMoney(this, (space.getRent() * 0.9f));
 		space.setOwner(null);
+		ownedSpaces.remove(space);
 		
 		return true;
 	}

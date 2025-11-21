@@ -26,6 +26,8 @@ public class Model
 	private Map<String, Player> currentPlayers;
 	private List<String> playerColors;
 	private Player currentPlayer;
+	private Player debtToPlayer;
+	private float debtValue;
 	private int currentPlayerIndex;
 	
 	private Vector<Integer> lastRoll;
@@ -160,17 +162,17 @@ public class Model
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			case Codes.CANT_AFFORD:
+				Buyable lastSpace = (Buyable) currentPlayer.GetCurrentSpace();
 				if (currentPlayer.GetOwnedSpaces().size() == 0)
 				{
-					Buyable lastSpace = (Buyable) currentPlayer.GetCurrentSpace();
-					currentPlayer.TransferMoney(lastSpace.getOwner(), currentPlayer.GetMoney());
-					RemovePlayer(currentPlayer.GetColor());
-					currentPlayer.SetMoney(-1);
-					onBankrupt.notifyObservers();
-					currentPlayerIndex--;
+					BankruptPlayer(lastSpace.getOwner());
 				}
 				else
-					onCantAffordRent.notifyObservers();
+				{
+					debtToPlayer = lastSpace.getOwner();
+					debtValue = lastSpace.getRent();
+					onCantAffordRent.notifyObservers();					
+				}
 				break;
 			case Codes.CAN_BUILD_BOTH:
 				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
@@ -251,6 +253,15 @@ public class Model
 		return true;
 	}
 	
+	private void BankruptPlayer(BankBalance receiver) 
+	{
+		currentPlayer.TransferMoney(receiver, currentPlayer.GetMoney());
+		currentPlayer.SetMoney(-1);
+		RemovePlayer(currentPlayer.GetColor());
+		onBankrupt.notifyObservers();
+		currentPlayerIndex--;
+	}
+	
 	public boolean SellProperty(String playerColor, String propertyName) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
@@ -270,6 +281,15 @@ public class Model
 			return false;
 		
 		boolean status = currentPlayer.SellSpace(currentBank, foundSpace);
+		
+		if (currentPlayer.GetMoney() > debtValue)
+			currentPlayer.TransferMoney(debtToPlayer, debtValue);
+		else if (currentPlayer.GetOwnedSpaces().size() == 0)
+		{
+			System.out.println("abc");
+			BankruptPlayer(debtToPlayer);
+		}
+		
 		onMoneyPlayerAltered.notifyObservers();
 
 		return status;

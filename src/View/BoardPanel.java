@@ -215,7 +215,6 @@ public class BoardPanel extends BasePanel
     private void OnBankrupt() 
     {
     	String bankruptPlayerColor = Controller.instance.GetCurrentPlayerColor();
-    	System.out.println("BBB " + bankruptPlayerColor);
     	
     	for (PlayerPin pin : activePlayerList) 
     	{
@@ -236,9 +235,6 @@ public class BoardPanel extends BasePanel
     		}
     	}
     	
-    	for (PlayerPin pin : activePlayerList) 
-    	{
-    		System.out.println(pin.GetColor());
-    	}
+    	repaint();
     }
 }
