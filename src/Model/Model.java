@@ -340,6 +340,16 @@ public class Model
 		onPlayerPosAltered.addObserver(newObserver);
 	}
 	
+	public void SubscribeToTurnEnd(Observer newObserver)
+	{
+		onTurnEnd.addObserver(newObserver);
+	}
+	
+	public void SubscribeToTurnStart(Observer newObserver)
+	{
+		onTurnStart.addObserver(newObserver);  
+	}
+	
 	public void SubscribeToMoneyPlayerAltered(Observer newObserver) 
 	{
 		onMoneyPlayerAltered.addObserver(newObserver);

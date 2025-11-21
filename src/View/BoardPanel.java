@@ -13,6 +13,8 @@ import java.util.*;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import Model.Observer;
+import Model.Event;
 
 public class BoardPanel extends BasePanel 
 {
@@ -27,15 +29,35 @@ public class BoardPanel extends BasePanel
 
     private List<PlayerPin> activePlayerList = new ArrayList<PlayerPin>();
 	private List<MoneyDisplay> moneyDisplays = new LinkedList<MoneyDisplay>();
+	
+	private final Observer saveButtonShowObserver = new SaveButtonShowObserver();
+	private final Observer saveButtonHideObserver = new SaveButtonHideObserver();
     
     private int boardSize;
     private boolean debug;
+    
+    public class SaveButtonShowObserver implements Observer {
+
+        public void update(Event event) {
+            saveGameButton.setVisible(true);
+        }
+    }
+
+    public class SaveButtonHideObserver implements Observer {
+        
+        public void update(Event event) {
+            saveGameButton.setVisible(false);
+        }
+    }
 
     public BoardPanel(int width, int height) 
     {
         super(width, height);
         
         debug = Controller.instance.GetDebugModeActive();
+        
+        Controller.instance.SubscribeToTurnEnd(saveButtonHideObserver);
+        Controller.instance.SubscribeToTurnStart(saveButtonShowObserver);
         
         cardContainer = new CardContainer();
         
@@ -45,6 +67,10 @@ public class BoardPanel extends BasePanel
         add(endTurnButton);
         add(saveGameButton);
         add(endGameButton);
+        
+        saveGameButton.setVisible(false);
+        
+        
         
         rollDiceButton.addActionListener(new ActionListener() 
 		{

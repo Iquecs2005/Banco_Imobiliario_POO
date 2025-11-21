@@ -176,6 +176,16 @@ public class Controller
 		Model.instance.SubscribeToCantAffordRent(newObserver);
 	}
 	
+	public void SubscribeToTurnEnd(Observer newObserver)
+	{
+		Model.instance.SubscribeToTurnEnd(newObserver);
+	}
+	
+	public void SubscribeToTurnStart(Observer newObserver)
+	{
+		Model.instance.SubscribeToTurnStart(newObserver);
+	}
+	
 	public void SubscribeToGameEnd(Observer newObserver)
 	{
 		Model.instance.SubscribeToGameEnd(newObserver);
