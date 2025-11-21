@@ -1,6 +1,7 @@
 package Controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -154,6 +155,11 @@ public class Controller
 		Model.instance.SubscribeToBuyableHotel(newObserver);
 	}
 	
+	public void SubscribeToCantAffordRent(Observer newObserver)
+	{
+		Model.instance.SubscribeToCantAffordRent(newObserver);
+	}
+	
 	public int getLastCardId() 
 	{
 		return Model.instance.getLastCardId();
@@ -172,5 +178,19 @@ public class Controller
 	public int GetPlayerSpaceIndex(String playerColor) 
 	{
 		return Model.instance.GetSpaceIndex(playerColor);
+	}
+	
+	public void SellProperty(String playerColor, String propertyName)
+	{
+		Model.instance.SellProperty(playerColor, propertyName);
+	}
+	
+	public String GetCurrentPlayerColor() {
+		return Model.instance.GetCurrentPlayerColor();
+	}
+	
+	public Map<String, String> GetPlayerOwnedSpaces(String color)
+	{
+		return Model.instance.GetPlayerOwnedSpaces(Model.instance.GetPlayerByColor(color));
 	}
 }

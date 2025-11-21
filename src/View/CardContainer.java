@@ -1,5 +1,12 @@
 package View;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import Controller.Controller;
 import Model.Event;
 import Model.Observer;
@@ -55,11 +62,58 @@ class CardContainer
 				OnPropertyOwned(false, true);
 			}
 		});
+		
+		Controller.instance.SubscribeToCantAffordRent(new Observer() 
+		{
+			@Override
+			public void update(Event event)  
+			{
+				DisplayPlayerCards(Controller.instance.GetCurrentPlayerColor());
+			}
+		});
+	
+		
 	}
 	
-	public void DisplayPlayerCards() 
+	public void DisplayPlayerCards(String playerColor) 
 	{
+		if (cardFrame!= null) 
+		{
+			cardFrame.ClearCards();
+		}
+		Map<String, String> playerCards = Controller.instance.GetPlayerOwnedSpaces(playerColor);
+		Map<String, CardType> playerCardsWithType = playerCardsTyping(playerCards);
+		for(Map.Entry<String, CardType> entry : playerCardsWithType.entrySet())
+		{
+			String cardName = entry.getKey();
+			CardType cardType = entry.getValue();
+			DisplayCard(cardName, cardType);
+			cardFrame.AddSellButton(playerColor, cardName);
+		}
+
+	}
+	
+	private Map<String, CardType> playerCardsTyping(Map<String, String> playerCards)
+	{
+		Map<String, CardType> playerCardsWithType = new HashMap<>();
+
+		for (Map.Entry<String, String> entry : playerCards.entrySet()) {
+		    String cardName = entry.getKey();
+		    String temp   = entry.getValue();
+		    CardType type = null;
+		    switch(temp)
+		    {
+		    case("Property"):
+		    	type = CardType.Property;
+		    	break;
+		    case("Company"):
+		    	type = CardType.Company;
+		    	break;
+		    }
+		    playerCardsWithType.put(cardName, type);
+		}
 		
+		return playerCardsWithType;
 	}
 	
 	public void ClearCards() 
@@ -75,7 +129,6 @@ class CardContainer
 		else
 			ClearCards();
 		cardFrame.setVisible(true);
-		
 		cardFrame.AddCard(cardName, cardType);
 	}
 	

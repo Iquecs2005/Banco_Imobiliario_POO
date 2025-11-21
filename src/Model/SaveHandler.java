@@ -60,7 +60,7 @@ public class SaveHandler {
 	public void loadFromSaveFile(String filePath) {
 
 	    Map<String, Player> loadedPlayers = new HashMap<>();
-
+	    String currTurnColor = null;
 	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
 	        String line;
@@ -111,6 +111,10 @@ public class SaveHandler {
 	                currentPlayer = null;
 	                continue;
 	            }
+	            
+	            if (line.startsWith("CURRENT TURN:")) {
+	            	currTurnColor = line.substring(13).trim();
+	            }
 
 	            // owned space line:
 	            if (line.startsWith("    ")) {
@@ -125,6 +129,9 @@ public class SaveHandler {
 	    // Assign players back to model
 	    
 	    Model.instance.SetCurrentPlayers(loadedPlayers);
+	    System.out.println(currTurnColor);
+    	int index = Model.instance.GetPlayerIndex(currTurnColor);
+    	Model.instance.SetCurrentPlayerByIndex(index);
 	}
 	
 	private void parseOwnedSpace(String line, Player player, Board board) {

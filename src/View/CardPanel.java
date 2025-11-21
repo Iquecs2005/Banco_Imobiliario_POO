@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CardPanel extends BasePanel
 	private JButton buyButton = new JButton("Buy Space");
 	private JButton houseButton = new JButton("Buy House");
 	private JButton hotelButton = new JButton("Buy Hotel");
+	private List<JButton> sellButtons = new ArrayList<>();
 
 	public CardPanel(int width, int height) 
 	{
@@ -59,7 +61,6 @@ public class CardPanel extends BasePanel
 			}
 		});
 		
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -81,9 +82,17 @@ public class CardPanel extends BasePanel
 			i++;
 		}
 		
+		i = 0;
+		for(JButton sellButton : sellButtons)
+		{
+			BaseFrame.PositionComponent(sellButton, (i*cardSize) + cardSize/2, getHeight() - 30);
+			i++;
+		}
+		
 		BaseFrame.PositionComponent(buyButton, frameSize / 2, getHeight() - 30);
 		BaseFrame.PositionComponent(houseButton, frameSize / 2, getHeight() - 30);
 		BaseFrame.PositionComponent(hotelButton, frameSize / 2, getHeight() - 60);
+		
 	}
 	
 	public void AddCard(String cardName, CardType cardType) 
@@ -95,6 +104,7 @@ public class CardPanel extends BasePanel
 	public void ClearCards() 
 	{
 		cardList.clear();
+		sellButtons.clear();
 	}
 	
 	public void ToggleBuyButton(boolean state) 
@@ -114,4 +124,23 @@ public class CardPanel extends BasePanel
 		hotelButton.setVisible(state);
 		repaint();
 	}
+	
+	public void AddSellButton(String color, String propName)
+	{
+		JButton sellButton = new JButton("Sell space");
+		sellButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Controller.instance.SellProperty(color, propName);
+			}
+		});
+		
+		sellButtons.add(sellButton);
+		add(sellButton);
+		
+	}
+	
+	
 }

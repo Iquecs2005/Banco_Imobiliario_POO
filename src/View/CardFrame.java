@@ -43,4 +43,10 @@ public class CardFrame extends BaseFrame
 	{
 		panel.ToggleHotelButton(state);
 	}
+	
+	public void AddSellButton(String color, String propName)
+	{
+		panel.AddSellButton(color, propName);
+	}
+	
 }

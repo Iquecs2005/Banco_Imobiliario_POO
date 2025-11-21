@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -356,6 +357,11 @@ public class Model
 		onBuyableHotel.addObserver(newObserver);
 	}
 	
+	public void SubscribeToCantAffordRent(Observer newObserver)
+	{
+		onCantAffordRent.addObserver(newObserver);
+	}
+	
 	public float GetPlayerMoney(String playerColor) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
@@ -409,5 +415,70 @@ public class Model
 	public void SetCurrentPlayers(Map<String, Player> newPlayers)
 	{
 		this.currentPlayers = newPlayers;
+		this.playerColors = new ArrayList<String>(newPlayers.keySet());
+		System.out.print(playerColors);
 	}
+	
+	public String GetPlayerColorByIndex(int index)
+	{
+		return playerColors.get(index);
+	}
+	
+	public int GetPlayerIndex(String color)
+	{
+		System.out.println("Recieved: " + color.length());
+		for(int i = 0; i < playerColors.size(); i++) 
+		{
+			System.out.println(playerColors.get(i).length());
+			if (playerColors.get(i).equals(color)) 
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int GetCurrentPlayerIndex()
+	{
+		return this.currentPlayerIndex;
+	}
+	
+	public String GetCurrentPlayerColor()
+	{
+		return playerColors.get(currentPlayerIndex);
+	}
+	
+	public void SetCurrentPlayerByIndex(int index)
+	{
+		this.currentPlayerIndex = index;
+		String currentColor = this.playerColors.get(currentPlayerIndex);
+		currentPlayer = currentPlayers.get(currentColor);
+	}
+	
+	public Player GetPlayerByColor(String Color)
+	{
+		return this.currentPlayers.get(Color);
+	}
+	
+	public Map<String, String> GetPlayerOwnedSpaces(Player p)
+	{
+		List<Buyable> ownedList = p.GetOwnedSpaces();
+		Map<String, String> ownedSpaces = new HashMap<>();
+		String type = null;
+		for (Buyable b : ownedList)
+		{
+			if(b instanceof Property)
+			{
+				type = "Property";
+			}
+			
+			if(b instanceof Company)
+			{
+				type = "Company";
+			}
+		ownedSpaces.put(b.getName(), type);
+		}
+		return ownedSpaces;
+	}
+	
 }
