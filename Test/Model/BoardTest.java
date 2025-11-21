@@ -11,6 +11,8 @@ import org.junit.Test;
 public class BoardTest 
 {
 	private static Bank bank;
+	private static Jail jail;
+	private static Deck deck;
 	private static Board board;
 	private static Player redPlayer;
 	private static Player yellowPlayer;
@@ -21,6 +23,9 @@ public class BoardTest
 	{
 		bank = new Bank(200000);
 		board = new Board(bank);
+		deck = new Deck();
+		jail = new Jail(board, deck);
+		board.CreateSpaces(jail, deck);
 		redPlayer = new Player("Red", 4000, board.GetStartSpace());
 		yellowPlayer = new Player("Yellow", 4000, board.GetStartSpace());
 		greenPlayer = new Player("Green", 4000, board.GetStartSpace());
@@ -46,7 +51,7 @@ public class BoardTest
 	public void GetStartSpaceOk() 
 	{
 		Space startSpace = board.GetStartSpace();
-		assertEquals("StartSpace", startSpace.name);
+		assertEquals("Ponto de Partida", startSpace.name);
 	}
 	
 	@Test
@@ -55,11 +60,11 @@ public class BoardTest
 		Space getSpace;
 		
 		getSpace = board.GetSpace(0);
-		assertEquals("StartSpace", getSpace.name);
+		assertEquals("Ponto de Partida", getSpace.name);
 		getSpace = board.GetSpace(1);
 		assertEquals("Leblon", getSpace.name);
 		getSpace = board.GetSpace(2);
-		assertEquals("?", getSpace.name);
+		assertEquals("Luck Space", getSpace.name);
 	}
 	
 	@Test
@@ -81,12 +86,12 @@ public class BoardTest
 		assertEquals("Leblon", redPlayer.GetCurrentSpace().name);
 		
 		landedSpace = board.MovePlayer(yellowPlayer, 2);
-		assertEquals("?", landedSpace.name);
-		assertEquals("?", yellowPlayer.GetCurrentSpace().name);
+		assertEquals("Luck Space", landedSpace.name);
+		assertEquals("Luck Space", yellowPlayer.GetCurrentSpace().name);
 		
 		landedSpace = board.MovePlayer(greenPlayer, 2);
-		assertEquals("?", landedSpace.name);
-		assertEquals("?", yellowPlayer.GetCurrentSpace().name);
+		assertEquals("Luck Space", landedSpace.name);
+		assertEquals("Luck Space", yellowPlayer.GetCurrentSpace().name);
 	}
 	
 	@Test
@@ -98,8 +103,8 @@ public class BoardTest
 		
 		originalMoney = redPlayer.GetMoney();
 		landedSpace = board.MovePlayer(redPlayer, boardSize);
-		assertEquals("StartSpace", landedSpace.name);
-		assertEquals("StartSpace", redPlayer.GetCurrentSpace().name);
+		assertEquals("Ponto de Partida", landedSpace.name);
+		assertEquals("Ponto de Partida", redPlayer.GetCurrentSpace().name);
 		assertEquals(originalMoney + 200, redPlayer.GetMoney(), 0.01);
 		
 		originalMoney = yellowPlayer.GetMoney();
@@ -110,8 +115,8 @@ public class BoardTest
 		
 		originalMoney = greenPlayer.GetMoney();
 		landedSpace = board.MovePlayer(greenPlayer, boardSize * 3 + 2);
-		assertEquals("?", landedSpace.name);
-		assertEquals("?", greenPlayer.GetCurrentSpace().name);
+		assertEquals("Luck Space", landedSpace.name);
+		assertEquals("Luck Space", greenPlayer.GetCurrentSpace().name);
 		assertEquals(originalMoney + 200 * 3, greenPlayer.GetMoney(), 0.01);
 	}
 	

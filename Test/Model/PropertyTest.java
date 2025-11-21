@@ -19,7 +19,7 @@ public class PropertyTest {
         Hotel testHotel = new Hotel(100); // cost 100
         
         
-        property = new Property("Test Property", 100, 25, testHouse, testHotel);
+        property = new Property("Test Property", 100, 0, testHouse, testHotel);
         player = new Player("Red", 500.0f, property);
         otherPlayer = new Player("Blue", 500.0f, property);
     }
@@ -28,7 +28,7 @@ public class PropertyTest {
     public void testConstructor() {
         assertEquals("Test Property", property.name);
         assertEquals(100.0f, property.getPrice(), 0.001f);
-        assertEquals(25.0f, property.getRent(), 0.001f);
+        assertEquals(property.getPrice() * 0.1f, property.getRent(), 0.001f);
         assertNull("Owner should be null initially", property.getOwner());
     }
     
@@ -202,7 +202,7 @@ public class PropertyTest {
         property.buildHotel(player, bank);
         
         // Assert - Rent should be base + (2 houses * 10) + (1 hotel * 50)
-        float expectedRent = baseRent + (2 * 10) + (1 * 50);
+        float expectedRent = baseRent + (2 * property.getPrice() * 0.15f) + (1 * property.getPrice() * 0.3f);
         
         // Land on property to trigger rent payment check
         property.onLand(otherPlayer);
