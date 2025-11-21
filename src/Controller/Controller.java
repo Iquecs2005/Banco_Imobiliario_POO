@@ -136,9 +136,19 @@ public class Controller
 		Model.instance.SubscribeToPlayerPos(newObserver);
 	}
 	
+	public void UnsubscribeToPlayerPos(Observer newObserver) 
+	{
+		Model.instance.UnsubscribeToPlayerPos(newObserver);
+	}
+	
 	public void SubscribeToMoneyAltered(Observer newObserver)
 	{
 		Model.instance.SubscribeToMoneyPlayerAltered(newObserver);
+	}
+	
+	public void UnsubscribeToMoneyAltered(Observer newObserver)
+	{
+		Model.instance.UnsubscribeToMoneyPlayerAltered(newObserver);
 	}
 	
 	public void SubscribeToRollDice(Observer newObserver)
@@ -191,9 +201,29 @@ public class Controller
 		Model.instance.SubscribeToGameEnd(newObserver);
 	}
 	
+	public void SubscribeToOnBankrupt(Observer newObserver)
+	{
+		Model.instance.SubscribeToOnBankrupt(newObserver);
+	}
+	
 	public int getLastCardId() 
 	{
 		return Model.instance.getLastCardId();
+	}
+	
+	public float GetLandedSpaceRent()
+	{
+		return Model.instance.GetLandedSpaceRent();
+	}
+	
+	public int GetLandedPropertyHouses()
+	{
+		return Model.instance.GetLandedPropertyHouses();
+	}
+	
+	public int GetLandedPropertyHotel()
+	{
+		return Model.instance.GetLandedPropertyHotel();
 	}
 	
 	public boolean LandedSpaceIsProperty()
@@ -216,7 +246,8 @@ public class Controller
 		Model.instance.SellProperty(playerColor, propertyName);
 	}
 	
-	public String GetCurrentPlayerColor() {
+	public String GetCurrentPlayerColor() 
+	{
 		return Model.instance.GetCurrentPlayerColor();
 	}
 	

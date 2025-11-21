@@ -40,6 +40,12 @@ class PlayerPin implements Observer
 		CalculatePos(Controller.instance.GetPlayerSpaceIndex(color));
 	}
 	
+	public void Unsubscribe() 
+	{
+		System.out.println("Unsub");
+		Controller.instance.UnsubscribeToPlayerPos(this);
+	}
+	
 	public void PaintComponent(Graphics2D g2d, int boardX, int boardSize, BasePanel panel) 
 	{
 		int width = (int)(0.05 * boardSize);
@@ -100,5 +106,10 @@ class PlayerPin implements Observer
 	public void update(Event event) 
 	{
 		CalculatePos(Controller.instance.GetPlayerSpaceIndex(color));
+	}
+	
+	public String GetColor() 
+	{
+		return color;
 	}
 }

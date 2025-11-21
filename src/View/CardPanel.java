@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import Controller.Controller;
 import View.CardUI.CardType;
@@ -19,6 +20,9 @@ public class CardPanel extends BasePanel
 	private JButton buyButton = new JButton("Buy Space");
 	private JButton houseButton = new JButton("Buy House");
 	private JButton hotelButton = new JButton("Buy Hotel");
+	private JLabel totalRent = new JLabel("Rent: ");
+	private JLabel totalHouses = new JLabel("Houses: ");
+	private JLabel totalHotel = new JLabel("Hotel: ");
 	private List<JButton> sellButtons = new ArrayList<>();
 
 	public CardPanel(int width, int height) 
@@ -28,6 +32,9 @@ public class CardPanel extends BasePanel
 		add(buyButton);
 		add(houseButton);
 		add(hotelButton);
+		add(totalRent);
+		add(totalHouses);
+		add(totalHotel);
 		buyButton.setVisible(false);
 		houseButton.setVisible(false);
 		hotelButton.setVisible(false);
@@ -92,7 +99,9 @@ public class CardPanel extends BasePanel
 		BaseFrame.PositionComponent(buyButton, frameSize / 2, getHeight() - 30);
 		BaseFrame.PositionComponent(houseButton, frameSize / 2, getHeight() - 30);
 		BaseFrame.PositionComponent(hotelButton, frameSize / 2, getHeight() - 60);
-		
+		BaseFrame.PositionComponent(totalRent, frameSize / 2 - 100, getHeight() - 60);
+		BaseFrame.PositionComponent(totalHouses, frameSize / 2 - 100, getHeight() - 40);
+		BaseFrame.PositionComponent(totalHotel, frameSize / 2 - 100, getHeight() - 20);
 	}
 	
 	public void AddCard(String cardName, CardType cardType) 
@@ -125,6 +134,26 @@ public class CardPanel extends BasePanel
 		repaint();
 	}
 	
+	public void ToggleRentValues(boolean stateRent, boolean stateBuildings)
+	{
+		totalRent.setVisible(stateRent);
+		totalHouses.setVisible(stateBuildings);
+		totalHotel.setVisible(stateBuildings);
+	}
+	
+	public void UpdateRentValue()
+	{
+		float rent = Controller.instance.GetLandedSpaceRent();
+		totalRent.setText("Rent: " + Float.toString(rent));
+	}
+	
+	public void UpdateBuildingValues()
+	{
+		int houses = Controller.instance.GetLandedPropertyHouses();
+		int hotel = Controller.instance.GetLandedPropertyHotel();
+		totalHouses.setText("Houses: " + Integer.toString(houses));
+		totalHotel.setText("Hotel: " + Integer.toString(hotel));
+	}
 	
 	public void AddSellButton(String color, String propName)
 	{

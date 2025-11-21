@@ -146,18 +146,27 @@ class CardContainer
 		String cardName = "chance";
 		cardName += String.valueOf(Controller.instance.getLastCardId());
 		DisplayCard(cardName, CardType.Luck);
+		cardFrame.ToggleRentValues(false, false);
 	}
 	
 	public void OnPropertyBought() 
 	{
 		String cardName = Controller.instance.GetLandedBuyableName();
 		CardType cardType = CardType.Company;
+		boolean toggleRent = true;
+		boolean toggleBuildings = false;
 		
 		if (Controller.instance.LandedSpaceIsProperty())
+		{
 			cardType = CardType.Property;
+			toggleBuildings = true;
+		}
 		
 		
 		DisplayCard(cardName, cardType);
+		cardFrame.UpdateRentValue();
+		if (toggleBuildings) cardFrame.UpdateBuildingValues();
+		cardFrame.ToggleRentValues(toggleRent, toggleBuildings);
 		cardFrame.ToggleBuyButton(true);
 	}
 	

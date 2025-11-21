@@ -27,6 +27,7 @@ public class CardFrame extends BaseFrame
 		panel.ToggleBuyButton(false);
 		panel.ToggleHouseButton(false);
 		panel.ToggleHotelButton(false);
+		panel.ToggleRentValues(false, false);
 	}
 	
 	public void ToggleBuyButton(boolean state) 
@@ -42,6 +43,21 @@ public class CardFrame extends BaseFrame
 	public void ToggleHotelButton(boolean state) 
 	{
 		panel.ToggleHotelButton(state);
+	}
+	
+	public void ToggleRentValues(boolean stateRent, boolean stateBuildings)
+	{
+		panel.ToggleRentValues(stateRent, stateBuildings);
+	}
+	
+	public void UpdateRentValue()
+	{
+		panel.UpdateRentValue();
+	}
+	
+	public void UpdateBuildingValues()
+	{
+		panel.UpdateBuildingValues();
 	}
 	
 	public void AddSellButton(String color, String propName)

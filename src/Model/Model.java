@@ -26,6 +26,8 @@ public class Model
 	private Map<String, Player> currentPlayers;
 	private List<String> playerColors;
 	private Player currentPlayer;
+	private Player debtToPlayer;
+	private float debtValue;
 	private int currentPlayerIndex;
 	
 	private Vector<Integer> lastRoll;
@@ -41,6 +43,7 @@ public class Model
 	private Event onBuyableHotel = new Event();
 	private Event onBuyableHouse = new Event();
 	private Event onCantAffordRent = new Event();
+	private Event onBankrupt = new Event();
 	private Event onTurnStart = new Event();
 	private Event onTurnEnd = new Event();
 	private Event onGameEnd = new Event();
@@ -159,7 +162,17 @@ public class Model
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			case Codes.CANT_AFFORD:
-				onCantAffordRent.notifyObservers();
+				Buyable lastSpace = (Buyable) currentPlayer.GetCurrentSpace();
+				if (currentPlayer.GetOwnedSpaces().size() == 0)
+				{
+					BankruptPlayer(lastSpace.getOwner());
+				}
+				else
+				{
+					debtToPlayer = lastSpace.getOwner();
+					debtValue = lastSpace.getRent();
+					onCantAffordRent.notifyObservers();					
+				}
 				break;
 			case Codes.CAN_BUILD_BOTH:
 				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
@@ -186,6 +199,8 @@ public class Model
 	public void RemovePlayer(String playerColor)
 	{
 		currentPlayers.remove(playerColor);
+		playerColors.remove(playerColor);
+		
 		if (currentPlayers.size() == 1)
 		{
 			onGameEnd.notifyObservers();
@@ -238,6 +253,15 @@ public class Model
 		return true;
 	}
 	
+	private void BankruptPlayer(BankBalance receiver) 
+	{
+		currentPlayer.TransferMoney(receiver, currentPlayer.GetMoney());
+		currentPlayer.SetMoney(-1);
+		RemovePlayer(currentPlayer.GetColor());
+		onBankrupt.notifyObservers();
+		currentPlayerIndex--;
+	}
+	
 	public boolean SellProperty(String playerColor, String propertyName) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
@@ -257,6 +281,15 @@ public class Model
 			return false;
 		
 		boolean status = currentPlayer.SellSpace(currentBank, foundSpace);
+		
+		if (currentPlayer.GetMoney() > debtValue)
+			currentPlayer.TransferMoney(debtToPlayer, debtValue);
+		else if (currentPlayer.GetOwnedSpaces().size() == 0)
+		{
+			System.out.println("abc");
+			BankruptPlayer(debtToPlayer);
+		}
+		
 		onMoneyPlayerAltered.notifyObservers();
 
 		return status;
@@ -350,9 +383,19 @@ public class Model
 		onTurnStart.addObserver(newObserver);  
 	}
 	
+	public void UnsubscribeToPlayerPos(Observer newObserver) 
+	{
+		onPlayerPosAltered.removeObserver(newObserver);
+	}
+	
 	public void SubscribeToMoneyPlayerAltered(Observer newObserver) 
 	{
 		onMoneyPlayerAltered.addObserver(newObserver);
+	}
+	
+	public void UnsubscribeToMoneyPlayerAltered(Observer newObserver) 
+	{
+		onMoneyPlayerAltered.removeObserver(newObserver);
 	}
 	
 	public void SubscribeToDiceRoll(Observer newObserver)
@@ -395,6 +438,11 @@ public class Model
 		onGameEnd.addObserver(newObserver);
 	}
 	
+	public void SubscribeToOnBankrupt(Observer newObserver)
+	{
+		onBankrupt.addObserver(newObserver);
+	}
+	
 	public float GetPlayerMoney(String playerColor) 
 	{
 		Player currentPlayer = currentPlayers.get(playerColor);
@@ -420,6 +468,31 @@ public class Model
 	public int getLastCardId() 
 	{
 		return currentDeck.GetLastCardID();
+	}
+	
+	public float GetLandedSpaceRent()
+	{
+		return lastLandedSpace.getRent();
+	}
+	
+	public int GetLandedPropertyHouses()
+	{
+		if (LandedSpaceIsProperty())
+		{
+			Property property = (Property)lastLandedSpace;
+			return property.GetHouse().GetAmount();
+		}
+		return 0;
+	}
+	
+	public int GetLandedPropertyHotel()
+	{
+		if (LandedSpaceIsProperty())
+		{
+			Property property = (Property)lastLandedSpace;
+			return property.GetHotel().GetAmount();
+		}
+		return 0;
 	}
 	
 	public boolean LandedSpaceIsProperty() 
@@ -449,7 +522,6 @@ public class Model
 	{
 		this.currentPlayers = newPlayers;
 		this.playerColors = new ArrayList<String>(newPlayers.keySet());
-		System.out.print(playerColors);
 	}
 	
 	public String GetPlayerColorByIndex(int index)
@@ -459,10 +531,8 @@ public class Model
 	
 	public int GetPlayerIndex(String color)
 	{
-		System.out.println("Recieved: " + color.length());
 		for(int i = 0; i < playerColors.size(); i++) 
 		{
-			System.out.println(playerColors.get(i).length());
 			if (playerColors.get(i).equals(color)) 
 			{
 				return i;
@@ -478,7 +548,7 @@ public class Model
 	
 	public String GetCurrentPlayerColor()
 	{
-		return playerColors.get(currentPlayerIndex);
+		return currentPlayer.GetColor();
 	}
 	
 	public void SetCurrentPlayerByIndex(int index)
