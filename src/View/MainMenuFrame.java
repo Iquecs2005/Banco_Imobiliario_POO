@@ -59,6 +59,12 @@ class MainMenuFrame extends BaseFrame
 		    }
 
 		});
+		
+		Boolean active = Controller.instance.GetDebugModeActive();
+		if (active)
+			b3.setBackground(Color.blue);
+		else
+			b3.setBackground(Color.white);
 	}
 	
 	private void OnDebugButtonPress() 
