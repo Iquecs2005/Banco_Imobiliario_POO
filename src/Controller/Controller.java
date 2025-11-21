@@ -1,12 +1,8 @@
 package Controller;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
-
-import javax.swing.JFileChooser;
 
 import Model.Model;
 import Model.Observer;
@@ -50,6 +46,7 @@ public class Controller
 	public void CreateNewGame(List<String> playerColors) 
 	{
 		Model.instance.NewGame(playerColors);
+		vc.ActivateBoard();
 	}
 	
 	public void SaveGame(String path)

@@ -1,9 +1,5 @@
 package View;
 
-import java.awt.Graphics2D;
-import java.util.LinkedList;
-import java.util.List;
-
 import View.CardUI.CardType;
 
 public class CardFrame extends BaseFrame 

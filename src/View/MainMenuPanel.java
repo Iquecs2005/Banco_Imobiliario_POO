@@ -2,8 +2,6 @@ package View;
 
 import java.awt.*;
 
-import javax.swing.*;
-
 class MainMenuPanel extends BasePanel
 {
 	public MainMenuPanel(int width, int height) 

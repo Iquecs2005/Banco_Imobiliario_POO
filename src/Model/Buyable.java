@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Space.Codes;
-
 class Buyable extends Space {
 	
 	private float price;

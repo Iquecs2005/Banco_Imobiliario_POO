@@ -14,13 +14,10 @@ class DiceUI
 {
 	public BufferedImage diceImage;
 	
-	private final int number;
 	private final String dicePath = "/resources/dice/";
 	
 	public DiceUI(int number) 
 	{
-		this.number = number;
-		
 		try 
 		{			
 			diceImage = ImageIO.read(getClass().getResource(dicePath + "die_face_" + number + ".png"));

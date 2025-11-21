@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Space.Codes;
-
 class Property extends Buyable {
 	
 	House house;

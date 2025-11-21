@@ -11,8 +11,6 @@ import Controller.Controller;
 
 class PlayerSelectFrame extends BaseFrame
 {
-	private ViewController vc;
-	
 	public final JButton b1 = new JButton("New Player");
 	public final JButton b2 = new JButton("Start Game");
 	
@@ -26,8 +24,6 @@ class PlayerSelectFrame extends BaseFrame
 	public PlayerSelectFrame(int startWidth, int startHeight, ViewController vc) 
 	{
 		super("Player Select", startWidth, startHeight);
-		
-		this.vc = vc;
 		
 		panel = new PlayerSelectPanel(frameWidth, frameHeight);
 		getContentPane().add(panel);
@@ -55,7 +51,6 @@ class PlayerSelectFrame extends BaseFrame
 					playersColorList.add(PlayerPin.possibleColors[i]);
 				}
 				Controller.instance.CreateNewGame(playersColorList);
-				vc.ActivateBoard();
 			}
 		});	
 	}

@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Space.Codes;
-
 public class GiveMoneySpace extends Space {
 	
 	private float value;

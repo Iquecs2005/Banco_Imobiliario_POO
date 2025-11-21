@@ -21,12 +21,10 @@ class PlayerPin implements Observer
 	
 	private final String color;
 	private final String pinsPath = "/resources/pins/";
-	private final BasePanel panel;
 	
 	public PlayerPin(String color, BasePanel panel) 
 	{
 		this.color = color;
-		this.panel = panel;
 		
 		try 
 		{			

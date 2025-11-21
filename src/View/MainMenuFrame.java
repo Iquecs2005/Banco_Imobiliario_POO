@@ -1,8 +1,5 @@
 package View;
 
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
 
 class MainMenuFrame extends BaseFrame

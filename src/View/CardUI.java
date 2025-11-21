@@ -14,17 +14,14 @@ public class CardUI{
 		Luck
 	}
 	
-	private String name;
 	private BufferedImage image;
-	private CardType type;
 	private String path;
 	
 	private float x;
 	private float y;
 	
-	public CardUI (String name, CardType type, float x, float y) {
-		this.name = name;
-		this.type = type;
+	public CardUI (String name, CardType type, float x, float y) 
+	{
 		this.x = x;
 		this.y = y;
 		
@@ -47,7 +44,8 @@ public class CardUI{
 		{
 			this.image = ImageIO.read(getClass().getResource(path));
 		}
-		catch (IOException e) {
+		catch (IOException e) 
+		{
     		System.err.println("Image file not found");
             e.printStackTrace();
 		}
