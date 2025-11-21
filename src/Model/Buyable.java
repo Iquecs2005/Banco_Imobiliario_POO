@@ -40,11 +40,13 @@ class Buyable extends Space {
 		return Codes.IS_MINE;
 	}
 	
-	public float getPrice() {
+	public float getPrice() 
+	{
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(float price) 
+	{
 		this.price = price;
 	}
 
@@ -53,8 +55,14 @@ class Buyable extends Space {
 		return rent;
 	}
 
-	public void setRent(float rent) {
+	public void setRent(float rent) 
+	{
 		this.rent = rent;
+	}
+	
+	public float getSellPrice() 
+	{
+		return rent * 0.9f;
 	}
 
 	public Player getOwner() {
