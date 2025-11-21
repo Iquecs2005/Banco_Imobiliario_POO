@@ -201,6 +201,21 @@ public class Controller
 		return Model.instance.getLastCardId();
 	}
 	
+	public float GetLandedSpaceRent()
+	{
+		return Model.instance.GetLandedSpaceRent();
+	}
+	
+	public int GetLandedPropertyHouses()
+	{
+		return Model.instance.GetLandedPropertyHouses();
+	}
+	
+	public int GetLandedPropertyHotel()
+	{
+		return Model.instance.GetLandedPropertyHotel();
+	}
+	
 	public boolean LandedSpaceIsProperty()
 	{
 		return Model.instance.LandedSpaceIsProperty();

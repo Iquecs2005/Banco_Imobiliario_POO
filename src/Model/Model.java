@@ -460,6 +460,31 @@ public class Model
 		return currentDeck.GetLastCardID();
 	}
 	
+	public float GetLandedSpaceRent()
+	{
+		return lastLandedSpace.getRent();
+	}
+	
+	public int GetLandedPropertyHouses()
+	{
+		if (LandedSpaceIsProperty())
+		{
+			Property property = (Property)lastLandedSpace;
+			return property.GetHouse().GetAmount();
+		}
+		return 0;
+	}
+	
+	public int GetLandedPropertyHotel()
+	{
+		if (LandedSpaceIsProperty())
+		{
+			Property property = (Property)lastLandedSpace;
+			return property.GetHotel().GetAmount();
+		}
+		return 0;
+	}
+	
 	public boolean LandedSpaceIsProperty() 
 	{
 		return (lastLandedSpace instanceof Property); 
