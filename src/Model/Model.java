@@ -469,6 +469,12 @@ public class Model
 		return this.currentPlayers.get(Color);
 	}
 	
+	public String GetPlayerNameByColor(String color)
+	{
+		Player p = currentPlayers.get(color);
+		return p.GetName();
+	}
+	
 	public Map<String, String> GetPlayerOwnedSpaces(Player p)
 	{
 		List<Buyable> ownedList = p.GetOwnedSpaces();

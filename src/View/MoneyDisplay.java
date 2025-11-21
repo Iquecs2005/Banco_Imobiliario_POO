@@ -13,13 +13,15 @@ class MoneyDisplay implements Observer
 	final JLabel amountField;
 	
 	final String color;
+	final String name;
 	
 	public MoneyDisplay(JPanel panel, String color) 
 	{
 		this.panel = panel;
 		this.color = color;
+		this.name = Controller.instance.GetPlayerNameByColor(color);
 		
-		colorField = new JLabel(color + " Player");
+		colorField = new JLabel(name + " | " + color + " Player");
 		float amount = Controller.instance.GetMoney(color);
 		amountField = new JLabel(Float.toString(amount));
 
@@ -31,7 +33,7 @@ class MoneyDisplay implements Observer
 	
 	public void DrawDisplay(int x, int y) 
 	{
-		BaseFrame.PositionComponent(colorField, x - 75, y);
+		BaseFrame.PositionComponent(colorField, x - (75 + name.length() * 5) , y);
 		BaseFrame.PositionComponent(amountField, x, y);
 	}
 	

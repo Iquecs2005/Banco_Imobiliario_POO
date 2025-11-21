@@ -194,6 +194,11 @@ public class Controller
 		return Model.instance.GetCurrentPlayerColor();
 	}
 	
+	public String GetPlayerNameByColor(String color)
+	{
+		return Model.instance.GetPlayerNameByColor(color);
+	}
+	
 	public Map<String, String> GetPlayerOwnedSpaces(String color)
 	{
 		return Model.instance.GetPlayerOwnedSpaces(Model.instance.GetPlayerByColor(color));
