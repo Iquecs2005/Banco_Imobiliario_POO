@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import Controller.Controller;
 
 public class SaveHandler {
 
@@ -53,6 +54,7 @@ public class SaveHandler {
                 writer.write("\n");
             }
             writer.write("CURRENT TURN:" + Model.instance.getCurrentPlayerColorName() +"\n");
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
