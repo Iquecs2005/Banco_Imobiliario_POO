@@ -11,7 +11,7 @@ import View.ViewController;
 
 public class Controller 
 {
-	public static Controller instance;
+	public static final Controller instance = new Controller();
 
 	private ViewController vc;
 	
@@ -19,12 +19,11 @@ public class Controller
 	
 	public static void main(String[] args) 
 	{
-		new Controller();
+		instance.ActivateView();
 	}
 	
-	private Controller()
+	private void ActivateView() 
 	{
-		instance = this;
 		vc = new ViewController();
 		vc.ActivateMainMenu();
 	}
