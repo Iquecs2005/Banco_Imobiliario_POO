@@ -26,9 +26,9 @@ public class BoardTest
 		deck = new Deck();
 		jail = new Jail(board, deck);
 		board.CreateSpaces(jail, deck);
-		redPlayer = new Player("Red", 4000, board.GetStartSpace());
-		yellowPlayer = new Player("Yellow", 4000, board.GetStartSpace());
-		greenPlayer = new Player("Green", 4000, board.GetStartSpace());
+		redPlayer = new Player("Red", "Player", 4000, board.GetStartSpace());
+		yellowPlayer = new Player("Yellow", "Player", 4000, board.GetStartSpace());
+		greenPlayer = new Player("Green", "Player", 4000, board.GetStartSpace());
 	}
 
 	@AfterClass
@@ -123,7 +123,7 @@ public class BoardTest
 	@Test
 	public void PlayerNullPositionMovementTest() 
 	{
-		Player playerNullPosition = new Player("Yellow", 4000, null);
+		Player playerNullPosition = new Player("Yellow", "Player", 4000, null);
 		Space landedSpace = board.MovePlayer(playerNullPosition, 1);
 		assertNull(landedSpace);
 	}
@@ -133,7 +133,7 @@ public class BoardTest
 	{
 		House house = new House(10);
 		Hotel hotel = new Hotel(10);
-		Player notOnBoardPlayer = new Player("Yellow", 4000, new Property("X", 10, 10, house, hotel));
+		Player notOnBoardPlayer = new Player("Yellow", "Player", 4000, new Property("X", 10, 10, house, hotel));
 		Space landedSpace = board.MovePlayer(notOnBoardPlayer, 1);
 		assertNull(landedSpace);
 	}

@@ -23,7 +23,7 @@ public class GoToJailSpaceTest {
     	deck = new Deck();
         jail = new Jail(board, deck);
         goToJailSpace = new GoToJailSpace("Go To Jail", jail);
-        player = new Player("Red", 500.0f, null);
+        player = new Player("Red", "Player", 500.0f, null);
     }
     
     @Test
@@ -74,7 +74,7 @@ public class GoToJailSpaceTest {
     @Test
     public void testOnLand_MultiplePlayers() {
         // Arrange
-        Player player2 = new Player("Blue", 500.0f, null);
+        Player player2 = new Player("Blue", "Player", 500.0f, null);
         
         // Act
         Space.Codes result1 = goToJailSpace.onLand(player);
@@ -123,7 +123,7 @@ public class GoToJailSpaceTest {
         assertTrue("Player should be marked as in jail", player.GetJailedStatus());
         
         // Verify jail can process the prisoner
-        Player testPlayer = new Player("Test", 500.0f, null);
+        Player testPlayer = new Player("Test", "Player", 500.0f, null);
         jail.sendToJail(testPlayer);
         
         Vector<Integer> dice = new Vector<>();
@@ -141,7 +141,7 @@ public class GoToJailSpaceTest {
         Jail jail2 = new Jail(board, deck);
         GoToJailSpace goToJailSpace2 = new GoToJailSpace("Second Jail", jail2);
         
-        Player player2 = new Player("Green", 500.0f, null);
+        Player player2 = new Player("Green", "Player", 500.0f, null);
         
         // Act
         goToJailSpace.onLand(player);

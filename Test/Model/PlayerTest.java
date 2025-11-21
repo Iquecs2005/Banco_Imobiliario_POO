@@ -37,9 +37,10 @@ public class PlayerTest
 	@Test
 	public void PlayerConstructorOk() 
 	{
-		Player testPlayer = new Player("Red", 4000, null);
+		Player testPlayer = new Player("Red", "Player", 4000, null);
 		
 		assertEquals(testPlayer.GetColor(), "Red");
+		assertEquals(testPlayer.GetName(), "Player");
 		assertEquals(testPlayer.GetMoney(), 4000, 0.01);
 		assertEquals(testPlayer.GetCurrentSpace(), null);
 	}
@@ -52,7 +53,7 @@ public class PlayerTest
 		Deck deck = new Deck();
 		Jail jail = new Jail(board, deck);
 		board.CreateSpaces(jail, deck);
-		Player testPlayer1 = new Player("Red", 4000, board.GetSpace(1));
+		Player testPlayer1 = new Player("Red", "Player", 4000, board.GetSpace(1));
 		
 		assertTrue(testPlayer1.BuySpace(bank));
 		assertEquals(testPlayer1.GetOwnedSpaces().get(0), board.GetSpace(1));
@@ -68,7 +69,7 @@ public class PlayerTest
 		Deck deck = new Deck();
 		Jail jail = new Jail(board, deck);
 		board.CreateSpaces(jail, deck);
-		Player testPlayer1 = new Player("Red", 4000, board.GetStartSpace());
+		Player testPlayer1 = new Player("Red", "Player", 4000, board.GetStartSpace());
 		
 		assertFalse(testPlayer1.BuySpace(bank));
 		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
@@ -78,7 +79,7 @@ public class PlayerTest
 	public void BuySpaceNullSpace()
 	{
 		Bank bank = new Bank(4000);
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertFalse(testPlayer1.BuySpace(bank));
 		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
@@ -92,8 +93,8 @@ public class PlayerTest
 		Deck deck = new Deck();
 		Jail jail = new Jail(board, deck);
 		board.CreateSpaces(jail, deck);
-		Player testPlayer1 = new Player("Red", 4000, board.GetSpace(1));
-		Player testPlayer2 = new Player("Yellow", 4000, board.GetSpace(1));
+		Player testPlayer1 = new Player("Red", "Player", 4000, board.GetSpace(1));
+		Player testPlayer2 = new Player("Yellow", "Player", 4000, board.GetSpace(1));
 		Buyable BuyableTerrain = (Buyable)board.GetSpace(1);
 		
 		assertTrue(testPlayer1.BuySpace(bank));

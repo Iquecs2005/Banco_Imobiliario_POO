@@ -29,8 +29,8 @@ public class BankBalanceTest {
 	@Test
 	public void TransferMoneyOk() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
-		Player testPlayer2 = new Player("Yellow", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
+		Player testPlayer2 = new Player("Yellow", "Player", 4000, null);
 		Bank bank = new Bank(3000);
 		
 		assertEquals(testPlayer1.TransferMoney(testPlayer2, 1000), TransferMoneyResult.Ok);
@@ -49,8 +49,8 @@ public class BankBalanceTest {
 	@Test
 	public void TransferMoneyNotEnough() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
-		Player testPlayer2 = new Player("Yellow", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
+		Player testPlayer2 = new Player("Yellow", "Player", 4000, null);
 		Bank bank = new Bank(3000);
 		
 		assertEquals(testPlayer1.TransferMoney(testPlayer2, 5000), TransferMoneyResult.Ok);
@@ -65,7 +65,7 @@ public class BankBalanceTest {
 	@Test
 	public void TransferMoneyNullReceiver() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertEquals(testPlayer1.TransferMoney(null, 1000), TransferMoneyResult.NullReceiver);
 		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
@@ -74,7 +74,7 @@ public class BankBalanceTest {
 	@Test
 	public void TransferMoneySenderReceiverEquals() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertEquals(testPlayer1.TransferMoney(testPlayer1, 1000), TransferMoneyResult.SenderReceiverEquals);
 		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
@@ -83,7 +83,7 @@ public class BankBalanceTest {
 	@Test
 	public void TransferMoneyNegativeAmounts() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertEquals(testPlayer1.TransferMoney(testPlayer1, -1000), TransferMoneyResult.SenderReceiverEquals);
 		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
@@ -92,7 +92,7 @@ public class BankBalanceTest {
 	@Test
 	public void IsBankruptFalse() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertFalse(testPlayer1.IsBankrupt());
 	}
@@ -101,7 +101,7 @@ public class BankBalanceTest {
 	@Test
 	public void IsBankruptTrue() 
 	{
-		Player testPlayer1 = new Player("Red", 0, null);
+		Player testPlayer1 = new Player("Red", "Player", 0, null);
 		
 		assertTrue(testPlayer1.IsBankrupt());
 	}	
@@ -109,7 +109,7 @@ public class BankBalanceTest {
 	@Test
 	public void CanAffordTrue() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertTrue(testPlayer1.CanAfford(4000));
 	}	
@@ -117,7 +117,7 @@ public class BankBalanceTest {
 	@Test
 	public void CanAffordFalse() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertFalse(testPlayer1.CanAfford(4001));
 	}	
@@ -125,7 +125,7 @@ public class BankBalanceTest {
 	@Test
 	public void GetMoneyOk() 
 	{
-		Player testPlayer1 = new Player("Red", 4000, null);
+		Player testPlayer1 = new Player("Red", "Player", 4000, null);
 		
 		assertEquals(testPlayer1.GetMoney(), 4000, 0.01);
 	}	

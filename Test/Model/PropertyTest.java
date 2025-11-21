@@ -20,8 +20,8 @@ public class PropertyTest {
         
         
         property = new Property("Test Property", 100, 0, testHouse, testHotel);
-        player = new Player("Red", 500.0f, property);
-        otherPlayer = new Player("Blue", 500.0f, property);
+        player = new Player("Red", "Player", 500.0f, property);
+        otherPlayer = new Player("Blue", "Player", 500.0f, property);
     }
     
     @Test
@@ -117,7 +117,7 @@ public class PropertyTest {
     public void testBuildHouse_InsufficientFunds() {
         // Arrange
         property.setOwner(player);
-        Player poorPlayer = new Player("Poor", 10.0f, null); // Only has 10, house costs 50
+        Player poorPlayer = new Player("Poor", "Player", 10.0f, null); // Only has 10, house costs 50
         
         // Act
         Space.Codes result = property.buildHouse(poorPlayer, bank);
@@ -150,7 +150,7 @@ public class PropertyTest {
     public void testBuildHotel_InsufficientFunds() {
         // Arrange
         property.setOwner(player);
-        Player poorPlayer = new Player("Poor", 50.0f, null); // Only has 50, hotel costs 100
+        Player poorPlayer = new Player("Poor", "Player", 50.0f, null); // Only has 50, hotel costs 100
         
         // Act
         Space.Codes result = property.buildHotel(poorPlayer, bank);
