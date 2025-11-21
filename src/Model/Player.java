@@ -109,4 +109,14 @@ class Player extends BankBalance
 	public void AddOwnedSpace(Buyable b) {
 		this.ownedSpaces.add(b);
 	}
+	
+	public String GetName()
+	{
+		return this.name;
+	}
+	
+	public void SetName(String newName)
+	{
+		this.name = newName;
+	}
 }
