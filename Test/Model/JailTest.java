@@ -13,7 +13,10 @@ public class JailTest {
     
     @Before
     public void setUp() {
-        jail = new Jail();
+    	Bank bank = new Bank(200000);
+    	Board board = new Board(bank);
+    	Deck deck = new Deck();
+        jail = new Jail(board, deck);
         player = new Player("Red", 500.0f, null);
         otherPlayer = new Player("Blue", 500.0f, null);
     }
@@ -49,7 +52,7 @@ public class JailTest {
         matchingDice.add(3); // Matching dice
         
         // Act
-        jail.tryToLeaveJail(player, matchingDice, false);
+        jail.tryToLeaveJail(player, matchingDice);
         
         // Assert
         assertFalse("Player should be released with matching dice", player.GetJailedStatus());
@@ -65,7 +68,7 @@ public class JailTest {
         nonMatchingDice.add(4); // Non-matching dice
         
         // Act
-        jail.tryToLeaveJail(player, nonMatchingDice, true); // Has leave card
+        jail.tryToLeaveJail(player, nonMatchingDice); // Has leave card
         
         // Assert
         assertFalse("Player should be released with leave card", player.GetJailedStatus());
@@ -82,7 +85,7 @@ public class JailTest {
         
         // Act - Simulate 4 failed attempts
         for (int i = 0; i < 4; i++) {
-            jail.tryToLeaveJail(player, nonMatchingDice, false);
+            jail.tryToLeaveJail(player, nonMatchingDice);
         }
         
         // Assert - Should be released after 4 turns
@@ -97,7 +100,7 @@ public class JailTest {
         dice.add(1); // Matching dice
         
         // Act - This should do nothing since player isn't in jail
-        jail.tryToLeaveJail(player, dice, false);
+        jail.tryToLeaveJail(player, dice);
         
         // Assert
         assertFalse("Player should not be in jail", player.GetJailedStatus());
@@ -112,7 +115,7 @@ public class JailTest {
         nonMatchingDice.add(2); // Non-matching dice
         
         // Act - First attempt
-        jail.tryToLeaveJail(player, nonMatchingDice, false);
+        jail.tryToLeaveJail(player, nonMatchingDice);
         
         // Assert
         assertTrue("Player should still be in jail after failed attempt", player.GetJailedStatus());
@@ -141,9 +144,9 @@ public class JailTest {
         matchingDice.add(4);
         
         // Act - 2 failed attempts, then success
-        jail.tryToLeaveJail(player, nonMatchingDice, false);
-        jail.tryToLeaveJail(player, nonMatchingDice, false);
-        jail.tryToLeaveJail(player, matchingDice, false);
+        jail.tryToLeaveJail(player, nonMatchingDice);
+        jail.tryToLeaveJail(player, nonMatchingDice);
+        jail.tryToLeaveJail(player, matchingDice);
         
         // Assert
         assertFalse("Player should be released on successful attempt", player.GetJailedStatus());
@@ -158,7 +161,7 @@ public class JailTest {
         matchingDice.add(5);
         matchingDice.add(5);
         
-        jail.tryToLeaveJail(player, matchingDice, true); // Both conditions true
+        jail.tryToLeaveJail(player, matchingDice); // Both conditions true
         
         assertFalse("Player should be released", player.GetJailedStatus());
     }
@@ -172,7 +175,7 @@ public class JailTest {
         nonMatchingDice.add(1);
         nonMatchingDice.add(6);
         
-        jail.tryToLeaveJail(player, nonMatchingDice, true); // Has card
+        jail.tryToLeaveJail(player, nonMatchingDice); // Has card
         
         assertFalse("Player should be released with card despite non-matching dice", 
                    player.GetJailedStatus());
@@ -189,13 +192,13 @@ public class JailTest {
         
         // 3 failed attempts
         for (int i = 0; i < 3; i++) {
-            jail.tryToLeaveJail(player, nonMatchingDice, false);
+            jail.tryToLeaveJail(player, nonMatchingDice);
             assertTrue("Player should still be in jail after attempt " + (i + 1), 
                        player.GetJailedStatus());
         }
         
         // 4th attempt - should be released due to max turns
-        jail.tryToLeaveJail(player, nonMatchingDice, false);
+        jail.tryToLeaveJail(player, nonMatchingDice);
         assertFalse("Player should be released on 4th turn", player.GetJailedStatus());
     }
 }

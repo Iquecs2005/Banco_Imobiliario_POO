@@ -11,7 +11,6 @@ import org.junit.Test;
 public class BoardTest 
 {
 	private static Bank bank;
-	private static Deck deck;
 	private static Board board;
 	private static Player redPlayer;
 	private static Player yellowPlayer;
@@ -21,8 +20,7 @@ public class BoardTest
 	public static void setUpBeforeClass() throws Exception 
 	{
 		bank = new Bank(200000);
-		deck = new Deck();
-		board = new Board(bank, deck);
+		board = new Board(bank);
 		redPlayer = new Player("Red", 4000, board.GetStartSpace());
 		yellowPlayer = new Player("Yellow", 4000, board.GetStartSpace());
 		greenPlayer = new Player("Green", 4000, board.GetStartSpace());

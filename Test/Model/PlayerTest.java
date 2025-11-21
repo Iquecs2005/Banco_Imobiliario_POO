@@ -48,8 +48,10 @@ public class PlayerTest
 	public void BuySpaceOk()
 	{
 		Bank bank = new Bank(4000);
+		Board board = new Board(bank);
 		Deck deck = new Deck();
-		Board board = new Board(bank, deck);
+		Jail jail = new Jail(board, deck);
+		board.CreateSpaces(jail, deck);
 		Player testPlayer1 = new Player("Red", 4000, board.GetSpace(1));
 		
 		assertTrue(testPlayer1.BuySpace(bank));
@@ -62,8 +64,10 @@ public class PlayerTest
 	public void BuySpaceNonBuyableSpace()
 	{
 		Bank bank = new Bank(4000);
+		Board board = new Board(bank);
 		Deck deck = new Deck();
-		Board board = new Board(bank, deck);
+		Jail jail = new Jail(board, deck);
+		board.CreateSpaces(jail, deck);
 		Player testPlayer1 = new Player("Red", 4000, board.GetStartSpace());
 		
 		assertFalse(testPlayer1.BuySpace(bank));
@@ -84,8 +88,10 @@ public class PlayerTest
 	public void BuySpaceOwnedSpace()
 	{
 		Bank bank = new Bank(4000);
+		Board board = new Board(bank);
 		Deck deck = new Deck();
-		Board board = new Board(bank, deck);
+		Jail jail = new Jail(board, deck);
+		board.CreateSpaces(jail, deck);
 		Player testPlayer1 = new Player("Red", 4000, board.GetSpace(1));
 		Player testPlayer2 = new Player("Yellow", 4000, board.GetSpace(1));
 		Buyable BuyableTerrain = (Buyable)board.GetSpace(1);

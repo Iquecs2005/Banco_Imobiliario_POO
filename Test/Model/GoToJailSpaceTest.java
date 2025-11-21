@@ -10,12 +10,18 @@ import org.junit.Test;
 public class GoToJailSpaceTest {
     
     private GoToJailSpace goToJailSpace;
+    private Bank bank;
+    private Board board;
+    private Deck deck;
     private Player player;
     private Jail jail;
     
     @Before
     public void setUp() {
-        jail = new Jail();
+    	bank = new Bank(200000);
+    	board = new Board(bank);
+    	deck = new Deck();
+        jail = new Jail(board, deck);
         goToJailSpace = new GoToJailSpace("Go To Jail", jail);
         player = new Player("Red", 500.0f, null);
     }
@@ -123,7 +129,7 @@ public class GoToJailSpaceTest {
         Vector<Integer> dice = new Vector<>();
         dice.add(1);
         dice.add(2);
-        jail.tryToLeaveJail(testPlayer, dice, false);
+        jail.tryToLeaveJail(testPlayer, dice);
         
         assertTrue("Jail should still hold the player after failed attempt", 
                    testPlayer.GetJailedStatus());
@@ -132,7 +138,7 @@ public class GoToJailSpaceTest {
     @Test
     public void testMultipleGoToJailSpaces() {
         // Test multiple GoToJail spaces with different jails
-        Jail jail2 = new Jail();
+        Jail jail2 = new Jail(board, deck);
         GoToJailSpace goToJailSpace2 = new GoToJailSpace("Second Jail", jail2);
         
         Player player2 = new Player("Green", 500.0f, null);
