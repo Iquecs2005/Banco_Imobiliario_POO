@@ -3,6 +3,7 @@ package Model;
 import java.util.List;
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
@@ -14,6 +15,9 @@ public class Model
 	public static final Model instance = new Model();
 	
 	private Map<String, Player> currentPlayers;
+	private List<String> playerColors;
+	private Player currentPlayer;
+	private int currentPlayerIndex;
 	private Bank currentBank;
 	private Board currentBoard;
 	private Dice currentDice;
@@ -39,10 +43,14 @@ public class Model
 	private Event onTurnStart = new Event();
 	private Event onTurnEnd = new Event();
 	
+	//Constructor
+	
 	private Model() 
 	{
-		
+		playerColors = new LinkedList<String>();
 	}
+	
+	//Functions
 	
 	public boolean NewGame(List<String> playerColors) 
 	{
@@ -52,6 +60,8 @@ public class Model
 		{
 			return false;
 		}
+		
+		this.playerColors = playerColors;
 		
 		currentBank = new Bank(200000);
 		currentDeck = new Deck();
@@ -66,10 +76,21 @@ public class Model
 		{
 			currentPlayers.put(color, new Player(color, 4000.0f, startSpace));
 		}
+		
+		currentPlayerIndex = 0;
+		String currentColor = this.playerColors.get(currentPlayerIndex);
+		currentPlayer = currentPlayers.get(currentColor);
+		
 		List<Player> playerList = List.copyOf(currentPlayers.values());
 		currentDeck.SetVariables(playerList, currentBank, getCurrentBoard());
 		this.saveHandler = new SaveHandler();
 		
+		return true;
+	}
+	
+	public boolean SaveGame(String filepath)
+	{
+		saveHandler.writeToSaveFile(filepath);
 		return true;
 	}
 	
@@ -91,12 +112,6 @@ public class Model
 		
 		currentDeck.SetVariables(playerList, currentBank, currentBoard);
 	}
-	
-	public boolean SaveGame(String filepath)
-	{
-		saveHandler.writeToSaveFile(filepath);
-		return true;
-	}
 		
 	public int RollDie()
 	{
@@ -111,10 +126,10 @@ public class Model
 		return res;
 	}
 	
-	public Vector<Integer> GetLastRoll()
+	public void MoveCurrentPlayer(int amount) 
 	{
-		return this.lastRoll;
-	}
+		MovePlayer(currentPlayer.GetColor(), amount);
+	} 
 	
 	public void MovePlayer(String playerColor, int amount) 
 	{
@@ -165,9 +180,101 @@ public class Model
 		onTurnEnd.notifyObservers();
 	} 
 	
+	public boolean BuyProperty() 
+	{
+		boolean status = currentPlayer.BuySpace(currentBank);
+		onMoneyPlayerAltered.notifyObservers();
+		
+		return status;
+	}
+	
+	public boolean BuyHouse() 
+	{
+		Space currentSpace = currentPlayer.GetCurrentSpace();
+		
+		if (!(currentSpace instanceof Property))
+			return false;
+		
+		Property currentProperty = (Property) currentSpace;
+		
+		Codes codes = currentProperty.buildHouse(currentPlayer, currentBank);
+		
+		if (codes == Codes.NOT_BUILT)
+			return false;
+		
+		onMoneyPlayerAltered.notifyObservers();
+		
+		return true;
+	}
+	
+	public boolean BuyHotel() 
+	{
+		Space currentSpace = currentPlayer.GetCurrentSpace();
+		
+		if (!(currentSpace instanceof Property))
+			return false;
+		
+		Property currentProperty = (Property) currentSpace;
+		
+		Codes codes = currentProperty.buildHotel(currentPlayer, currentBank);
+		
+		if (codes == Codes.NOT_BUILT)
+			return false;
+		
+		onMoneyPlayerAltered.notifyObservers();
+		
+		return true;
+	}
+	
+	public boolean SellProperty(String playerColor, String propertyName) 
+	{
+		Player currentPlayer = currentPlayers.get(playerColor);
+		List<Buyable> ownedSpaces = currentPlayer.GetOwnedSpaces();
+		
+		Space foundSpace = null;
+		for (Space space : ownedSpaces) 
+		{
+			if (space.name == propertyName) 
+			{
+				foundSpace = space;
+				break;
+			}
+		}
+		
+		if (foundSpace == null)
+			return false;
+		
+		boolean status = currentPlayer.SellSpace(currentBank, foundSpace);
+		onMoneyPlayerAltered.notifyObservers();
+
+		return status;
+	}
+	
 	public void PassTurn() 
 	{
+		currentPlayerIndex = (currentPlayerIndex + 1) % playerColors.size();
+		String currentColor = this.playerColors.get(currentPlayerIndex);
+		currentPlayer = currentPlayers.get(currentColor);
+		
 		onTurnStart.notifyObservers();
+	}
+	
+	//Getters and Setters
+	
+	public Vector<Integer> GetLastRoll()
+	{
+		return this.lastRoll;
+	}
+	
+	public int GetLastRollSum()
+	{
+		int diceSum = 0;
+		for (int diceResult : lastRoll) 
+		{
+			diceSum += diceResult;
+		}
+		
+		return diceSum;
 	}
 	
 	public String GetPlayerSpaceName(String playerColor) 
@@ -261,80 +368,6 @@ public class Model
 	public void SubscribeToBuyableHotel(Observer newObserver)
 	{
 		onBuyableHotel.addObserver(newObserver);
-	}
-	
-	public boolean BuyProperty(String playerColor) 
-	{
-		Player currentPlayer = currentPlayers.get(playerColor);
-		
-		boolean status = currentPlayer.BuySpace(currentBank);
-		onMoneyPlayerAltered.notifyObservers();
-		
-		return status;
-	}
-	
-	public boolean BuyHouse(String playerColor) 
-	{
-		Player currentPlayer = currentPlayers.get(playerColor);
-		Space currentSpace = currentPlayer.GetCurrentSpace();
-		
-		if (!(currentSpace instanceof Property))
-			return false;
-		
-		Property currentProperty = (Property) currentSpace;
-		
-		Codes codes = currentProperty.buildHouse(currentPlayer, currentBank);
-		
-		if (codes == Codes.NOT_BUILT)
-			return false;
-		
-		onMoneyPlayerAltered.notifyObservers();
-		
-		return true;
-	}
-	
-	public boolean BuyHotel(String playerColor) 
-	{
-		Player currentPlayer = currentPlayers.get(playerColor);
-		Space currentSpace = currentPlayer.GetCurrentSpace();
-		
-		if (!(currentSpace instanceof Property))
-			return false;
-		
-		Property currentProperty = (Property) currentSpace;
-		
-		Codes codes = currentProperty.buildHotel(currentPlayer, currentBank);
-		
-		if (codes == Codes.NOT_BUILT)
-			return false;
-		
-		onMoneyPlayerAltered.notifyObservers();
-		
-		return true;
-	}
-	
-	public boolean SellProperty(String playerColor, String propertyName) 
-	{
-		Player currentPlayer = currentPlayers.get(playerColor);
-		List<Buyable> ownedSpaces = currentPlayer.GetOwnedSpaces();
-		
-		Space foundSpace = null;
-		for (Space space : ownedSpaces) 
-		{
-			if (space.name == propertyName) 
-			{
-				foundSpace = space;
-				break;
-			}
-		}
-		
-		if (foundSpace == null)
-			return false;
-		
-		boolean status = currentPlayer.SellSpace(currentBank, foundSpace);
-		onMoneyPlayerAltered.notifyObservers();
-
-		return status;
 	}
 	
 	public float GetPlayerMoney(String playerColor) 

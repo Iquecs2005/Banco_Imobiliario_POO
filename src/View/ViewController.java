@@ -10,20 +10,8 @@ import Controller.Controller;
 public class ViewController 
 {
 	BaseFrame currentFrame;
-	
-	ViewController()
-	{
-		ActivateMainMenu();
-		//ActivateBoard();
-	}
-	
-	public static void main(String[] args) 
-	{
-		// TODO Auto-generated method stub
-		new ViewController();
-	}
 
-	void ActivateMainMenu() 
+	public void ActivateMainMenu() 
 	{
 		if (currentFrame != null)
 			currentFrame.setVisible(false);
@@ -37,7 +25,7 @@ public class ViewController
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				ActivatePlayerSelect();
+				Controller.instance.OnNewGameButton();
 			}
 		});
 		
@@ -46,24 +34,23 @@ public class ViewController
 		    @Override
 		    public void actionPerformed(ActionEvent e)
 		    {
-		        String path = showFileChooser();
-		        if (path != null) {
-		            Controller.instance.LoadGame(path);
-		            ActivateBoard();
-		        }
+		    	Controller.instance.OnLoadGameButton();
 		    }
 		});
 	}
 
 
-	private String showFileChooser() {
+	public String showFileChooser() 
+	{
 	    JFileChooser chooser = new JFileChooser();
 	    chooser.setDialogTitle("Choose Save File");
 
 	    int result = chooser.showOpenDialog(null);  
-	    if (result == JFileChooser.APPROVE_OPTION) {
+	    if (result == JFileChooser.APPROVE_OPTION) 
+	    {
 	        return chooser.getSelectedFile().getAbsolutePath();
 	    }
+	    
 	    return null;
 	}
 

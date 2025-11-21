@@ -10,18 +10,45 @@ import javax.swing.JFileChooser;
 
 import Model.Model;
 import Model.Observer;
+import View.ViewController;
 
 public class Controller 
 {
 	public static final Controller instance = new Controller();
 
-	private List<String> playerColors;
-	private int currentPlayerIndex;
+	private ViewController vc;
+	
+	public static void main(String[] args) 
+	{
+		
+	}
+	
+	private Controller()
+	{
+		vc = new ViewController();
+		vc.ActivateMainMenu();
+	}
+	
+	public void OnNewGameButton() 
+	{
+		vc.ActivatePlayerSelect();
+	}
+	
+	public void OnLoadGameButton() 
+	{
+		String filePath = vc.showFileChooser();
+		
+		if (filePath == null) 
+		{
+			return;
+        }
+		
+		Model.instance.LoadGame(filePath);
+		vc.ActivateBoard();
+	}
 	
 	public void CreateNewGame(List<String> playerColors) 
 	{
-		this.playerColors = playerColors;
-		currentPlayerIndex = 0;
 		Model.instance.NewGame(playerColors);
 	}
 	
@@ -30,41 +57,44 @@ public class Controller
 		Model.instance.SaveGame(path);
 	}
 	
-	public void LoadGame(String path)
+	public Vector<Integer> RollDice(int n)
 	{
-		Model.instance.LoadGame(path);
-		this.playerColors = List.copyOf(Model.instance.GetPlayerColors());
+		return Model.instance.RollDice(n);
 	}
 	
 	public Vector<Integer> MovePlayer() 
 	{
+		//TODO: Create a button to roll dice and a different button to move player in view;
 		Vector<Integer> diceResults = Model.instance.RollDice(2);
 		
-		int diceSum = 0;
-		for (int diceResult : diceResults) 
-		{
-			diceSum += diceResult;
-		}
-		
-		Model.instance.MovePlayer(playerColors.get(currentPlayerIndex), diceSum);
+		int diceSum = Model.instance.GetLastRollSum();
+		Model.instance.MoveCurrentPlayer(diceSum);
 		
 		return diceResults;
 	}
-	
+
 	public void BuySpace() 
 	{
-		Model.instance.BuyProperty(playerColors.get(currentPlayerIndex));
+		Model.instance.BuyProperty();
 	}
 	
 	public void BuyHouse() 
 	{
-		Model.instance.BuyHouse(playerColors.get(currentPlayerIndex));
+		Model.instance.BuyHouse();
 	}
 	
 	public void BuyHotel() 
 	{
-		Model.instance.BuyHotel(playerColors.get(currentPlayerIndex));
+		Model.instance.BuyHotel();
 	}
+
+	public void EndTurn() 
+	{
+		Model.instance.PassTurn();
+	}
+	
+	
+	//Getters and Setters
 	
 	public int GetPlayerNumber() 
 	{
@@ -141,9 +171,4 @@ public class Controller
 		return Model.instance.GetSpaceIndex(playerColor);
 	}
 	
-	public void EndTurn() 
-	{
-		currentPlayerIndex = (currentPlayerIndex + 1) % GetPlayerNumber();
-		Model.instance.PassTurn();
-	}
 }
