@@ -55,15 +55,6 @@ public class SaveHandler {
             }
             writer.write("CURRENT TURN:" + Model.instance.getCurrentPlayerColorName() +"\n");
             
-            boolean debug = Controller.instance.GetDebugModeActive();
-            if (debug)
-            {
-            	writer.write("DEBUG MODE " + "TRUE\n");
-            }
-            else
-            {
-            	writer.write("DEBUG MODE " + "FALSE\n");
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,14 +124,6 @@ public class SaveHandler {
 	            if (line.startsWith("CURRENT TURN:")) {
 	            	currTurnColor = line.substring(13).trim();
 	            	continue;
-	            }
-	            
-	            if(line.startsWith("DEBUG MODE ")) {
-	            	String debugString = line.substring(11).trim();
-	            	if (debugString.equals("TRUE"))
-	            	{
-	            		Controller.instance.ToggleDebugMode();
-	            	}
 	            }
 
 	            // owned space line:
