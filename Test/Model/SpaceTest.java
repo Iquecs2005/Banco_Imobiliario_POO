@@ -27,7 +27,7 @@ public class SpaceTest {
             }
         };
         
-        Player player = new Player("Red", 500.0f, null);
+        Player player = new Player("Red", "Player", 500.0f, null);
         Space.Codes result = space.onLand(player);
         
         assertEquals("Should return NOTHING", Space.Codes.NOTHING, result);

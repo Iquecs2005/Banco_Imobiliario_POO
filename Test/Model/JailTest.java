@@ -17,8 +17,8 @@ public class JailTest {
     	Board board = new Board(bank);
     	Deck deck = new Deck();
         jail = new Jail(board, deck);
-        player = new Player("Red", 500.0f, null);
-        otherPlayer = new Player("Blue", 500.0f, null);
+        player = new Player("Red", "Player", 500.0f, null);
+        otherPlayer = new Player("Blue", "Player", 500.0f, null);
     }
     
     // Teste 6) Todas as situações de entrada e saída da prisão;

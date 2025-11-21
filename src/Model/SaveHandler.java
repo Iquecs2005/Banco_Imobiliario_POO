@@ -42,9 +42,8 @@ public class SaveHandler {
 
                     if (b instanceof Property) {
                         Property prop = (Property) b;
-                        writer.write("    " + prop.name +
-                                " TYPE(Property) HOUSES " + prop.GetHouse().GetAmount() +
-                                " HOTEL " + prop.GetHotel().GetAmount() + "\n");
+                        writer.write("    " + prop.name + ":" + "HOUSES:" + 
+                        prop.GetHouse().GetAmount() + ":" + "HOTELS:" + prop.GetHotel().GetAmount() + "\n");
                     } else {
                         writer.write("    " + b.name + " TYPE(Company)\n");
                     }
@@ -150,8 +149,9 @@ public class SaveHandler {
 	    // Example:
 	    // Av Paulista TYPE(Property) HOUSES 2 HOTEL 1
 
-	    String[] parts = line.split(" ");
-	    String spaceName = parts[0];
+	    String[] parts = line.split(":");
+	    String spaceName = parts[0].trim();
+	    System.out.println(spaceName);
 
 	    Space s = board.getSpaceByName(spaceName);
 	    if (!(s instanceof Buyable)) return;

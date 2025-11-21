@@ -22,8 +22,8 @@ public class BuyableTest {
             }
         };
         
-        player = new Player("Red", 500.0f, buyable);
-        otherPlayer = new Player("Blue", 500.0f, buyable);
+        player = new Player("Red", "Player", 500.0f, buyable);
+        otherPlayer = new Player("Blue", "Player", 500.0f, buyable);
         bank = new Bank(10000.0f);
     }
     
@@ -101,7 +101,7 @@ public class BuyableTest {
     @Test
     public void testPurchaseBuyable_InsufficientFunds() {
         // Arrange
-        Player poorPlayer = new Player("Green", 50.0f, null); // Only has 50, needs 100
+        Player poorPlayer = new Player("Green", "Player", 50.0f, null); // Only has 50, needs 100
         float initialMoney = poorPlayer.GetMoney();
         float initialBankMoney = bank.GetMoney();
         
@@ -141,7 +141,7 @@ public class BuyableTest {
     public void testRentPayment_BankruptcyScenario() {
         // Arrange
         buyable.setOwner(otherPlayer);
-        Player poorPlayer = new Player("Bankrupt", 20.0f, buyable); // Only has 20, rent is 25
+        Player poorPlayer = new Player("Bankrupt", "Player", 20.0f, buyable); // Only has 20, rent is 25
         
         // Act
         Space.Codes result = buyable.onLand(poorPlayer);

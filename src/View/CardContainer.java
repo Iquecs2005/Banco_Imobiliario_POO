@@ -174,6 +174,6 @@ class CardContainer
 	public void OnGameEnd()
 	{
 		Controller.instance.OnEndGame();
-		cardFrame.dispose();
+		if (cardFrame != null) cardFrame.dispose();
 	}
 }

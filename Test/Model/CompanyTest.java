@@ -14,8 +14,8 @@ public class CompanyTest {
 	@Before
 	public void setUp() {
 		company = new Company("Test Company", 100.0f, 20.0f, 10);
-		player1 = new Player("Blue", 900.0f, company);
-		player2 = new Player("Red", 900.0f, null);
+		player1 = new Player("Blue", "Player", 900.0f, company);
+		player2 = new Player("Red", "Player", 900.0f, null);
 		Model.instance.SetLastRoll(5, 5);
 	}
 	
