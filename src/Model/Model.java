@@ -41,6 +41,7 @@ public class Model
 	private Event onBuyableHotel = new Event();
 	private Event onBuyableHouse = new Event();
 	private Event onCantAffordRent = new Event();
+	private Event onBankrupt = new Event();
 	private Event onTurnStart = new Event();
 	private Event onTurnEnd = new Event();
 	private Event onGameEnd = new Event();
@@ -159,7 +160,17 @@ public class Model
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			case Codes.CANT_AFFORD:
-				onCantAffordRent.notifyObservers();
+				if (currentPlayer.GetOwnedSpaces().size() == 0)
+				{
+					Buyable lastSpace = (Buyable) currentPlayer.GetCurrentSpace();
+					currentPlayer.TransferMoney(lastSpace.getOwner(), currentPlayer.GetMoney());
+					RemovePlayer(currentPlayer.GetColor());
+					currentPlayer.SetMoney(-1);
+					onBankrupt.notifyObservers();
+					currentPlayerIndex--;
+				}
+				else
+					onCantAffordRent.notifyObservers();
 				break;
 			case Codes.CAN_BUILD_BOTH:
 				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
@@ -186,6 +197,8 @@ public class Model
 	public void RemovePlayer(String playerColor)
 	{
 		currentPlayers.remove(playerColor);
+		playerColors.remove(playerColor);
+		
 		if (currentPlayers.size() == 1)
 		{
 			onGameEnd.notifyObservers();
@@ -340,9 +353,19 @@ public class Model
 		onPlayerPosAltered.addObserver(newObserver);
 	}
 	
+	public void UnsubscribeToPlayerPos(Observer newObserver) 
+	{
+		onPlayerPosAltered.removeObserver(newObserver);
+	}
+	
 	public void SubscribeToMoneyPlayerAltered(Observer newObserver) 
 	{
 		onMoneyPlayerAltered.addObserver(newObserver);
+	}
+	
+	public void UnsubscribeToMoneyPlayerAltered(Observer newObserver) 
+	{
+		onMoneyPlayerAltered.removeObserver(newObserver);
 	}
 	
 	public void SubscribeToDiceRoll(Observer newObserver)
@@ -383,6 +406,11 @@ public class Model
 	public void SubscribeToGameEnd(Observer newObserver)
 	{
 		onGameEnd.addObserver(newObserver);
+	}
+	
+	public void SubscribeToOnBankrupt(Observer newObserver)
+	{
+		onBankrupt.addObserver(newObserver);
 	}
 	
 	public float GetPlayerMoney(String playerColor) 
@@ -439,7 +467,6 @@ public class Model
 	{
 		this.currentPlayers = newPlayers;
 		this.playerColors = new ArrayList<String>(newPlayers.keySet());
-		System.out.print(playerColors);
 	}
 	
 	public String GetPlayerColorByIndex(int index)
@@ -449,10 +476,8 @@ public class Model
 	
 	public int GetPlayerIndex(String color)
 	{
-		System.out.println("Recieved: " + color.length());
 		for(int i = 0; i < playerColors.size(); i++) 
 		{
-			System.out.println(playerColors.get(i).length());
 			if (playerColors.get(i).equals(color)) 
 			{
 				return i;
@@ -468,7 +493,7 @@ public class Model
 	
 	public String GetCurrentPlayerColor()
 	{
-		return playerColors.get(currentPlayerIndex);
+		return currentPlayer.GetColor();
 	}
 	
 	public void SetCurrentPlayerByIndex(int index)

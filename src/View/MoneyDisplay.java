@@ -31,6 +31,12 @@ class MoneyDisplay implements Observer
 		Controller.instance.SubscribeToMoneyAltered(this);
 	}
 	
+	public void Unsubscribe() 
+	{
+		Controller.instance.UnsubscribeToMoneyAltered(this);
+		amountField.setText(Float.toString(-1));
+	}
+	
 	public void DrawDisplay(int x, int y) 
 	{
 		BaseFrame.PositionComponent(colorField, x - (75 + name.length() * 5) , y);
@@ -41,5 +47,10 @@ class MoneyDisplay implements Observer
 	{
 		float newAmount = Controller.instance.GetMoney(color);
 		amountField.setText(Float.toString(newAmount));
+	}
+	
+	public String GetColor() 
+	{
+		return color;
 	}
 }

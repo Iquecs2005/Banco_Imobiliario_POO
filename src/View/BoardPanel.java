@@ -3,6 +3,8 @@ package View;
 import javax.swing.*;
 
 import Controller.Controller;
+import Model.Event;
+import Model.Observer;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -108,6 +110,15 @@ public class BoardPanel extends BasePanel
         	add(debugDice);
         
         ToggleEndTurnButton(false);
+        
+        Controller.instance.SubscribeToOnBankrupt(new Observer() 
+        {
+			@Override
+			public void update(Event event) 
+			{
+				OnBankrupt();
+			}
+		});
     }
     
     public void LoadImages()
@@ -201,4 +212,33 @@ public class BoardPanel extends BasePanel
         return null;
     }
 
+    private void OnBankrupt() 
+    {
+    	String bankruptPlayerColor = Controller.instance.GetCurrentPlayerColor();
+    	System.out.println("BBB " + bankruptPlayerColor);
+    	
+    	for (PlayerPin pin : activePlayerList) 
+    	{
+    		if (bankruptPlayerColor.equals(pin.GetColor()))
+    		{
+    			activePlayerList.remove(pin);
+    			pin.Unsubscribe();
+    			break;
+    		}
+    	}
+    	
+    	for (MoneyDisplay moneyDisplay : moneyDisplays) 
+    	{
+    		if (bankruptPlayerColor.equals(moneyDisplay.GetColor()))
+    		{
+    			moneyDisplay.Unsubscribe();
+    			break;
+    		}
+    	}
+    	
+    	for (PlayerPin pin : activePlayerList) 
+    	{
+    		System.out.println(pin.GetColor());
+    	}
+    }
 }
