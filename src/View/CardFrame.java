@@ -65,4 +65,8 @@ public class CardFrame extends BaseFrame
 		panel.AddSellButton(color, propName);
 	}
 	
+	public void AddDebtLabel()
+	{
+		panel.AddDebtLabel();
+	}
 }

@@ -24,6 +24,7 @@ public class CardPanel extends BasePanel
 	private JLabel totalHouses = new JLabel("Houses: ");
 	private JLabel totalHotel = new JLabel("Hotel: ");
 	private List<JButton> sellButtons = new ArrayList<>();
+	private JLabel debtLabel;
 
 	public CardPanel(int width, int height) 
 	{
@@ -102,6 +103,8 @@ public class CardPanel extends BasePanel
 		BaseFrame.PositionComponent(totalRent, frameSize / 2 - 100, getHeight() - 60);
 		BaseFrame.PositionComponent(totalHouses, frameSize / 2 - 100, getHeight() - 40);
 		BaseFrame.PositionComponent(totalHotel, frameSize / 2 - 100, getHeight() - 20);
+		if (debtLabel != null)
+			BaseFrame.PositionComponent(debtLabel, frameSize / 2, getHeight() - 75);
 	}
 	
 	public void AddCard(String cardName, CardType cardType) 
@@ -174,5 +177,11 @@ public class CardPanel extends BasePanel
 		
 	}
 	
-	
+	public void AddDebtLabel()
+	{
+		float value = Controller.instance.GetDebtValue();
+		debtLabel = new JLabel("Debt: R$ " + Float.toString(value));
+		debtLabel.setVisible(true);
+		add(debtLabel);
+	}
 }

@@ -30,7 +30,7 @@ abstract class BankBalance
 	
 	public boolean IsBankrupt() 
 	{
-		return money <= 0;
+		return money < 0;
 	}
 	
 	public boolean CanAfford(float price) 

@@ -281,6 +281,11 @@ public class Controller
 		debugModeActive = !debugModeActive;
 	}
 	
+	public float GetDebtValue() 
+	{
+		return Model.instance.GetDebtValue();
+	}
+	
 	public String GetWinnerName() 
 	{
 		return Model.instance.GetWinnerName();

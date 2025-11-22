@@ -290,7 +290,7 @@ public class Model
 		
 		boolean status = currentPlayer.SellSpace(currentBank, foundSpace);
 		
-		if (currentPlayer.GetMoney() > debtValue)
+		if (currentPlayer.GetMoney() + 0.001f > debtValue)
 		{
 			currentPlayer.TransferMoney(debtToPlayer, debtValue);
 			onDebtSettled.notifyObservers();
@@ -639,6 +639,11 @@ public class Model
 	public void SetDebtValue(Float v)
 	{
 		this.debtValue = v;
+	}
+	
+	public float GetDebtValue()
+	{
+		return debtValue;
 	}
 	
 	public void notifyCantAfford()
