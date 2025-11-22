@@ -32,7 +32,7 @@ class CardContainer
 			@Override
 			public void update(Event event)  
 			{
-				OnPropertyBought();
+				OnPropertyBought(Controller.instance.GetHasOwnerLast());
 			}
 		});
 		
@@ -100,6 +100,7 @@ class CardContainer
 				{
 					cardFrame.ClearCards();
 					cardFrame.dispose();
+					cardFrame = null;
 				}
 			}
 		});
@@ -175,7 +176,7 @@ class CardContainer
 		cardFrame.ToggleRentValues(false, false);
 	}
 	
-	public void OnPropertyBought() 
+	public void OnPropertyBought(boolean hasOwner) 
 	{
 		String cardName = Controller.instance.GetLandedBuyableName();
 		CardType cardType = CardType.Company;
@@ -193,7 +194,7 @@ class CardContainer
 		cardFrame.UpdateRentValue();
 		if (toggleBuildings) cardFrame.UpdateBuildingValues();
 		cardFrame.ToggleRentValues(toggleRent, toggleBuildings);
-		cardFrame.ToggleBuyButton(true);
+		cardFrame.ToggleBuyButton(!hasOwner);
 	}
 	
 	public void OnPropertyOwned(boolean houseState, boolean hotelState) 
