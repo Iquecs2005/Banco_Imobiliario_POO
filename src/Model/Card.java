@@ -83,6 +83,19 @@ class Card
 			bank.TransferMoney(owner, amount);
 			return true;
 		case Lose:
+			if(!owner.CanAfford(amount))
+			{
+				if(owner.GetOwnedSpaces().size() == 0)
+				{
+					Model.instance.BankruptPlayer(owner);
+				}
+				else
+				{
+					Model.instance.SetDebtValue((float)amount);
+					Model.instance.SetDebtToPlayer(bank);
+					Model.instance.notifyCantAfford();
+				}
+			}
 			owner.TransferMoney(bank, amount);
 			return true;
 		case ReceiveFromAll:

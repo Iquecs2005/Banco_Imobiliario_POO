@@ -26,7 +26,7 @@ public class Model
 	private Map<String, Player> currentPlayers;
 	private List<String> playerColors;
 	private Player currentPlayer;
-	private Player debtToPlayer;
+	private BankBalance debtToPlayer;
 	private float debtValue;
 	private int currentPlayerIndex;
 	
@@ -253,7 +253,7 @@ public class Model
 		return true;
 	}
 	
-	private void BankruptPlayer(BankBalance receiver) 
+	public void BankruptPlayer(BankBalance receiver) 
 	{
 		currentPlayer.TransferMoney(receiver, currentPlayer.GetMoney());
 		currentPlayer.SetMoney(-1);
@@ -588,6 +588,21 @@ public class Model
 		ownedSpaces.put(b.getName(), type);
 		}
 		return ownedSpaces;
+	}
+	
+	public void SetDebtToPlayer(BankBalance p)
+	{
+		this.debtToPlayer = p;
+	}
+	
+	public void SetDebtValue(Float v)
+	{
+		this.debtValue = v;
+	}
+	
+	public void notifyCantAfford()
+	{
+		onCantAffordRent.notifyObservers();
 	}
 	
 }

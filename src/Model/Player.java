@@ -64,9 +64,9 @@ class Player extends BankBalance
 		if (spaceIndex == -1) 
 			return false;
 		
-		if (!(soldSpace instanceof Property)) return false;
+		if (!(soldSpace instanceof Property) && !(soldSpace instanceof Company)) return false;
 		
-		Property space = (Property)soldSpace;
+		Buyable space = (Buyable)soldSpace;
 		bank.TransferMoney(this, (space.getRent() * 0.9f));
 		space.setOwner(null);
 		ownedSpaces.remove(space);
