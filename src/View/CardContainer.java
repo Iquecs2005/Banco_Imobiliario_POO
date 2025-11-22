@@ -100,6 +100,7 @@ class CardContainer
 				{
 					cardFrame.RemoveSellButtons();
 					cardFrame.dispose();
+					cardFrame = null;
 				}
 			}
 		});
