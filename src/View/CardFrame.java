@@ -70,4 +70,8 @@ public class CardFrame extends BaseFrame
 		panel.RemoveSellButtons();
 	}
 	
+	public void AddDebtLabel()
+	{
+		panel.AddDebtLabel();
+	}
 }

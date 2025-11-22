@@ -125,7 +125,7 @@ class CardContainer
 			cardFrame.AddCard(cardName, cardType);
 			cardFrame.AddSellButton(playerColor, cardName);
 		}
-
+		cardFrame.AddDebtLabel();
 	}
 	
 	private Map<String, CardType> playerCardsTyping(Map<String, String> playerCards)
