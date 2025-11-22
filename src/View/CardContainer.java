@@ -89,6 +89,22 @@ class CardContainer
 				OnGameEnd();
 			}
 		});
+		
+		Controller.instance.SubscribeToOnDebtSettled(new Observer()
+		{
+			
+			@Override
+			public void update(Event event) 
+			{
+				if (cardFrame != null)
+				{
+					cardFrame.dispose();
+				}
+			}
+			
+			
+			
+		});
 	
 		
 	}

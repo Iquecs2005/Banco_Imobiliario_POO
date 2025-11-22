@@ -50,6 +50,7 @@ public class Model
 	private Event onTurnStart = new Event();
 	private Event onTurnEnd = new Event();
 	private Event onGameEnd = new Event();
+	private Event onDebtSettled = new Event();
 	
 	//Constructor
 	
@@ -289,11 +290,15 @@ public class Model
 		boolean status = currentPlayer.SellSpace(currentBank, foundSpace);
 		
 		if (currentPlayer.GetMoney() > debtValue)
+		{
 			currentPlayer.TransferMoney(debtToPlayer, debtValue);
+			onDebtSettled.notifyObservers();
+		}	
 		else if (currentPlayer.GetOwnedSpaces().size() == 0)
 		{
 			System.out.println("abc");
 			BankruptPlayer(debtToPlayer);
+			onDebtSettled.notifyObservers();
 		}
 		
 		onMoneyPlayerAltered.notifyObservers();
@@ -407,6 +412,11 @@ public class Model
 	public void SubscribeToTurnStart(Observer newObserver)
 	{
 		onTurnStart.addObserver(newObserver);  
+	}
+	
+	public void SubscribeToDebtSettled(Observer newObserver)
+	{
+		onDebtSettled.addObserver(newObserver);
 	}
 	
 	public void UnsubscribeToPlayerPos(Observer newObserver) 

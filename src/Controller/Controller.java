@@ -211,6 +211,11 @@ public class Controller
 		Model.instance.SubscribeToOnBankrupt(newObserver);
 	}
 	
+	public void SubscribeToOnDebtSettled(Observer newObserver)
+	{
+		Model.instance.SubscribeToDebtSettled(newObserver);
+	}
+	
 	public int getLastCardId() 
 	{
 		return Model.instance.getLastCardId();
