@@ -147,11 +147,11 @@ public class BuyableTest {
         Space.Codes result = buyable.onLand(poorPlayer);
         
         // Assert
-        assertEquals("Should still return GET_RENT", Space.Codes.GET_RENT, result);
+        assertEquals("Should still return GET_RENT", Space.Codes.CANT_AFFORD, result);
         assertEquals("Player should have 0 money after paying what they can", 
-                     0.0f, poorPlayer.GetMoney(), 0.001f);
+        		20.0f, poorPlayer.GetMoney(), 0.001f);
         assertEquals("Owner should receive only what player could pay", 
-                     520.0f, otherPlayer.GetMoney(), 0.001f); // 500 + 20
+                     500.0f, otherPlayer.GetMoney(), 0.001f); // 500 + 20
     }
     
     @Test

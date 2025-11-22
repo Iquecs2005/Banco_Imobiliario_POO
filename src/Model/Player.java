@@ -72,6 +72,12 @@ class Player extends BankBalance
 		return true;
 	}
 	
+	public void SellAllSpaces(Bank bank) 
+	{
+		for (Buyable space : ownedSpaces)
+			SellSpace(bank, space);
+	}
+	
 	public float GetNetworth() 
 	{
 		float networth = GetMoney();
