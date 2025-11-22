@@ -262,6 +262,7 @@ public class Model
 	
 	public void BankruptPlayer(BankBalance receiver) 
 	{
+		currentPlayer.SellAllSpaces(currentBank);
 		currentPlayer.TransferMoney(receiver, currentPlayer.GetMoney());
 		currentPlayer.SetMoney(-1);
 		RemovePlayer(currentPlayer.GetColor());
@@ -296,7 +297,6 @@ public class Model
 		}	
 		else if (currentPlayer.GetOwnedSpaces().size() == 0)
 		{
-			System.out.println("abc");
 			BankruptPlayer(debtToPlayer);
 			onDebtSettled.notifyObservers();
 		}
@@ -308,6 +308,9 @@ public class Model
 	
 	public void PassTurn() 
 	{
+		if (currentPlayer.IsBankrupt())
+			BankruptPlayer(currentPlayer);
+		
 		currentPlayerIndex = (currentPlayerIndex + 1) % playerColors.size();
 		String currentColor = this.playerColors.get(currentPlayerIndex);
 		currentPlayer = currentPlayers.get(currentColor);
@@ -621,8 +624,11 @@ public class Model
 			{
 				type = "Company";
 			}
-		ownedSpaces.put(b.getName(), type);
+			
+			ownedSpaces.put(b.getName(), type);
+			System.out.println(b.getName() + type);
 		}
+		
 		return ownedSpaces;
 	}
 	
