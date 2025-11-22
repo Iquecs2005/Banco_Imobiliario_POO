@@ -101,7 +101,7 @@ public class BankBalanceTest {
 	@Test
 	public void IsBankruptTrue() 
 	{
-		Player testPlayer1 = new Player("Red", "Player", 0, null);
+		Player testPlayer1 = new Player("Red", "Player", -5, null);
 		
 		assertTrue(testPlayer1.IsBankrupt());
 	}	

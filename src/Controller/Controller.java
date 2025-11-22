@@ -280,10 +280,15 @@ public class Controller
 	{
 		debugModeActive = !debugModeActive;
 	}
-	
+
 	public float GetDebtValue() 
 	{
 		return Model.instance.GetDebtValue();
+	}
+		
+	public boolean GetHasOwnerLast()
+	{
+		return Model.instance.GetHasOwnerLast();
 	}
 	
 	public String GetWinnerName() 

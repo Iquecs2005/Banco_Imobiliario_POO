@@ -116,7 +116,7 @@ public class CardPanel extends BasePanel
 	public void ClearCards() 
 	{
 		cardList.clear();
-		sellButtons.clear();
+		RemoveSellButtons();
 	}
 	
 	public void ToggleBuyButton(boolean state) 
@@ -185,6 +185,11 @@ public class CardPanel extends BasePanel
 			revalidate();
 			repaint();
 		}
+		if (debtLabel != null)
+			remove(debtLabel);
+		debtLabel = null;
+		revalidate();
+		repaint();
 		sellButtons.clear();
 	}
 	

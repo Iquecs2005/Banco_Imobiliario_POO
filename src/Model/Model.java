@@ -35,6 +35,7 @@ public class Model
 	
 	private Vector<Integer> lastRoll;
 	private Buyable lastLandedSpace;
+	private boolean hasOwnerLast;
 	
 	//Events.
 	private Event onPlayerPosAltered = new Event();
@@ -166,6 +167,12 @@ public class Model
 				break;
 			case Codes.CAN_BUY:
 				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
+				hasOwnerLast = false; 
+				onBuyablePropertyLand.notifyObservers();
+				break;
+			case Codes.GET_RENT:
+				lastLandedSpace = (Buyable) currentPlayer.GetCurrentSpace();
+				hasOwnerLast = true; 
 				onBuyablePropertyLand.notifyObservers();
 				break;
 			case Codes.CANT_AFFORD:
@@ -644,6 +651,11 @@ public class Model
 	public float GetDebtValue()
 	{
 		return debtValue;
+	}
+
+	public boolean GetHasOwnerLast()
+	{
+		return hasOwnerLast;
 	}
 	
 	public void notifyCantAfford()
