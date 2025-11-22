@@ -139,7 +139,6 @@ public class SaveHandler {
 	    // Assign players back to model
 	    
 	    Model.instance.SetCurrentPlayers(loadedPlayers);
-	    System.out.println(currTurnColor);
     	int index = Model.instance.GetPlayerIndex(currTurnColor);
     	Model.instance.SetCurrentPlayerByIndex(index);
 	}
@@ -151,7 +150,6 @@ public class SaveHandler {
 
 	    String[] parts = line.split(":");
 	    String spaceName = parts[0].trim();
-	    System.out.println(spaceName);
 
 	    Space s = board.getSpaceByName(spaceName);
 	    if (!(s instanceof Buyable)) return;

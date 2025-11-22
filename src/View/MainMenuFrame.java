@@ -48,7 +48,6 @@ class MainMenuFrame extends BaseFrame
 		    }
 		});
 		
-		System.out.println(Controller.instance);
 		
 		b3.addActionListener(new ActionListener() 
 		{

@@ -626,7 +626,6 @@ public class Model
 			}
 			
 			ownedSpaces.put(b.getName(), type);
-			System.out.println(b.getName() + type);
 		}
 		
 		return ownedSpaces;

@@ -42,7 +42,6 @@ class PlayerPin implements Observer
 	
 	public void Unsubscribe() 
 	{
-		System.out.println("Unsub");
 		Controller.instance.UnsubscribeToPlayerPos(this);
 	}
 	

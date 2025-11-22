@@ -101,9 +101,6 @@ class CardContainer
 					cardFrame.dispose();
 				}
 			}
-			
-			
-			
 		});
 	
 		
@@ -117,7 +114,6 @@ class CardContainer
 		}
 		
 		Map<String, String> playerCards = Controller.instance.GetPlayerOwnedSpaces(playerColor);
-		System.out.println();
 		Map<String, CardType> playerCardsWithType = playerCardsTyping(playerCards);
 		
 		for(Map.Entry<String, CardType> entry : playerCardsWithType.entrySet())
@@ -139,7 +135,6 @@ class CardContainer
 		    String cardName = entry.getKey();
 		    String temp   = entry.getValue();
 		    CardType type = null;
-		    System.out.println(cardName);
 		    switch(temp)
 		    {
 		    case("Property"):

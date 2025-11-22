@@ -170,7 +170,6 @@ public class BoardPanel extends BasePanel
     {
     	for (int i = 0; i < nPlayers; i++) 
     	{
-    		System.out.println("Added player.");
     		activePlayerList.add(new PlayerPin(PlayerPin.possibleColors[i], this));
     		moneyDisplays.add(new MoneyDisplay(this, PlayerPin.possibleColors[i]));
     	}
