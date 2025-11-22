@@ -1,0 +1,20 @@
+Henrique Carvalho e Silva - 2410365
+Enzo Faia Guerrieri de Castro - 2410302
+João Miguel Rodrigues Montenegro da Franca - 2411289
+
+Estrutura de salvamento:
+
+PLAYER (Cor, string)
+NAME (Nome, string)
+BALANCE (Dinheiro, float)
+IN_JAIL (Na prisão, booleana)
+HAS_JAIL_CARD (Na prisão, booleana)
+CURRENT_SPACE (Nome Espaco atual, string)
+OWNED_SPACES: (Uma propriedade ou empresa por linha)
+    (Nome Propriedade, string):HOUSES:(NCasas, int):HOTELS:(NHotels, int)
+    (Nome Compania, string):TYPE(Company)
+END_PLAYER
+
+(Repete para outros jogadores)
+
+CURRENT TURN:(Cor do jogador atual, String)
