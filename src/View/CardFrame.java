@@ -65,4 +65,9 @@ public class CardFrame extends BaseFrame
 		panel.AddSellButton(color, propName);
 	}
 	
+	public void RemoveSellButtons()
+	{
+		panel.RemoveSellButtons();
+	}
+	
 }

@@ -174,5 +174,16 @@ public class CardPanel extends BasePanel
 		
 	}
 	
+	public void RemoveSellButtons()
+	{
+		for(JButton s : sellButtons)
+		{
+			remove(s);
+			revalidate();
+			repaint();
+		}
+		sellButtons.clear();
+	}
+	
 	
 }

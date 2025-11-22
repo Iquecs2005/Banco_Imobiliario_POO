@@ -98,6 +98,7 @@ class CardContainer
 			{
 				if (cardFrame != null)
 				{
+					cardFrame.RemoveSellButtons();
 					cardFrame.dispose();
 				}
 			}
