@@ -614,8 +614,11 @@ public class Model
 			{
 				type = "Company";
 			}
-		ownedSpaces.put(b.getName(), type);
+			
+			ownedSpaces.put(b.getName(), type);
+			System.out.println(b.getName() + type);
 		}
+		
 		return ownedSpaces;
 	}
 	

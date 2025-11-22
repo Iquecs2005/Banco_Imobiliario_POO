@@ -45,7 +45,7 @@ public class SaveHandler {
                         writer.write("    " + prop.name + ":" + "HOUSES:" + 
                         prop.GetHouse().GetAmount() + ":" + "HOTELS:" + prop.GetHotel().GetAmount() + "\n");
                     } else {
-                        writer.write("    " + b.name + " TYPE(Company)\n");
+                        writer.write("    " + b.name + ":TYPE(Company)\n");
                     }
                 }
                 

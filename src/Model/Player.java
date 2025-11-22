@@ -74,8 +74,8 @@ class Player extends BankBalance
 	
 	public void SellAllSpaces(Bank bank) 
 	{
-		for (Buyable space : ownedSpaces)
-			SellSpace(bank, space);
+		while (!ownedSpaces.isEmpty())
+			SellSpace(bank, ownedSpaces.getFirst());
 	}
 	
 	public float GetNetworth() 
