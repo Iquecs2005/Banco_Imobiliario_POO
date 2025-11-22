@@ -30,6 +30,9 @@ public class Model
 	private float debtValue;
 	private int currentPlayerIndex;
 	
+	private Player gameWinner;
+	private float winnerNetworth;
+	
 	private Vector<Integer> lastRoll;
 	private Buyable lastLandedSpace;
 	
@@ -91,6 +94,9 @@ public class Model
 		List<Player> playerList = List.copyOf(currentPlayers.values());
 		currentDeck.SetVariables(playerList, currentBank, getCurrentBoard());
 		this.saveHandler = new SaveHandler();
+		
+		gameWinner = null;
+		winnerNetworth = -1;
 		
 		return true;
 	}
@@ -306,6 +312,8 @@ public class Model
 	
 	public void EndGame()
 	{
+		DetermineWinner();
+		
 	    onPlayerPosAltered.clearObservers();
 	    onMoneyPlayerAltered.clearObservers();
 	    onCardDrawn.clearObservers();
@@ -317,6 +325,24 @@ public class Model
 	    onTurnStart.clearObservers();
 	    onTurnEnd.clearObservers();
 	    onGameEnd.clearObservers();
+	}
+	
+	private void DetermineWinner() 
+	{
+		gameWinner = null;
+		winnerNetworth = -1;
+		
+		for (String playerColor : playerColors) 
+		{
+			Player currentPlayer = currentPlayers.get(playerColor);
+			float playerNetworth = currentPlayer.GetNetworth();
+			
+			if (playerNetworth > winnerNetworth) 
+			{
+				gameWinner = currentPlayer;
+				winnerNetworth = playerNetworth;
+			}
+		}
 	}
 	
 	public void NotifyEndGame()
@@ -590,4 +616,18 @@ public class Model
 		return ownedSpaces;
 	}
 	
+	public String GetWinnerName() 
+	{
+		return gameWinner.GetName();
+	}
+	
+	public String GetWinnerColor() 
+	{
+		return gameWinner.GetColor();
+	}
+	
+	public float GetWinnerNetworth() 
+	{
+		return gameWinner.GetNetworth();
+	}
 }

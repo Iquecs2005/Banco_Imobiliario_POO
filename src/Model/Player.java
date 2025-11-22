@@ -39,8 +39,6 @@ class Player extends BankBalance
 		return true;
 	}
 	
-	
-	
 	public boolean BuySpace(Bank bank)
 	{
 		if (!(currentSpace instanceof Buyable)) return false;
@@ -67,11 +65,23 @@ class Player extends BankBalance
 		if (!(soldSpace instanceof Property)) return false;
 		
 		Property space = (Property)soldSpace;
-		bank.TransferMoney(this, (space.getRent() * 0.9f));
+		bank.TransferMoney(this, space.getSellPrice());
 		space.setOwner(null);
 		ownedSpaces.remove(space);
 		
 		return true;
+	}
+	
+	public float GetNetworth() 
+	{
+		float networth = GetMoney();
+		
+		for (Buyable properties : ownedSpaces) 
+		{
+			networth += properties.getSellPrice();
+		}
+		
+		return networth;
 	}
 	
 	public String GetColor() 
@@ -84,14 +94,14 @@ class Player extends BankBalance
 		return currentSpace;
 	}
 	
-	public List<Buyable> GetOwnedSpaces() 
-	{
-		return ownedSpaces;
-	}
-	
 	void SetCurrentSpace(Space currentSpace) 
 	{
 		this.currentSpace = currentSpace;
+	}
+	
+	public List<Buyable> GetOwnedSpaces() 
+	{
+		return ownedSpaces;
 	}
 	
 	void SetInJail(boolean inJail) {

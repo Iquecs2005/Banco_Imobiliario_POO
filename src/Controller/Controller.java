@@ -25,6 +25,11 @@ public class Controller
 	private void ActivateView() 
 	{
 		vc = new ViewController();
+		ActivateMainMenu();
+	}
+	
+	public void ActivateMainMenu()
+	{
 		vc.ActivateMainMenu();
 	}
 	
@@ -55,7 +60,7 @@ public class Controller
 	{
 		Model.instance.EndGame();
 		vc.DestroyCurrentBoard();
-		vc.ActivateMainMenu();
+		vc.ActivateWinScreen();
 	}
 	
 	public void CreateNewGame(List<String> playerColors, List<String> playerNames) 
@@ -269,5 +274,20 @@ public class Controller
 	public void ToggleDebugMode() 
 	{
 		debugModeActive = !debugModeActive;
+	}
+	
+	public String GetWinnerName() 
+	{
+		return Model.instance.GetWinnerName();
+	}
+	
+	public String GetWinnerColor() 
+	{
+		return Model.instance.GetWinnerColor();
+	}
+	
+	public float GetWinnerNetworth() 
+	{
+		return Model.instance.GetWinnerNetworth();
 	}
 }
