@@ -8,8 +8,8 @@ abstract class BasePanel extends JPanel
 {
 	Color backgroundColor;
 	
-	int width;
-	int height;
+	protected int width;
+	protected int height;
 	
 	public BasePanel(int width, int height) 
 	{
@@ -26,6 +26,9 @@ abstract class BasePanel extends JPanel
 	protected void paintComponent(Graphics g) 
 	{
 	    super.paintComponent(g);
+	    
+	    width = getWidth();
+	    height = getHeight();
 	}
 	
 	public void SetBackgroundColor(int r, int g, int b) 

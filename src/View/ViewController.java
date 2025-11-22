@@ -56,6 +56,16 @@ public class ViewController
 		boardFrame.setVisible(true);
 	}
 	
+	public void ActivateWinScreen() 
+	{
+		if (currentFrame != null)
+			currentFrame.setVisible(false);
+		
+		WinFrame boardFrame = new WinFrame(500, 500);
+		currentFrame = boardFrame;
+		boardFrame.setVisible(true);
+	}
+	
 	public void DestroyCurrentBoard()
 	{
 		if (currentFrame != null)

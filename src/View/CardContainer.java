@@ -72,6 +72,15 @@ class CardContainer
 			}
 		});
 		
+		Controller.instance.SubscribeToOnBankrupt(new Observer() 
+		{
+			@Override
+			public void update(Event event)  
+			{
+				ClearCards();
+			}
+		});
+		
 		Controller.instance.SubscribeToGameEnd(new Observer() 
 		{
 			@Override

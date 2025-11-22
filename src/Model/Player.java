@@ -39,8 +39,6 @@ class Player extends BankBalance
 		return true;
 	}
 	
-	
-	
 	public boolean BuySpace(Bank bank)
 	{
 		if (!(currentSpace instanceof Buyable)) return false;
@@ -74,6 +72,18 @@ class Player extends BankBalance
 		return true;
 	}
 	
+	public float GetNetworth() 
+	{
+		float networth = GetMoney();
+		
+		for (Buyable properties : ownedSpaces) 
+		{
+			networth += properties.getSellPrice();
+		}
+		
+		return networth;
+	}
+	
 	public String GetColor() 
 	{
 		return color;
@@ -84,14 +94,14 @@ class Player extends BankBalance
 		return currentSpace;
 	}
 	
-	public List<Buyable> GetOwnedSpaces() 
-	{
-		return ownedSpaces;
-	}
-	
 	void SetCurrentSpace(Space currentSpace) 
 	{
 		this.currentSpace = currentSpace;
+	}
+	
+	public List<Buyable> GetOwnedSpaces() 
+	{
+		return ownedSpaces;
 	}
 	
 	void SetInJail(boolean inJail) {
